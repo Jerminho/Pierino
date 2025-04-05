@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 const sql = require("mssql/msnodesqlv8");
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
@@ -430,5 +431,11 @@ const sendConfirmationEmailToAdmin = async (
   });
 };
 
+// 📌 Serve React frontend (build folder)
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+app.get("*", (_, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+});
 // 📌 Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
