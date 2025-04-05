@@ -92,7 +92,7 @@ app.post("/book", async (req, res) => {
 // 📌 API: Fetch Pending Bookings
 app.get("/bookings", async (req, res) => {
   try {
-    let result = await pool.request().query("SELECT * FROM Bookings ");
+    let result = await pool.query("SELECT * FROM Bookings ");
     res.json(result.rows);
   } catch (error) {
     res.status(500).json({ error: error.message });
