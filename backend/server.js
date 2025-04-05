@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
-const sql = require("mssql/msnodesqlv8");
+const { Pool } = require("pg"); // Gebruik de PostgreSQL client
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 
@@ -13,21 +13,16 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// 📌 Database configuration
-const dbConfig = {
-  server: "NHP-LENOVO\\VIVES",
-  database: "IceMock",
-  options: {
-    trustedConnection: true,
-    encrypt: false,
-    trustServerCertificate: true,
+// 📌 Database configuratie voor PostgreSQL
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,  // Haal de URL op uit de .env variabele
+  ssl: {
+    rejectUnauthorized: false,  // SSL is verplicht voor Heroku PostgreSQL
   },
-  driver: "msnodesqlv8",
-};
+});
 
-// 📌 Connect to Database
-sql
-  .connect(dbConfig)
+// 📌 Verbind met de PostgreSQL database
+pool.connect()
   .then(() => console.log("✅ Database connected successfully"))
   .catch((err) => console.error("❌ Database connection failed:", err.message));
 
@@ -83,18 +78,10 @@ app.post("/book", async (req, res) => {
   if (!price) return res.status(400).json({ error: "Invalid attendee count" });
 
   try {
-    let pool = await sql.connect(dbConfig);
-    await pool
-      .request()
-      .input("Name", sql.VarChar, name)
-      .input("Email", sql.VarChar, email)
-      .input("Location", sql.VarChar, location)
-      .input("StartDateTime", sql.DateTime, startDateTime)
-      .input("EndDateTime", sql.DateTime, endDateTime)
-      .input("Status", sql.VarChar, "pending")
-      .query(
-        "INSERT INTO Bookings (Name, Email, Location, StartDateTime, EndDateTime, Status) VALUES (@Name, @Email, @Location, @StartDateTime, @EndDateTime, @Status)"
-      );
+    const result = await pool.query(
+      "INSERT INTO Bookings (Name, Email, Location, StartDateTime, EndDateTime, Status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [name, email, location, startDateTime, endDateTime, "pending"]
+    );
 
     res.json({ success: true, message: "Booking submitted!", price });
   } catch (error) {
@@ -105,9 +92,8 @@ app.post("/book", async (req, res) => {
 // 📌 API: Fetch Pending Bookings
 app.get("/bookings", async (req, res) => {
   try {
-    let pool = await sql.connect(dbConfig);
     let result = await pool.request().query("SELECT * FROM Bookings ");
-    res.json(result.recordset);
+    res.json(result.rows);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -120,23 +106,18 @@ app.post("/update-booking", async (req, res) => {
     return res.status(400).json({ error: "Invalid status" });
 
   try {
-    let pool = await sql.connect(dbConfig);
-    let booking = await pool
-      .request()
-      .input("Id", sql.Int, id)
-      .query("SELECT * FROM Bookings WHERE Id = @Id");
+    // Fetch the booking from PostgreSQL
+    const bookingQuery = "SELECT * FROM Bookings WHERE Id = $1"; // Gebruik $1 voor parameterbinding
+    const bookingResult = await pool.query(bookingQuery, [id]);
 
-    if (booking.recordset.length === 0)
+    if (bookingResult.rows.length === 0)
       return res.status(404).json({ error: "Booking not found" });
 
-    await pool
-      .request()
-      .input("Id", sql.Int, id)
-      .input("Status", sql.VarChar, status)
-      .query("UPDATE Bookings SET Status = @Status WHERE Id = @Id");
+    // Update booking status
+    const updateQuery = "UPDATE Bookings SET Status = $1 WHERE Id = $2"; // Gebruik $1 en $2 voor parameterbinding
+    await pool.query(updateQuery, [status, id]);
 
-    const { Email, Name, Location, StartDateTime, EndDateTime } =
-      booking.recordset[0];
+    const { Email, Name, Location, StartDateTime, EndDateTime } = bookingResult.rows[0];
 
     let subject, text;
 
@@ -150,23 +131,10 @@ app.post("/update-booking", async (req, res) => {
       await addToGoogleCalendar(Name, Location, StartDateTime, EndDateTime);
 
       // Send confirmation email to client
-      await sendConfirmationEmail(
-        Name,
-        Email,
-        Location,
-        StartDateTime,
-        EndDateTime,
-        message
-      );
+      await sendConfirmationEmail(Name, Email, Location, StartDateTime, EndDateTime, message);
 
       // Send confirmation email to admin
-      await sendConfirmationEmailToAdmin(
-        Name,
-        Email,
-        Location,
-        StartDateTime,
-        EndDateTime
-      );
+      await sendConfirmationEmailToAdmin(Name, Email, Location, StartDateTime, EndDateTime);
     } else {
       subject = "❌ Booking Declined";
       text = `Hello ${Name}, unfortunately, your booking at ${Location} has been declined.`;
@@ -186,31 +154,26 @@ app.post("/update-booking", async (req, res) => {
   }
 });
 
+
 // 📌 API: Delete Booking
 app.delete("/delete-booking/:id", async (req, res) => {
   const { id } = req.params;
   let eventRemoved = false;
 
   try {
-    let pool = await sql.connect(dbConfig);
+    // Check if booking exists in PostgreSQL
+    const bookingQuery = "SELECT * FROM Bookings WHERE Id = $1"; // Gebruik $1 voor parameterbinding
+    const bookingResult = await pool.query(bookingQuery, [id]);
 
-    // Check if booking exists
-    let booking = await pool
-      .request()
-      .input("Id", sql.Int, id)
-      .query("SELECT * FROM Bookings WHERE Id = @Id");
-    if (booking.recordset.length === 0) {
+    if (bookingResult.rows.length === 0) {
       return res.status(404).json({ error: "Booking not found" });
     }
 
-    const { Status, StartDateTime, EndDateTime, Name, Location } =
-      booking.recordset[0];
+    const { Status, StartDateTime, EndDateTime, Name, Location } = bookingResult.rows[0];
 
     // Delete from database
-    await pool
-      .request()
-      .input("Id", sql.Int, id)
-      .query("DELETE FROM Bookings WHERE Id = @Id");
+    const deleteQuery = "DELETE FROM Bookings WHERE Id = $1"; // Gebruik $1 voor parameterbinding
+    await pool.query(deleteQuery, [id]);
 
     // If booking was approved, remove it from Google Calendar
     if (Status === "approved") {
@@ -223,11 +186,11 @@ app.delete("/delete-booking/:id", async (req, res) => {
     }
 
     // Check if the table is now empty and reset the auto-increment ID
-    let remainingBookings = await pool
-      .request()
-      .query("SELECT COUNT(*) AS count FROM Bookings");
-    if (remainingBookings.recordset[0].count === 0) {
-      await pool.request().query("DBCC CHECKIDENT ('Bookings', RESEED, 0)");
+    const remainingBookingsQuery = "SELECT COUNT(*) AS count FROM Bookings"; // Query om het aantal boekingen te tellen
+    const remainingBookingsResult = await pool.query(remainingBookingsQuery);
+    if (remainingBookingsResult.rows[0].count === 0) {
+      // PostgreSQL heeft geen 'DBCC CHECKIDENT', maar als je een sequence hebt voor je Id, kun je de sequence resetten
+      await pool.query("ALTER SEQUENCE bookings_id_seq RESTART WITH 1");
     }
 
     res.json({
@@ -286,6 +249,7 @@ const removeFromGoogleCalendar = async (
     return false;
   }
 };
+
 
 // 📌 Function: Add Event to Google Calendar
 const addToGoogleCalendar = async (
