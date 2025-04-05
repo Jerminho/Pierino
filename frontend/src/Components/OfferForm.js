@@ -14,7 +14,7 @@ const OfferForm = () => {
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   
   // Use your Heroku app URL here
-  const API_URL = 'offerte-backend-112de817f722.herokuapp.com'; // Heroku API URL
+  const API_URL = 'https://offerte-backend-112de817f722.herokuapp.com'; // Heroku API URL
   
   useEffect(() => {
     axios.get(`${API_URL}/pricing`) // Fetch pricing data from the live backend
