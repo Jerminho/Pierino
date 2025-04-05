@@ -13,8 +13,11 @@ const OfferForm = () => {
   });
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   
+  // Use your Heroku app URL here
+  const API_URL = 'offerte-backend-112de817f722.herokuapp.com'; // Heroku API URL
+  
   useEffect(() => {
-    axios.get("http://localhost:5000/pricing")
+    axios.get(`${API_URL}/pricing`) // Fetch pricing data from the live backend
       .then(response => setPricingOptions(response.data))
       .catch(error => console.error("Error fetching pricing data", error));
   }, []);
@@ -38,7 +41,7 @@ const OfferForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/book", formData);
+      const response = await axios.post(`${API_URL}/book`, formData); // Send booking data to the live backend
       alert(response.data.message);
       window.location.reload(); // Reload the page
     } catch (error) {

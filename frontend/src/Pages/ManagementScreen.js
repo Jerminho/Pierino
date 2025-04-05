@@ -15,7 +15,7 @@ const ManagementScreen = () => {
   // 📌 Fetch bookings from the backend
   useEffect(() => {
     axios
-      .get("http://localhost:5000/bookings")  // Fetch bookings with status info
+      .get("https://offerte-backend-112de817f722.herokuapp.com/bookings") // Fetch bookings with status info
       .then((response) => {
         console.log("Fetched bookings:", response.data);
         setBookings(response.data);
@@ -30,15 +30,18 @@ const ManagementScreen = () => {
   // 📌 Handle Approve/Decline Booking
   const updateBooking = async (id, status) => {
     try {
-        const message = messages[id] || ""; // Get the message for this booking (if any)
-        const response = await axios.post("http://localhost:5000/update-booking", { id, status, message });
-    
-        if (response.data.success) {
-          alert(`✅ The status of this booking has been updated to '${status}'.`);
-          window.location.reload(); // Reload the page
-        } else {
-          alert("⚠️ Failed to update booking status. Please try again.");
-        }
+      const message = messages[id] || ""; // Get the message for this booking (if any)
+      const response = await axios.post(
+        "https://offerte-backend-112de817f722.herokuapp.com/update-booking",
+        { id, status, message }
+      );
+
+      if (response.data.success) {
+        alert(`✅ The status of this booking has been updated to '${status}'.`);
+        window.location.reload(); // Reload the page
+      } else {
+        alert("⚠️ Failed to update booking status. Please try again.");
+      }
     } catch (error) {
       console.error(`Failed to ${status} booking:`, error);
     }
@@ -49,15 +52,18 @@ const ManagementScreen = () => {
   // 📌 Handle Deleting a Booking
   const deleteBooking = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/delete-booking/${id}`);
+      const response = await axios.delete(
+        `https://offerte-backend-112de817f722.herokuapp.com/delete-booking/${id}`
+      );
       const { success, eventRemoved } = response.data;
-  
+
       if (success) {
         let message = "✅ Booking successfully deleted.";
         if (eventRemoved) {
-          message += " 📅 The associated Google Calendar event was also removed.";
+          message +=
+            " 📅 The associated Google Calendar event was also removed.";
         }
-  
+
         alert(message); // Show confirmation message
         window.location.reload(); // Reload page
       }
@@ -66,18 +72,23 @@ const ManagementScreen = () => {
       alert("❌ Error deleting booking. Please try again.");
     }
   };
-  
 
   // 📌 Group bookings by their status (fetched from the database)
-  const pendingBookings = bookings.filter((booking) => booking.Status === "pending");
-  const approvedBookings = bookings.filter((booking) => booking.Status === "approved");
-  const declinedBookings = bookings.filter((booking) => booking.Status === "declined");
+  const pendingBookings = bookings.filter(
+    (booking) => booking.Status === "pending"
+  );
+  const approvedBookings = bookings.filter(
+    (booking) => booking.Status === "approved"
+  );
+  const declinedBookings = bookings.filter(
+    (booking) => booking.Status === "declined"
+  );
 
   // 📌 Handle message change
   const handleMessageChange = (id, message) => {
     setMessages({
       ...messages,
-      [id]: message,  // Update the message for the specific booking
+      [id]: message, // Update the message for the specific booking
     });
   };
 
@@ -122,7 +133,9 @@ const ManagementScreen = () => {
                       className="mt-2 p-2 border rounded-lg w-full"
                       placeholder="Optional message for the client"
                       value={messages[booking.Id] || ""}
-                      onChange={(e) => handleMessageChange(booking.Id, e.target.value)}
+                      onChange={(e) =>
+                        handleMessageChange(booking.Id, e.target.value)
+                      }
                     ></textarea>
 
                     <div className="mt-4 flex gap-2">
@@ -168,11 +181,13 @@ const ManagementScreen = () => {
                     </p>
                     <p className={`font-bold ${statusColors.approved}`}>
                       Status: Approved
-                    </p> <br/><br/>
+                    </p>
+                    <br />
                     <button
-                    onClick={() => deleteBooking(booking.Id)}
-                    className="bg-gray-500 text-white py-1 px-3 rounded-lg mt-2">
-                        🗑️ Delete
+                      onClick={() => deleteBooking(booking.Id)}
+                      className="bg-gray-500 text-white py-1 px-3 rounded-lg mt-2"
+                    >
+                      🗑️ Delete
                     </button>
                   </div>
                 ))}
@@ -203,11 +218,13 @@ const ManagementScreen = () => {
                     </p>
                     <p className={`font-bold ${statusColors.declined}`}>
                       Status: Declined
-                    </p><br/><br/>
+                    </p>
+                    <br />
                     <button
-                    onClick={() => deleteBooking(booking.Id)}
-                    className="bg-gray-500 text-white py-1 px-3 rounded-lg mt-2">
-                        🗑️ Delete
+                      onClick={() => deleteBooking(booking.Id)}
+                      className="bg-gray-500 text-white py-1 px-3 rounded-lg mt-2"
+                    >
+                      🗑️ Delete
                     </button>
                   </div>
                 ))}
