@@ -1,0 +1,266 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-color: #d41443;
+  --coffe-color: #f0d1a5;
+  --food-color: #c2e297;
+  --general-font-black: #000;
+  --general-font-grey: #907e82;
+  --general-pink: #ffa5ba;
+  --general-white: #fff;
+  --ice-cream-color: #ffb8ca;
+  --section-background-color: #fff5f6;
+  --general-font: 'DM Sans', sans-serif;
+  --heading-font: 'Titan One', cursive;
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@font-face {
+  font-family: 'Titan One';
+  src: url('./Components/fonts/TitanOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./Components/fonts/DMSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/* GALLERY SECTION */
+
+.gallery {
+  background: linear-gradient(
+    to bottom,
+    var(--section-background-color) 20%,
+    var(--general-white) 20%
+  );
+  background: -o-linear-gradient(
+    top,
+    var(--section-background-color) 20%,
+    var(--general-white) 20%
+  );
+  background: linear-gradient(
+    to bottom,
+    var(--section-background-color) 20%,
+    var(--general-white) 20%
+  );
+  padding-bottom: 60px;
+  width: 100%;
+}
+
+.gallery-container {
+  padding: 0 20px;
+}
+
+.gallery-row {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 3px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin: 0 auto;
+  .gallery-row {
+    display: flex
+;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    margin: 0 auto;
+}
+}
+
+.gallery-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gallery-image {
+  cursor: pointer;
+  height: auto;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: -webkit-transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: -webkit-transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    -webkit-transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  width: auto;
+}
+
+.gallery-image:hover {
+  -webkit-transform: scale(1.25);
+  -ms-transform: scale(1.25);
+  transform: scale(1.25);
+  z-index: 2;
+}
+
+.gallery-column-one {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.gallery-column-two {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  padding-top: 5px;
+}
+
+.gallery-column-three {
+  -webkit-box-flex: 2;
+  -ms-flex-positive: 2;
+  flex-grow: 2;
+}
+
+.gallery-image-five {
+  width: 50%;
+}
+
+.gallery-column-four {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  padding-top: 15px;
+}
+
+.gallery-column-five {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  padding-bottom: 10px;
+}
+
+.gallery-column-six {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  padding-top: 5px;
+}
+
+/* Fixed button */
+
+.fixedbutton {
+  border-radius: 50%;
+  border: none;
+  bottom: 27px;
+  -webkit-box-shadow: 0 2px 4px var(--brand-color);
+  box-shadow: 0 2px 4px var(--brand-color);
+  display: none;
+  height: 40px;
+  position: fixed;
+  right: 20px;
+  -webkit-transition: -webkit-box-shadow 0.1s linear,
+    -webkit-transform 0.1s linear;
+  transition: -webkit-box-shadow 0.1s linear, -webkit-transform 0.1s linear;
+  -o-transition: box-shadow 0.1s linear, transform 0.1s linear;
+  transition: box-shadow 0.1s linear, transform 0.1s linear;
+  transition: box-shadow 0.1s linear, transform 0.1s linear,
+    -webkit-box-shadow 0.1s linear, -webkit-transform 0.1s linear;
+  width: 40px;
+  z-index: 3;
+}
+
+.fixedbutton:hover,
+.fixedbutton:focus {
+  border-radius: 35%;
+  cursor: pointer;
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+.fixedbutton:active {
+  border-radius: 35%;
+  -webkit-box-shadow: 0 0 2px var(--brand-color);
+  box-shadow: 0 0 2px var(--brand-color);
+  -webkit-transform: translateY(2px) rotate(-90deg);
+  -ms-transform: translateY(2px) rotate(-90deg);
+  transform: translateY(2px) rotate(-90deg);
+}
+
+@media screen and (min-width: 768px) {
+  .gallery {
+    padding-bottom: 60px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .gallery {
+    padding-bottom: 120px;
+  }
+  .gallery-container {
+    max-width: 1280px;
+    padding: 0 93px;
+    margin: 0 auto;
+  }
+}
+
+.gallery-slider {
+  max-width: auto; /* Adjust as needed */
+  margin: auto; /* Center the slider */
+  padding: 20px 0;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery-image {
+  width: auto;  /* Set uniform width */
+  height: 26rem; /* Set uniform height */
+  object-fit: cover; /* Crop images to fit without stretching */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #ff69b4; /* Ice cream pink arrows */
+  font-size: 24px;
+}
+
+.swiper-pagination-bullet {
+  background-color: #ff69b4 !important; /* Ice cream pink pagination dots */
+}
+
+.gallery{
+  background-color: white;
+  padding: 1rem 0;
+}
+

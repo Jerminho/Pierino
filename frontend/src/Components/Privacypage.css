@@ -1,0 +1,122 @@
+/* Algemene styling voor de pagina */
+.privacy-page {
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #e11d66; /* Gebruik van de kenmerkende pink kleur */
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #e11d66;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e11d66;
+    padding-bottom: 10px;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+  
+  p {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 15px;
+  }
+  
+  a {
+    color: #e11d66;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Secties met kaders en schaduwen */
+  .privacy-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .privacy-section h2 {
+    margin-top: 0;
+  }
+  
+  /* Styling voor de contact sectie */
+  .contact-info p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .contact-info a {
+    color: #e11d66;
+  }
+  
+  .contact-info .icon {
+    color: #e11d66;
+  }
+  
+  /* Responsieve aanpassingen */
+  @media (max-width: 768px) {
+    .privacy-page {
+      padding: 15px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    .privacy-section {
+      padding: 15px;
+    }
+  
+    p {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .privacy-page {
+      padding: 10px;
+    }
+  
+    h1 {
+      font-size: 1.8rem;
+    }
+  
+    h2 {
+      font-size: 1.3rem;
+    }
+  
+    .privacy-section {
+      padding: 10px;
+    }
+  
+    p {
+      font-size: 0.85rem;
+    }
+  }
+  
