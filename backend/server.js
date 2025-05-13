@@ -11,6 +11,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
+app.use(
+  cors({
+    origin: 'https://pierino.vercel.app', // <-- jouw frontend domein
+    credentials: true, // Alleen nodig als je cookies of auth headers gebruikt
+  })
+);
 app.use(bodyParser.json());
 
 // 📌 Database configuratie voor PostgreSQL
