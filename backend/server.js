@@ -120,7 +120,7 @@ app.post("/update-booking", async (req, res) => {
     const updateQuery = "UPDATE bookings SET status = $1 WHERE Id = $2"; // Gebruik $1 en $2 voor parameterbinding
     await pool.query(updateQuery, [status, id]);
 
-    const { Email, Name, Location, StartDateTime, EndDateTime } =
+    const { email, name, location, start_datetime, end_datetime } =
       bookingResult.rows[0];
 
     let subject, text;
@@ -128,39 +128,39 @@ app.post("/update-booking", async (req, res) => {
     if (status === "approved") {
       subject = "🎉 Booking Approved!";
       text = message
-        ? `Hello ${Name}, your booking at ${Location} has been approved! Additional Message: ${message}`
-        : `Hello ${Name}, your booking at ${Location} has been approved! The Pierino team thanks you.`;
+        ? `Hello ${name}, your booking at ${location} has been approved! Additional Message: ${message}`
+        : `Hello ${name}, your booking at ${location} has been approved! The Pierino team thanks you.`;
 
       // Add event to Google Calendar
-      await addToGoogleCalendar(Name, Location, StartDateTime, EndDateTime);
+      await addToGoogleCalendar(name, location, start_datetime, end_datetime);
 
       // Send confirmation email to client
       await sendConfirmationEmail(
-        Name,
-        Email,
-        Location,
-        StartDateTime,
-        EndDateTime,
+        name,
+        email,
+        location,
+        start_datetime,
+        end_datetime,
         message
       );
 
       // Send confirmation email to admin
       await sendConfirmationEmailToAdmin(
-        Name,
-        Email,
-        Location,
-        StartDateTime,
-        EndDateTime
+        name,
+        email,
+        location,
+        start_datetime,
+        end_datetime
       );
     } else {
       subject = "❌ Booking Declined";
-      text = `Hello ${Name}, unfortunately, your booking at ${Location} has been declined.`;
+      text = `Hello ${name}, unfortunately, your booking at ${location} has been declined.`;
     }
 
     // Send email to the client
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: Email,
+      to: email,
       subject,
       text,
     });
