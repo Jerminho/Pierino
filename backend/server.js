@@ -17,14 +17,15 @@ app.use(cors());
 
 // 📌 Database configuratie voor PostgreSQL
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,  // Haal de URL op uit de .env variabele
+  connectionString: process.env.DATABASE_URL, // Haal de URL op uit de .env variabele
   ssl: {
-    rejectUnauthorized: false,  // SSL is verplicht voor Heroku PostgreSQL
+    rejectUnauthorized: false, // SSL is verplicht voor Heroku PostgreSQL
   },
 });
 
 // 📌 Verbind met de PostgreSQL database
-pool.connect()
+pool
+  .connect()
   .then(() => console.log("✅ Database connected successfully"))
   .catch((err) => console.error("❌ Database connection failed:", err.message));
 
@@ -94,7 +95,7 @@ app.post("/book", async (req, res) => {
 // 📌 API: Fetch Pending Bookings
 app.get("/bookings", async (req, res) => {
   try {
-    let result = await pool.query("SELECT * FROM Bookings ");
+    let result = await pool.query("SELECT * FROM bookings ");
     res.json(result.rows);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -109,7 +110,7 @@ app.post("/update-booking", async (req, res) => {
 
   try {
     // Fetch the booking from PostgreSQL
-    const bookingQuery = "SELECT * FROM Bookings WHERE Id = $1"; // Gebruik $1 voor parameterbinding
+    const bookingQuery = "SELECT * FROM bookings WHERE id = $1"; // Gebruik $1 voor parameterbinding
     const bookingResult = await pool.query(bookingQuery, [id]);
 
     if (bookingResult.rows.length === 0)
@@ -119,7 +120,8 @@ app.post("/update-booking", async (req, res) => {
     const updateQuery = "UPDATE Bookings SET Status = $1 WHERE Id = $2"; // Gebruik $1 en $2 voor parameterbinding
     await pool.query(updateQuery, [status, id]);
 
-    const { Email, Name, Location, StartDateTime, EndDateTime } = bookingResult.rows[0];
+    const { Email, Name, Location, StartDateTime, EndDateTime } =
+      bookingResult.rows[0];
 
     let subject, text;
 
@@ -133,10 +135,23 @@ app.post("/update-booking", async (req, res) => {
       await addToGoogleCalendar(Name, Location, StartDateTime, EndDateTime);
 
       // Send confirmation email to client
-      await sendConfirmationEmail(Name, Email, Location, StartDateTime, EndDateTime, message);
+      await sendConfirmationEmail(
+        Name,
+        Email,
+        Location,
+        StartDateTime,
+        EndDateTime,
+        message
+      );
 
       // Send confirmation email to admin
-      await sendConfirmationEmailToAdmin(Name, Email, Location, StartDateTime, EndDateTime);
+      await sendConfirmationEmailToAdmin(
+        Name,
+        Email,
+        Location,
+        StartDateTime,
+        EndDateTime
+      );
     } else {
       subject = "❌ Booking Declined";
       text = `Hello ${Name}, unfortunately, your booking at ${Location} has been declined.`;
@@ -156,7 +171,6 @@ app.post("/update-booking", async (req, res) => {
   }
 });
 
-
 // 📌 API: Delete Booking
 app.delete("/delete-booking/:id", async (req, res) => {
   const { id } = req.params;
@@ -164,14 +178,15 @@ app.delete("/delete-booking/:id", async (req, res) => {
 
   try {
     // Check if booking exists in PostgreSQL
-    const bookingQuery = "SELECT * FROM Bookings WHERE Id = $1"; // Gebruik $1 voor parameterbinding
+    const bookingQuery = "SELECT * FROM bookings WHERE id = $1"; // Gebruik $1 voor parameterbinding
     const bookingResult = await pool.query(bookingQuery, [id]);
 
     if (bookingResult.rows.length === 0) {
       return res.status(404).json({ error: "Booking not found" });
     }
 
-    const { Status, StartDateTime, EndDateTime, Name, Location } = bookingResult.rows[0];
+    const { Status, StartDateTime, EndDateTime, Name, Location } =
+      bookingResult.rows[0];
 
     // Delete from database
     const deleteQuery = "DELETE FROM Bookings WHERE Id = $1"; // Gebruik $1 voor parameterbinding
@@ -251,7 +266,6 @@ const removeFromGoogleCalendar = async (
     return false;
   }
 };
-
 
 // 📌 Function: Add Event to Google Calendar
 const addToGoogleCalendar = async (
