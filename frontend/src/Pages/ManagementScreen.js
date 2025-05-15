@@ -46,7 +46,7 @@ const ManagementScreen = () => {
       console.error(`Failed to ${status} booking:`, error);
     }
 
-    window.location.reload(); // Reload the page
+    // window.location.reload(); // Reload the page
   };
 
   // 📌 Handle Deleting a Booking
