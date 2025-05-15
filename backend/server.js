@@ -132,9 +132,11 @@ app.post("/update-booking", async (req, res) => {
         : `Hello ${name}, your booking at ${location} has been approved! The Pierino team thanks you.`;
 
       // Add event to Google Calendar
+      console.log("📅 Voeg toe aan Google Calendar...");
       await addToGoogleCalendar(name, location, start_datetime, end_datetime);
 
       // Send confirmation email to client
+      console.log("📨 Verstuur bevestigingsmail naar klant...");
       await sendConfirmationEmail(
         name,
         email,
@@ -145,6 +147,7 @@ app.post("/update-booking", async (req, res) => {
       );
 
       // Send confirmation email to admin
+      console.log("📨 Verstuur bevestiging naar admin...");
       await sendConfirmationEmailToAdmin(
         name,
         email,
