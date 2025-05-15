@@ -15,7 +15,7 @@ const ManagementScreen = () => {
   // 📌 Fetch bookings from the backend
   useEffect(() => {
     axios
-      .get("https://offerte-backend-112de817f722.herokuapp.com/bookings") // Fetch bookings with status info
+      .get("https://pierino-backend-a1790776fc10.herokuapp.com/bookings") // Fetch bookings with status info
       .then((response) => {
         console.log("Fetched bookings:", response.data);
         setBookings(response.data);
@@ -32,7 +32,7 @@ const ManagementScreen = () => {
     try {
       const message = messages[id] || ""; // Get the message for this booking (if any)
       const response = await axios.post(
-        "https://offerte-backend-112de817f722.herokuapp.com/update-booking",
+        "https://pierino-backend-a1790776fc10.herokuapp.com/update-booking",
         { id, status, message }
       );
 
@@ -53,7 +53,7 @@ const ManagementScreen = () => {
   const deleteBooking = async (id) => {
     try {
       const response = await axios.delete(
-        `https://offerte-backend-112de817f722.herokuapp.com/delete-booking/${id}`
+        `https://pierino-backend-a1790776fc10.herokuapp.com/delete-booking/${id}`
       );
       const { success, eventRemoved } = response.data;
 
