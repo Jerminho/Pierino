@@ -117,7 +117,7 @@ app.post("/update-booking", async (req, res) => {
       return res.status(404).json({ error: "Booking not found" });
 
     // Update booking status
-    const updateQuery = "UPDATE Bookings SET Status = $1 WHERE Id = $2"; // Gebruik $1 en $2 voor parameterbinding
+    const updateQuery = "UPDATE bookings SET status = $1 WHERE Id = $2"; // Gebruik $1 en $2 voor parameterbinding
     await pool.query(updateQuery, [status, id]);
 
     const { Email, Name, Location, StartDateTime, EndDateTime } =
@@ -189,7 +189,7 @@ app.delete("/delete-booking/:id", async (req, res) => {
       bookingResult.rows[0];
 
     // Delete from database
-    const deleteQuery = "DELETE FROM Bookings WHERE Id = $1"; // Gebruik $1 voor parameterbinding
+    const deleteQuery = "DELETE FROM bookings WHERE Id = $1"; // Gebruik $1 voor parameterbinding
     await pool.query(deleteQuery, [id]);
 
     // If booking was approved, remove it from Google Calendar
@@ -203,7 +203,7 @@ app.delete("/delete-booking/:id", async (req, res) => {
     }
 
     // Check if the table is now empty and reset the auto-increment ID
-    const remainingBookingsQuery = "SELECT COUNT(*) AS count FROM Bookings"; // Query om het aantal boekingen te tellen
+    const remainingBookingsQuery = "SELECT COUNT(*) AS count FROM bookings"; // Query om het aantal boekingen te tellen
     const remainingBookingsResult = await pool.query(remainingBookingsQuery);
     if (remainingBookingsResult.rows[0].count === 0) {
       // PostgreSQL heeft geen 'DBCC CHECKIDENT', maar als je een sequence hebt voor je Id, kun je de sequence resetten
