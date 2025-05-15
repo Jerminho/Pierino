@@ -112,17 +112,17 @@ const ManagementScreen = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {pendingBookings.map((booking) => (
                   <div
-                    key={booking.Id}
+                    key={booking.id}
                     className="p-4 border rounded-lg shadow-md bg-white flex flex-col"
                   >
-                    <h4 className="text-lg font-semibold">{booking.Name}</h4>
-                    <p className="text-gray-600">{booking.Email}</p>
-                    <p className="text-gray-600">{booking.Location}</p>
+                    <h4 className="text-lg font-semibold">{booking.name}</h4>
+                    <p className="text-gray-600">{booking.email}</p>
+                    <p className="text-gray-600">{booking.location}</p>
                     <p className="text-gray-600">
-                      Start: {new Date(booking.StartDateTime).toLocaleString()}
+                      Start: {new Date(booking.start_datetime).toLocaleString()}
                     </p>
                     <p className="text-gray-600">
-                      End: {new Date(booking.EndDateTime).toLocaleString()}
+                      End: {new Date(booking.end_datetime).toLocaleString()}
                     </p>
                     <p className={`font-bold ${statusColors.pending}`}>
                       Status: Pending
@@ -132,21 +132,21 @@ const ManagementScreen = () => {
                     <textarea
                       className="mt-2 p-2 border rounded-lg w-full"
                       placeholder="Optional message for the client"
-                      value={messages[booking.Id] || ""}
+                      value={messages[booking.id] || ""}
                       onChange={(e) =>
-                        handleMessageChange(booking.Id, e.target.value)
+                        handleMessageChange(booking.id, e.target.value)
                       }
                     ></textarea>
 
                     <div className="mt-4 flex gap-2">
                       <button
-                        onClick={() => updateBooking(booking.Id, "approved")}
+                        onClick={() => updateBooking(booking.id, "approved")}
                         className="bg-green-500 text-white py-1 px-3 rounded-lg"
                       >
                         ✅ Approve
                       </button>
                       <button
-                        onClick={() => updateBooking(booking.Id, "declined")}
+                        onClick={() => updateBooking(booking.id, "declined")}
                         className="bg-red-500 text-white py-1 px-3 rounded-lg"
                       >
                         ❌ Decline
@@ -167,24 +167,24 @@ const ManagementScreen = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {approvedBookings.map((booking) => (
                   <div
-                    key={booking.Id}
+                    key={booking.id}
                     className="p-4 border rounded-lg shadow-md bg-white flex flex-col"
                   >
-                    <h4 className="text-lg font-semibold">{booking.Name}</h4>
-                    <p className="text-gray-600">{booking.Email}</p>
-                    <p className="text-gray-600">{booking.Location}</p>
+                    <h4 className="text-lg font-semibold">{booking.name}</h4>
+                    <p className="text-gray-600">{booking.email}</p>
+                    <p className="text-gray-600">{booking.location}</p>
                     <p className="text-gray-600">
-                      Start: {new Date(booking.StartDateTime).toLocaleString()}
+                      Start: {new Date(booking.start_datetime).toLocaleString()}
                     </p>
                     <p className="text-gray-600">
-                      End: {new Date(booking.EndDateTime).toLocaleString()}
+                      End: {new Date(booking.end_datetime).toLocaleString()}
                     </p>
                     <p className={`font-bold ${statusColors.approved}`}>
                       Status: Approved
                     </p>
                     <br />
                     <button
-                      onClick={() => deleteBooking(booking.Id)}
+                      onClick={() => deleteBooking(booking.id)}
                       className="bg-gray-500 text-white py-1 px-3 rounded-lg mt-2"
                     >
                       🗑️ Delete
@@ -204,24 +204,24 @@ const ManagementScreen = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {declinedBookings.map((booking) => (
                   <div
-                    key={booking.Id}
+                    key={booking.id}
                     className="p-4 border rounded-lg shadow-md bg-white flex flex-col"
                   >
-                    <h4 className="text-lg font-semibold">{booking.Name}</h4>
-                    <p className="text-gray-600">{booking.Email}</p>
-                    <p className="text-gray-600">{booking.Location}</p>
+                    <h4 className="text-lg font-semibold">{booking.name}</h4>
+                    <p className="text-gray-600">{booking.email}</p>
+                    <p className="text-gray-600">{booking.location}</p>
                     <p className="text-gray-600">
-                      Start: {new Date(booking.StartDateTime).toLocaleString()}
+                      Start: {new Date(booking.start_datetime).toLocaleString()}
                     </p>
                     <p className="text-gray-600">
-                      End: {new Date(booking.EndDateTime).toLocaleString()}
+                      End: {new Date(booking.end_datetime).toLocaleString()}
                     </p>
                     <p className={`font-bold ${statusColors.declined}`}>
                       Status: Declined
                     </p>
                     <br />
                     <button
-                      onClick={() => deleteBooking(booking.Id)}
+                      onClick={() => deleteBooking(booking.id)}
                       className="bg-gray-500 text-white py-1 px-3 rounded-lg mt-2"
                     >
                       🗑️ Delete
