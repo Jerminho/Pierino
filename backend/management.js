@@ -27,7 +27,7 @@ const transporter = nodemailer.createTransport({
 // Google Calendar API Setup
 const SCOPES = ["https://www.googleapis.com/auth/calendar"];
 const calendar = google.calendar("v3");
-const serviceAccountKey = require("./pierino-test-6170eb0ea235.json");
+const serviceAccountKey = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
 const auth = new google.auth.GoogleAuth({
   credentials: serviceAccountKey,
   scopes: SCOPES,
