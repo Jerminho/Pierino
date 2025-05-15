@@ -75,13 +75,13 @@ const ManagementScreen = () => {
 
   // 📌 Group bookings by their status (fetched from the database)
   const pendingBookings = bookings.filter(
-    (booking) => booking.Status === "pending"
+    (booking) => booking.status === "pending"
   );
   const approvedBookings = bookings.filter(
-    (booking) => booking.Status === "approved"
+    (booking) => booking.status === "approved"
   );
   const declinedBookings = bookings.filter(
-    (booking) => booking.Status === "declined"
+    (booking) => booking.status === "declined"
   );
 
   // 📌 Handle message change
