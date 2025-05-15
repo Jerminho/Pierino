@@ -117,7 +117,7 @@ app.post("/update-booking", async (req, res) => {
       return res.status(404).json({ error: "Booking not found" });
 
     // Update booking status
-    const updateQuery = "UPDATE bookings SET status = $1 WHERE Id = $2"; // Gebruik $1 en $2 voor parameterbinding
+    const updateQuery = "UPDATE bookings SET status = $1 WHERE id = $2"; // Gebruik $1 en $2 voor parameterbinding
     await pool.query(updateQuery, [status, id]);
 
     const { email, name, location, start_datetime, end_datetime } =
@@ -189,7 +189,7 @@ app.delete("/delete-booking/:id", async (req, res) => {
       bookingResult.rows[0];
 
     // Delete from database
-    const deleteQuery = "DELETE FROM bookings WHERE Id = $1"; // Gebruik $1 voor parameterbinding
+    const deleteQuery = "DELETE FROM bookings WHERE id = $1"; // Gebruik $1 voor parameterbinding
     await pool.query(deleteQuery, [id]);
 
     // If booking was approved, remove it from Google Calendar
