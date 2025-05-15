@@ -1,4 +1,3 @@
- 
 const express = require("express");
 const sql = require("mssql");
 const nodemailer = require("nodemailer");
@@ -11,7 +10,7 @@ const router = express.Router();
 const dbConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER, 
+  server: process.env.DB_SERVER,
   database: process.env.DB_NAME,
   options: { encrypt: true, trustServerCertificate: true },
 };
@@ -28,7 +27,7 @@ const transporter = nodemailer.createTransport({
 // Google Calendar API Setup
 const SCOPES = ["https://www.googleapis.com/auth/calendar"];
 const calendar = google.calendar("v3");
-const serviceAccountKey = require("./pierino-test-1521dc6dcc0b.json");
+const serviceAccountKey = require("./pierino-test-a0771b4cab8f.json");
 const auth = new google.auth.GoogleAuth({
   credentials: serviceAccountKey,
   scopes: SCOPES,
@@ -38,7 +37,9 @@ const auth = new google.auth.GoogleAuth({
 router.get("/bookings", async (req, res) => {
   try {
     let pool = await sql.connect(dbConfig);
-    let result = await pool.request().query("SELECT * FROM Bookings WHERE Status = 'pending'");
+    let result = await pool
+      .request()
+      .query("SELECT * FROM Bookings WHERE Status = 'pending'");
     res.json(result.recordset);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -54,14 +55,23 @@ router.post("/update-booking", async (req, res) => {
 
   try {
     let pool = await sql.connect(dbConfig);
-    let booking = await pool.request().input("Id", sql.Int, id).query("SELECT * FROM Bookings WHERE Id = @Id");
-    if (booking.recordset.length === 0) return res.status(404).json({ error: "Booking not found" });
+    let booking = await pool
+      .request()
+      .input("Id", sql.Int, id)
+      .query("SELECT * FROM Bookings WHERE Id = @Id");
+    if (booking.recordset.length === 0)
+      return res.status(404).json({ error: "Booking not found" });
 
-    await pool.request().input("Id", sql.Int, id).input("Status", sql.VarChar, status).query("UPDATE Bookings SET Status = @Status WHERE Id = @Id");
+    await pool
+      .request()
+      .input("Id", sql.Int, id)
+      .input("Status", sql.VarChar, status)
+      .query("UPDATE Bookings SET Status = @Status WHERE Id = @Id");
 
-    const { Email, Name, Location, StartDateTime, EndDateTime } = booking.recordset[0];
+    const { Email, Name, Location, StartDateTime, EndDateTime } =
+      booking.recordset[0];
     let subject, text;
-    
+
     if (status === "approved") {
       subject = "Booking Approved!";
       text = `Hello ${Name}, your booking at ${Location} has been approved!`;
@@ -85,7 +95,12 @@ router.post("/update-booking", async (req, res) => {
 });
 
 // Add event to Google Calendar
-const addToGoogleCalendar = async (name, location, startDateTime, endDateTime) => {
+const addToGoogleCalendar = async (
+  name,
+  location,
+  startDateTime,
+  endDateTime
+) => {
   try {
     const authClient = await auth.getClient();
     const event = {
