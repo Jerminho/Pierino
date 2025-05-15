@@ -81,7 +81,7 @@ app.post("/book", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "INSERT INTO Bookings (Name, Email, Location, StartDateTime, EndDateTime, Status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO bookings (name, email, location, start_datetime, end_datetime, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
       [name, email, location, startDateTime, endDateTime, "pending"]
     );
 
