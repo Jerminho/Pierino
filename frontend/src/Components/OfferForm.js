@@ -12,18 +12,21 @@ const OfferForm = () => {
     attendees: "",
   });
   const [estimatedPrice, setEstimatedPrice] = useState(null);
-  
+
   // Use your Heroku app URL here
-  const API_URL = 'https://pierino-backend-a1790776fc10.herokuapp.com'; // Heroku API URL
-  
+  const API_URL = "https://pierino-backend-a1790776fc10.herokuapp.com"; // Heroku API URL
+
   useEffect(() => {
-    axios.get(`${API_URL}/pricing`) // Fetch pricing data from the live backend
-      .then(response => setPricingOptions(response.data))
-      .catch(error => console.error("Error fetching pricing data", error));
+    axios
+      .get(`${API_URL}/pricing`) // Fetch pricing data from the live backend
+      .then((response) => setPricingOptions(response.data))
+      .catch((error) => console.error("Error fetching pricing data", error));
   }, []);
-  
+
   const calculatePrice = (attendees) => {
-    const range = pricingOptions.find(r => attendees >= r.min && attendees <= r.max);
+    const range = pricingOptions.find(
+      (r) => attendees >= r.min && attendees <= r.max
+    );
     if (range) {
       return range.baseCalculation * range.pricePerAttendee + 20;
     }
@@ -51,55 +54,56 @@ const OfferForm = () => {
 
   return (
     <div className="bg-white bg-opacity-90 shadow-lg rounded-2xl p-6 sm:p-8 max-w-lg mx-auto">
-      <h2 className="text-3xl font-bold text-pink-600 text-center mb-6">Reserve an Ice Cream Truck</h2>
+      <h2 className="text-3xl font-bold text-pink-600 text-center mb-6">
+        Reserve an Ice Cream Truck
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-5">
-        
-        <input 
-          type="text" 
-          name="name" 
-          placeholder="Your Name" 
-          value={formData.name} 
-          onChange={handleChange} 
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          value={formData.name}
+          onChange={handleChange}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
-          required 
+          required
         />
 
-        <input 
-          type="email" 
-          name="email" 
-          placeholder="Your Email" 
-          value={formData.email} 
-          onChange={handleChange} 
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          value={formData.email}
+          onChange={handleChange}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
-          required 
+          required
         />
 
-        <input 
-          type="text" 
-          name="location" 
-          placeholder="Event Location" 
-          value={formData.location} 
-          onChange={handleChange} 
+        <input
+          type="text"
+          name="location"
+          placeholder="Event Location"
+          value={formData.location}
+          onChange={handleChange}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
-          required 
+          required
         />
 
-        <input 
-          type="datetime-local" 
-          name="startDateTime" 
-          value={formData.startDateTime} 
-          onChange={handleChange} 
+        <input
+          type="datetime-local"
+          name="startDateTime"
+          value={formData.startDateTime}
+          onChange={handleChange}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
-          required 
+          required
         />
 
-        <input 
-          type="datetime-local" 
-          name="endDateTime" 
-          value={formData.endDateTime} 
-          onChange={handleChange} 
+        <input
+          type="datetime-local"
+          name="endDateTime"
+          value={formData.endDateTime}
+          onChange={handleChange}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
-          required 
+          required
         />
 
         <select
@@ -119,12 +123,13 @@ const OfferForm = () => {
 
         {estimatedPrice !== null && (
           <p className="text-lg font-semibold text-pink-600 text-center">
-            Estimated Price: <span className="text-pink-700 font-bold">${estimatedPrice}</span>
+            Estimated Price:{" "}
+            <span className="text-pink-700 font-bold">${estimatedPrice}</span>
           </p>
         )}
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className="w-full py-3 px-6 bg-gradient-to-r from-pink-400 to-red-400 hover:from-pink-300 hover:to-red-300 text-white font-bold rounded-lg transition-all duration-300"
         >
           Submit Booking
