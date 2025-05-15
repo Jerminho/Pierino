@@ -10,6 +10,9 @@ const { google } = require("googleapis");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+
 app.use(cors());
 
 // 📌 Database configuratie voor PostgreSQL
