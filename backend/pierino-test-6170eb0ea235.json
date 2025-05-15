@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "pierino-test",
+  "private_key_id": "6170eb0ea2354cc6b1fd6977c87e125f311d988d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDbclgxLxJ5QRJx\nqOvGRffk9WeLPpn+/9Gloxo0m9UBdij21D0NhFkKJU1UUno29gS0wDZkQ22LSUme\n8XzZg418grPMgR7lLCQiDTarauUSjIONbf1i5JhRCL4KY3WMjK7EHqlj6RlBHmEc\nK5qCmuJLgr8YRrqN/WH7JPHIuieTt3XZp9K1hmz5ZbUZlRny5mKg8Mvewb6lPPII\nIzcKcJdrVXZSPnNgoEXNeYw+FyHezejjY89pGcsrZb+05V2i0ZEQdMC83bsVZC+s\n5G/lsRovuxHSJICzAwRbHzCl/ue8r2ZhWI6PWWF2gN7nYZyQrKBpaJZkvd0bfNPT\n3Fgs57o/AgMBAAECggEABLz/9TUOD7QLD9Y091nxQ65nZLvMO5POotQDz8SPnOz3\nSi7Na4gVG88v9DBcknsWs6OQRIWFn38Vrl0cocuz4Lzel7R5KxblZ/n2ECkKNsH1\nzqQIss3ffzfbmy+surwanstQHt6lruDEsLvPbugSzhXgIbXYG8nB4zOzXspjWDxZ\n+N18TLgtYbYCslKCw0ruodvbo50uJI9Sc9vcwYXPzW2r6sbF3K6t/5ctQ5tCgEa1\nXTjk0aQynuFJo4TjBbZjQcEczWzCABh2r2YR6eO1VFx+rJJ0j0xBBje386h8sD2X\nhCgbUp17WJ6Pr4DhR0afypHa1vQXcD5kB/cxjt5xkQKBgQD5aZ1Gu8xfCfDD4EYd\nXkMu3d5JxheFC7saCkn0JEMwMLNHyTX958tbpumxDly0vJnef2bntkK4Jkgb7DYt\nXz19C3BGlj3+8GtljHSow8t++u9RFMaC+5HFfjktKlFUkcMkqGAcISUPfur91auj\n9PwSelSB3NeL1FfoZjTmDSE+MQKBgQDhPh4ol9vdwZBkhPSyhVC74fHrQvdCSqMQ\ncQFZzhQK/H7rYCOR/HzRV81g+4FyN+nNse0bV4eLACuXntMx6bit3tSXJ33kfOnQ\nUMIJBEUwtyWvNImNs13oUNFOvOt/4q0jLm+k8RAvHF2ZkoT/PB9WI9AgUxzD1h6a\nSl/01TozbwKBgFAbDMmgHabUsYCn8r0R/m/6EKAPQJSZzPEzJseEMhQzQBGpXW78\nWMNKG7qjS0E9ZgohTzLSxiERIo3dUxVFhqE34Eq7jJPqMgQ+lWVy5VQWUnDvREbj\nd9E/liuccNzBqDSI472FI7sTX3RBgUw6rg9dPPEstgoSHF3nHcxZoTixAoGBAMaq\nT1dmedqh+4Vtb5Z117ufkgz7R7MEucaqpZJcHXmDMz7P0Q/WLxFF7DP6ITZo8qMm\nqAdRsI99WvWkdIq1ptpUjBW2E2gQdPn0APCK/6v0Hhzmrdx5s/5QKgzUvLJTcHpz\nXq2QocGrtzLY9M1abhlABTY9mEVy+hMEPpZn66mpAoGBANN6jlifvtwgIV4AjY8i\nwC46I60575kISr4JbI8iOA7EGYzJhcTOXwVcapLxz4/Rl+89TdN4r41uwrBPrS3Z\nk7HR8SNz+1ymh5AwHfWaSbrEABPlsb0ry+bDJ3YSJPRJ+Hzi3Wefn4TXMlqAdnv3\nWWIcPs+QWMCGgXx94ViPKili\n-----END PRIVATE KEY-----\n",
+  "client_email": "pierinotest@pierino-test.iam.gserviceaccount.com",
+  "client_id": "100131188470222785495",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pierinotest%40pierino-test.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
