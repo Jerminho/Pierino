@@ -95,16 +95,8 @@ app.post("/book", async (req, res) => {
 // 📌 API: Fetch Pending Bookings
 app.get("/bookings", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM bookings");
-
-    // 👇 Format timestamps naar ISO string met lokale tijd (Europe/Brussels)
-    const formattedBookings = result.rows.map((booking) => ({
-      ...booking,
-      start_datetime: new Date(booking.start_datetime).toISOString(), // blijf consistent in UTC, laat frontend het omzetten
-      end_datetime: new Date(booking.end_datetime).toISOString(),
-    }));
-
-    res.json(formattedBookings);
+    let result = await pool.query("SELECT * FROM bookings ");
+    res.json(result.rows);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
