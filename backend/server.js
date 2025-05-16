@@ -295,14 +295,14 @@ const addToGoogleCalendar = async (
 
     // Event object
     const event = {
-      summary: `Booking by ${name}`,
-      description: `Email: ${name}\nLocation: ${location}`,
+      summary: "Test Event",
+      description: "Testing calendar insert",
       start: {
-        dateTime: new Date(startDateTime).toISOString(),
+        dateTime: "2025-05-17T10:00:00+02:00",
         timeZone: "Europe/Brussels",
       },
       end: {
-        dateTime: new Date(endDateTime).toISOString(),
+        dateTime: "2025-05-17T11:00:00+02:00",
         timeZone: "Europe/Brussels",
       },
     };
