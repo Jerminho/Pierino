@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 
 app.use(cors());
-
+const ok = "no"
 // 📌 Database configuratie voor PostgreSQL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL, // Haal de URL op uit de .env variabele
@@ -285,6 +285,12 @@ const addToGoogleCalendar = async (
   startDateTime,
   endDateTime
 ) => {
+  console.log("📥 addToGoogleCalendar was called with:", {
+    name,
+    location,
+    startDateTime,
+    endDateTime
+  });
   try {
     console.log("Adding event to Google Calendar with the following details:");
     console.log({ name, location, startDateTime, endDateTime });
