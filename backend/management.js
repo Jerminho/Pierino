@@ -32,10 +32,9 @@ const calendar = google.calendar("v3");
 const base64Encoded = process.env.GOOGLE_CREDENTIALS_JSON;
 const jsonString = Buffer.from(base64Encoded, "base64").toString("utf8");
 console.log(jsonString);
-console.log(rawCreds.private_key);
 
 const rawCreds = JSON.parse(jsonString);
-
+console.log(rawCreds.private_key);
 // Fix newline escape for private_key
 rawCreds.private_key = rawCreds.private_key.replace(/\\n/g, "\n");
 
