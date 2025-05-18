@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 
 app.use(cors());
-const ok = "no"
+const ok = "no";
 // 📌 Database configuratie voor PostgreSQL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL, // Haal de URL op uit de .env variabele
@@ -41,7 +41,9 @@ const transporter = nodemailer.createTransport({
 // 📌 Google Calendar API Setup
 const SCOPES = ["https://www.googleapis.com/auth/calendar"];
 const calendar = google.calendar("v3");
-const serviceAccountKey = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
+const serviceAccountKey = JSON.parse(
+  process.env.GOOGLE_CREDENTIALS_JSON.replace(/\\n/g, "\n")
+);
 const auth = new google.auth.GoogleAuth({
   credentials: serviceAccountKey,
   scopes: SCOPES,
@@ -133,7 +135,7 @@ app.post("/update-booking", async (req, res) => {
 
     let subject, text;
 
-    if (status === "approved") {
+    if (status === "pending") {
       subject = "🎉 Booking Approved!";
       text = message
         ? `Hello ${name}, your booking at ${location} has been approved! Additional Message: ${message}`
@@ -289,7 +291,7 @@ const addToGoogleCalendar = async (
     name,
     location,
     startDateTime,
-    endDateTime
+    endDateTime,
   });
   try {
     console.log("Adding event to Google Calendar with the following details:");
