@@ -27,12 +27,21 @@ const transporter = nodemailer.createTransport({
 // Google Calendar API Setup
 const SCOPES = ["https://www.googleapis.com/auth/calendar"];
 const calendar = google.calendar("v3");
-const rawCreds = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
-rawCreds.private_key = rawCreds.private_key.replace(/\\n/g, '\n');
+// Stap 1: Decodeer de Base64 string naar gewone JSON string
+const decodedCreds = Buffer.from(
+  process.env.GOOGLE_CREDENTIALS_JSON,
+  "base64"
+).toString("utf8");
 
-const serviceAccountKey = rawCreds;
+// Stap 2: Parse naar object
+const rawCreds = JSON.parse(decodedCreds);
+
+// Stap 3: Fix de newline karakters in de private key
+rawCreds.private_key = rawCreds.private_key.replace(/\\n/g, "\n");
+
+// Stap 4: Gebruik credentials om auth in te stellen
 const auth = new google.auth.GoogleAuth({
-  credentials: serviceAccountKey,
+  credentials: rawCreds,
   scopes: SCOPES,
 });
 
