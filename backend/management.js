@@ -35,8 +35,6 @@ console.log(jsonString);
 
 const rawCreds = JSON.parse(jsonString);
 console.log(rawCreds.private_key);
-// Fix newline escape for private_key
-rawCreds.private_key = rawCreds.private_key.replace(/\\n/g, "\n");
 
 const auth = new google.auth.GoogleAuth({
   credentials: rawCreds,
