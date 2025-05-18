@@ -141,7 +141,7 @@ app.post("/update-booking", async (req, res) => {
 
     let subject, text;
 
-    if (status === "pending") {
+    if (status === "approved") {
       subject = "🎉 Booking Approved!";
       text = message
         ? `Hello ${name}, your booking at ${location} has been approved! Additional Message: ${message}`
