@@ -45,6 +45,9 @@ const calendar = google.calendar("v3");
 // Decode base64 from env var
 const base64Encoded = process.env.GOOGLE_CREDENTIALS_JSON;
 const jsonString = Buffer.from(base64Encoded, "base64").toString("utf8");
+console.log(jsonString);
+console.log(rawCreds.private_key);
+
 const rawCreds = JSON.parse(jsonString);
 
 // Fix newline escape for private_key
