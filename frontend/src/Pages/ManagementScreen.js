@@ -44,7 +44,7 @@ const ManagementScreen = () => {
 
     try {
       const res = await fetch(
-        `https://pierino-backend-a1790776fc10.herokuapp.com//bookings/${bookingId}/price`,
+        `https://pierino-backend-a1790776fc10.herokuapp.com/bookings/${bookingId}/price`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
