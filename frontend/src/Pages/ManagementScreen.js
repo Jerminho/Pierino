@@ -43,11 +43,14 @@ const ManagementScreen = () => {
     }
 
     try {
-      const res = await fetch(`/bookings/${bookingId}/price`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ price: newPrice }),
-      });
+      const res = await fetch(
+        `https://pierino-backend-a1790776fc10.herokuapp.com//bookings/${bookingId}/price`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ price: newPrice }),
+        }
+      );
 
       const data = await res.json();
 
