@@ -11,6 +11,8 @@ const ManagementScreen = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState({}); // State to store messages for each booking
+  // State for editable prices
+  const [editedPrices, setEditedPrices] = useState({});
 
   // 📌 Fetch bookings from the backend
   useEffect(() => {
@@ -26,6 +28,42 @@ const ManagementScreen = () => {
         setLoading(false);
       });
   }, []);
+
+  // Handle price input change
+  const handlePriceChange = (bookingId, newPrice) => {
+    setEditedPrices((prev) => ({ ...prev, [bookingId]: newPrice }));
+  };
+
+  // Handle saving updated price
+  const savePrice = async (bookingId) => {
+    const newPrice = editedPrices[bookingId];
+    if (!newPrice || isNaN(newPrice)) {
+      alert("Please enter a valid numeric price.");
+      return;
+    }
+
+    try {
+      const res = await fetch(`/bookings/${bookingId}/price`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ price: newPrice }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to update price.");
+      }
+
+      alert("Price updated successfully.");
+
+      // Optionally: Refresh pendingBookings or update state
+      window.location.reload(); // 🔁 Reload page after success
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  };
 
   // 📌 Handle Approve/Decline Booking
   const updateBooking = async (id, status) => {
@@ -118,7 +156,22 @@ const ManagementScreen = () => {
                     <h4 className="text-lg font-semibold">{booking.name}</h4>
                     <p className="text-gray-600">{booking.email}</p>
                     <p className="text-gray-600">{booking.location}</p>
-                    <p className="text-gray-600">Offerte: € {booking.price}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <input
+                        type="number"
+                        className="border p-1 rounded w-24"
+                        value={editedPrices[booking.id] ?? booking.price}
+                        onChange={(e) =>
+                          handlePriceChange(booking.id, e.target.value)
+                        }
+                      />
+                      <button
+                        onClick={() => savePrice(booking.id)}
+                        className="bg-blue-500 text-white px-2 py-1 rounded"
+                      >
+                        💾 Save
+                      </button>
+                    </div>
                     <p className="text-gray-600">
                       Aantal bezoekers: {booking.attendee_range}
                     </p>

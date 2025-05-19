@@ -235,6 +235,37 @@ app.post("/update-booking", async (req, res) => {
   }
 });
 
+// 📌 API: Update Booking Price
+app.put("/bookings/:id/price", async (req, res) => {
+  const { id } = req.params;
+  const { price } = req.body;
+
+  if (!price || isNaN(price)) {
+    return res.status(400).json({ error: "Invalid price value." });
+  }
+
+  try {
+    const result = await pool.query(
+      "UPDATE bookings SET price = $1 WHERE id = $2 AND status = 'pending' RETURNING *",
+      [price, id]
+    );
+
+    if (result.rowCount === 0) {
+      return res
+        .status(404)
+        .json({ error: "Pending booking not found or already processed." });
+    }
+
+    res.json({
+      success: true,
+      message: "Price updated successfully.",
+      updated: result.rows[0],
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // 📌 API: Delete Booking
 app.delete("/delete-booking/:id", async (req, res) => {
   const { id } = req.params;
