@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
 const ADMIN_PASSWORD = process.env.ADMIN_HASHED_PASSWORD;
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
@@ -96,8 +96,8 @@ app.post("/book", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "INSERT INTO bookings (name, email, location, start_datetime, end_datetime, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [name, email, location, startDateTime, endDateTime, "pending"]
+      "INSERT INTO bookings (name, email, location, start_datetime, end_datetime, status, price) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      [name, email, location, startDateTime, endDateTime, "pending", price]
     );
 
     res.json({ success: true, message: "Booking submitted!", price });

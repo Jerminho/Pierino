@@ -118,6 +118,7 @@ const ManagementScreen = () => {
                     <h4 className="text-lg font-semibold">{booking.name}</h4>
                     <p className="text-gray-600">{booking.email}</p>
                     <p className="text-gray-600">{booking.location}</p>
+                    <p className="text-gray-600">Offerte: € {booking.price}</p>
                     <p className="text-gray-600">
                       Start: {new Date(booking.start_datetime).toLocaleString()}
                     </p>
@@ -173,6 +174,7 @@ const ManagementScreen = () => {
                     <h4 className="text-lg font-semibold">{booking.name}</h4>
                     <p className="text-gray-600">{booking.email}</p>
                     <p className="text-gray-600">{booking.location}</p>
+                    <p className="text-gray-600">Offerte: € {booking.price}</p>
                     <p className="text-gray-600">
                       Start: {new Date(booking.start_datetime).toLocaleString()}
                     </p>
@@ -210,6 +212,7 @@ const ManagementScreen = () => {
                     <h4 className="text-lg font-semibold">{booking.name}</h4>
                     <p className="text-gray-600">{booking.email}</p>
                     <p className="text-gray-600">{booking.location}</p>
+                    <p className="text-gray-600">Offerte: € {booking.price}</p>
                     <p className="text-gray-600">
                       Start: {new Date(booking.start_datetime).toLocaleString()}
                     </p>

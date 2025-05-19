@@ -121,12 +121,10 @@ const OfferForm = () => {
           ))}
         </select>
 
-        {estimatedPrice !== null && (
-          <p className="text-lg font-semibold text-pink-600 text-center">
-            Estimated Price:{" "}
-            <span className="text-pink-700 font-bold">${estimatedPrice}</span>
-          </p>
-        )}
+        <p className="text-sm font-semibold text-pink-600 text-center">
+          Na het versturen van uw offerteaanvraag ontvangt u een voorstel binnen
+          de 24u.
+        </p>
 
         <button
           type="submit"
