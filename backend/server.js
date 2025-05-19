@@ -6,15 +6,21 @@ const path = require("path");
 const { Pool } = require("pg"); // Gebruik de PostgreSQL client
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD = process.env.ADMIN_HASHED_PASSWORD;
+const JWT_SECRET = process.env.JWT_SECRET
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 
 app.use(cors());
-const ok = "no";
+
 // 📌 Database configuratie voor PostgreSQL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL, // Haal de URL op uit de .env variabele
@@ -116,6 +122,29 @@ app.get("/bookings", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+// 📌 API: login
+app.post("/api/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  if (username !== ADMIN_USERNAME) {
+    return res.status(401).json({ message: "Invalid username or password" });
+  }
+
+  const match = await bcrypt.compare(password, ADMIN_PASSWORD);
+  if (!match) {
+    return res.status(401).json({ message: "Invalid username or password" });
+  }
+
+  // ✅ Create JWT token
+  const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: "1h" });
+
+  // ✅ Send token to frontend
+  res.status(200).json({
+    message: "Login successful",
+    token,
+  });
 });
 
 // 📌 API: Approve or Decline Booking
