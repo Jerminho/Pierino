@@ -89,15 +89,31 @@ app.get("/pricing", (req, res) => res.json(pricingRanges));
 
 // 📌 API: Submit a Booking
 app.post("/book", async (req, res) => {
-  const { name, email, location, startDateTime, endDateTime, attendees } =
-    req.body;
+  const {
+    name,
+    email,
+    location,
+    startDateTime,
+    endDateTime,
+    attendees,
+    attendeeRange,
+  } = req.body;
   const price = calculatePrice(attendees);
   if (!price) return res.status(400).json({ error: "Invalid attendee count" });
 
   try {
     const result = await pool.query(
-      "INSERT INTO bookings (name, email, location, start_datetime, end_datetime, status, price) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-      [name, email, location, startDateTime, endDateTime, "pending", price]
+      "INSERT INTO bookings (name, email, location, start_datetime, end_datetime, status, price, attendee_range) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [
+        name,
+        email,
+        location,
+        startDateTime,
+        endDateTime,
+        "pending",
+        price,
+        attendeeRange,
+      ]
     );
 
     res.json({ success: true, message: "Booking submitted!", price });

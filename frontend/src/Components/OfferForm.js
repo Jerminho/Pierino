@@ -10,6 +10,7 @@ const OfferForm = () => {
     startDateTime: "",
     endDateTime: "",
     attendees: "",
+    attendeeRange: "",
   });
   const [estimatedPrice, setEstimatedPrice] = useState(null);
 
@@ -35,9 +36,22 @@ const OfferForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
     if (name === "attendees") {
+      const selectedOption = pricingOptions.find(
+        (option) => option.max.toString() === value
+      );
+      const selectedRange = `${selectedOption.min} - ${selectedOption.max}`;
+
+      setFormData({
+        ...formData,
+        attendees: value,
+        attendeeRange: selectedRange, // 👈 New field added
+      });
+
       setEstimatedPrice(calculatePrice(parseInt(value, 10)));
+    } else {
+      setFormData({ ...formData, [name]: value });
     }
   };
 
