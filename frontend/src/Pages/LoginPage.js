@@ -11,13 +11,16 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const res = await fetch(
+        "https://pierino-backend.herokuapp.com/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
       const data = await res.json();
 
@@ -41,9 +44,13 @@ export default function LoginPage() {
         onSubmit={handleLogin}
         className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm"
       >
-        <h2 className="text-2xl font-bold text-center text-pink-600 mb-6">Admin Login</h2>
+        <h2 className="text-2xl font-bold text-center text-pink-600 mb-6">
+          Admin Login
+        </h2>
 
-        {error && <p className="text-red-500 mb-4 text-sm text-center">{error}</p>}
+        {error && (
+          <p className="text-red-500 mb-4 text-sm text-center">{error}</p>
+        )}
 
         <input
           type="text"
