@@ -204,10 +204,10 @@ const ManagementScreen = () => {
                       Aantal bezoekers: {booking.attendee_range}
                     </p>
                     <p className="text-gray-600">
-                      Start: {booking.start_datetime.replace("T", " ")}
+                      Start: {new Date(booking.start_datetime).toLocaleString()}
                     </p>
                     <p className="text-gray-600">
-                      End: {booking.end_datetime.replace("T", " ")}
+                      End: {new Date(booking.end_datetime).toLocaleString()}
                     </p>
                     <p className={`font-bold ${statusColors.pending}`}>
                       Status: Pending
