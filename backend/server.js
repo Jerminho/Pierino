@@ -267,6 +267,37 @@ app.put("/bookings/:id/price", async (req, res) => {
   }
 });
 
+// 📌 API: Update Booking End Time
+app.put("/bookings/:id/endtime", async (req, res) => {
+  const { id } = req.params;
+  const { end_datetime } = req.body;
+
+  if (!end_datetime || isNaN(new Date(end_datetime).getTime())) {
+    return res.status(400).json({ error: "Invalid end_datetime value." });
+  }
+
+  try {
+    const result = await pool.query(
+      "UPDATE bookings SET end_datetime = $1 WHERE id = $2 AND status = 'pending' RETURNING *",
+      [end_datetime, id]
+    );
+
+    if (result.rowCount === 0) {
+      return res
+        .status(404)
+        .json({ error: "Pending booking not found or already processed." });
+    }
+
+    res.json({
+      success: true,
+      message: "End time updated successfully.",
+      updated: result.rows[0],
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // 📌 API: Send Offer Mail
 app.post("/send-offer", async (req, res) => {
   const { id } = req.body;

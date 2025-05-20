@@ -13,6 +13,7 @@ const ManagementScreen = () => {
   const [messages, setMessages] = useState({}); // State to store messages for each booking
   // State for editable prices
   const [editedPrices, setEditedPrices] = useState({});
+  const [editedEndTimes, setEditedEndTimes] = useState({});
 
   // 📌 Fetch bookings from the backend
   useEffect(() => {
@@ -62,6 +63,43 @@ const ManagementScreen = () => {
 
       // Optionally: Refresh pendingBookings or update state
       window.location.reload(); // 🔁 Reload page after success
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  };
+
+  // Handle end time input change
+  const handleEndTimeChange = (bookingId, newEndTime) => {
+    setEditedEndTimes((prev) => ({ ...prev, [bookingId]: newEndTime }));
+  };
+
+  // Handle saving updated end time
+  const saveEndTime = async (bookingId) => {
+    const newEnd = editedEndTimes[bookingId];
+    if (!newEnd || isNaN(new Date(newEnd).getTime())) {
+      alert("Please enter a valid date/time.");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `https://pierino-backend-a1790776fc10.herokuapp.com/bookings/${bookingId}/endtime`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ end_datetime: newEnd }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to update end time.");
+      }
+
+      alert("End time updated successfully.");
+      window.location.reload(); // Or optionally refresh local state
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -200,6 +238,29 @@ const ManagementScreen = () => {
                         💾 Save
                       </button>
                     </div>
+
+                    <div className="flex items-center gap-2 mt-2">
+                      <input
+                        type="datetime-local"
+                        className="border p-1 rounded"
+                        value={
+                          editedEndTimes[booking.id] ??
+                          new Date(booking.end_datetime)
+                            .toISOString()
+                            .slice(0, 16)
+                        }
+                        onChange={(e) =>
+                          handleEndTimeChange(booking.id, e.target.value)
+                        }
+                      />
+                      <button
+                        onClick={() => saveEndTime(booking.id)}
+                        className="bg-purple-500 text-white px-2 py-1 rounded"
+                      >
+                        💾 Save End
+                      </button>
+                    </div>
+
                     <p className="text-gray-600">
                       Aantal bezoekers: {booking.attendee_range}
                     </p>
