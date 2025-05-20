@@ -1,3 +1,4 @@
+const { DateTime } = require("luxon");
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -407,16 +408,19 @@ const addToGoogleCalendar = async (
     const calendarId =
       "3203d2e4dc7bb4918cd9263a49a2c17e6f4f1286aa400dd35e4e9dca0262fc0f@group.calendar.google.com"; // Use 'primary' for the default calendar
 
+    // Interpreteer de string/timestamp als lokale tijd in Brussels
+    const start = DateTime.fromISO(startDateTime, { zone: "Europe/Brussels" });
+    const end = DateTime.fromISO(endDateTime, { zone: "Europe/Brussels" });
     // Event object
     const event = {
       summary: `Booking by ${name}`,
       description: `Email: ${name}\nLocation: ${location}`,
       start: {
-        dateTime: new Date(startDateTime),
+        dateTime: start.toISO(),
         timeZone: "Europe/Brussels",
       },
       end: {
-        dateTime: new Date(endDateTime),
+        dateTime: end.toISO(),
         timeZone: "Europe/Brussels",
       },
     };
@@ -429,6 +433,9 @@ const addToGoogleCalendar = async (
     });
 
     console.log("Event added to Google Calendar:", response.data);
+    console.log("start.toISO():", start.toISO());
+    console.log("start.toUTC().toISO():", start.toUTC().toISO());
+    console.log("start.toFormat('HH:mm ZZZZ'):", start.toFormat("HH:mm ZZZZ"));
   } catch (error) {
     console.error("❌ Google Calendar Error:", error);
   }
