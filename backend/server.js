@@ -412,11 +412,11 @@ const addToGoogleCalendar = async (
       summary: `Booking by ${name}`,
       description: `Email: ${name}\nLocation: ${location}`,
       start: {
-        dateTime: `${startDateTime}`,
+        dateTime: new Date(startDateTime),
         timeZone: "Europe/Brussels",
       },
       end: {
-        dateTime: `${endDateTime}`,
+        dateTime: new Date(endDateTime),
         timeZone: "Europe/Brussels",
       },
     };
