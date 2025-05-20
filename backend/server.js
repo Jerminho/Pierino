@@ -411,6 +411,9 @@ const addToGoogleCalendar = async (
     // Interpreteer de string/timestamp als lokale tijd in Brussels
     const start = DateTime.fromISO(startDateTime, { zone: "Europe/Brussels" });
     const end = DateTime.fromISO(endDateTime, { zone: "Europe/Brussels" });
+    console.log("🧪 Parsed start:", start.toString());
+    console.log("🧪 Parsed end:", end.toString());
+
     // Event object
     const event = {
       summary: `Booking by ${name}`,
