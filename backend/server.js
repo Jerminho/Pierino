@@ -409,8 +409,10 @@ const addToGoogleCalendar = async (
       "3203d2e4dc7bb4918cd9263a49a2c17e6f4f1286aa400dd35e4e9dca0262fc0f@group.calendar.google.com"; // Use 'primary' for the default calendar
 
     // Interpreteer de string/timestamp als lokale tijd in Brussels
-    const start = DateTime.fromISO(startDateTime, { zone: "Europe/Brussels" });
-    const end = DateTime.fromISO(endDateTime, { zone: "Europe/Brussels" });
+    const start = DateTime.fromISO(startDateTime).setZone("Europe/Brussels");
+    const end = DateTime.fromISO(endDateTime).setZone("Europe/Brussels");
+    console.log("typeof startDateTime:", typeof startDateTime);
+    console.log("typeof endDateTime:", typeof endDateTime);
     console.log("🧪 Parsed start:", start.toString());
     console.log("🧪 Parsed end:", end.toString());
 
