@@ -344,20 +344,26 @@ app.delete("/delete-booking/:id", async (req, res) => {
       return res.status(404).json({ error: "Booking not found" });
     }
 
-    const { Status, StartDateTime, EndDateTime, Name, Location } =
+    const { status, start_datetime, end_datetime, name, location } =
       bookingResult.rows[0];
 
     // Delete from database
     const deleteQuery = "DELETE FROM bookings WHERE id = $1"; // Gebruik $1 voor parameterbinding
     await pool.query(deleteQuery, [id]);
 
+    console.log("Status from DB:", status);
+    console.log("Start:", start_datetime);
+    console.log("End:", end_datetime);
+    console.log("Name:", name);
+    console.log("Location:", location);
+
     // If booking was approved, remove it from Google Calendar
-    if (Status === "approved" || Status === "Approved") {
+    if (status === "approved" || status === "Approved") {
       eventRemoved = await removeFromGoogleCalendar(
-        Name,
-        Location,
-        StartDateTime,
-        EndDateTime
+        name,
+        location,
+        start_datetime,
+        end_datetime
       );
     }
 
