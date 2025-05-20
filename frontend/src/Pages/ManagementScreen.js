@@ -239,6 +239,15 @@ const ManagementScreen = () => {
                       </button>
                     </div>
 
+                    <p className="text-gray-600">
+                      Aantal bezoekers: {booking.attendee_range}
+                    </p>
+                    <p className="text-gray-600">
+                      Start: {new Date(booking.start_datetime).toLocaleString()}
+                    </p>
+                    <p className="text-gray-600">
+                      End: {new Date(booking.end_datetime).toLocaleString()}
+                    </p>
                     <div className="flex items-center gap-2 mt-2">
                       <input
                         type="datetime-local"
@@ -260,16 +269,6 @@ const ManagementScreen = () => {
                         💾 Save End
                       </button>
                     </div>
-
-                    <p className="text-gray-600">
-                      Aantal bezoekers: {booking.attendee_range}
-                    </p>
-                    <p className="text-gray-600">
-                      Start: {new Date(booking.start_datetime).toLocaleString()}
-                    </p>
-                    <p className="text-gray-600">
-                      End: {new Date(booking.end_datetime).toLocaleString()}
-                    </p>
                     <p className={`font-bold ${statusColors.pending}`}>
                       Status: Pending
                     </p>

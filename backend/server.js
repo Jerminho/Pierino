@@ -312,9 +312,17 @@ app.post("/send-offer", async (req, res) => {
     }
 
     const booking = result.rows[0];
-    const { name, email, location, start_datetime, price } = booking;
+    const { name, email, location, start_datetime, end_datetime, price } =
+      booking;
 
-    await sendOfferMail(name, email, location, start_datetime, price);
+    await sendOfferMail(
+      name,
+      email,
+      location,
+      start_datetime,
+      end_datetime,
+      price
+    );
 
     res.json({ success: true, message: "Offerte verzonden." });
   } catch (error) {
@@ -536,7 +544,14 @@ const sendConfirmationEmail = async (
 };
 
 // 📌 Function: Send Offer Mail
-const sendOfferMail = async (name, email, location, startDateTime, price) => {
+const sendOfferMail = async (
+  name,
+  email,
+  location,
+  startDateTime,
+  endDateTime,
+  price
+) => {
   const subject = `Offerte Pierino voor ${name} reservatie-aanvraag`;
 
   const body = `
@@ -545,6 +560,10 @@ const sendOfferMail = async (name, email, location, startDateTime, price) => {
       startDateTime
     ).toLocaleString("nl-BE")}</strong> te <strong>${location}</strong>,<br>
     voorzien wij een prijs van <strong>€${price}</strong>.<br><br>
+
+    Voor deze reservatie voorzien wij een eindtijd van <strong>${new Date(
+      endDateTime
+    ).toLocaleString("nl-BE")}</strong>.<br><br>
 
     Deze prijs is inclusief afstandsvergoeding en het voorzien van de gepaste hoeveelheid ijs. <br> <br>
 
