@@ -352,7 +352,7 @@ app.delete("/delete-booking/:id", async (req, res) => {
     await pool.query(deleteQuery, [id]);
 
     // If booking was approved, remove it from Google Calendar
-    if (Status === "approved") {
+    if (Status === "approved" || Status === "Approved") {
       eventRemoved = await removeFromGoogleCalendar(
         Name,
         Location,
