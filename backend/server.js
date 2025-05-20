@@ -266,6 +266,30 @@ app.put("/bookings/:id/price", async (req, res) => {
   }
 });
 
+// 📌 API: Send Offer Mail
+app.post("/send-offer", async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const result = await pool.query("SELECT * FROM bookings WHERE id = $1", [
+      id,
+    ]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Booking not found" });
+    }
+
+    const booking = result.rows[0];
+    const { name, email, location, start_datetime, price } = booking;
+
+    await sendOfferMail(name, email, location, start_datetime, price);
+
+    res.json({ success: true, message: "Offerte verzonden." });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // 📌 API: Delete Booking
 app.delete("/delete-booking/:id", async (req, res) => {
   const { id } = req.params;
@@ -464,6 +488,31 @@ const sendConfirmationEmail = async (
     to: email,
     subject: emailSubject,
     html: emailBody,
+  });
+};
+
+// 📌 Function: Send Offer Mail
+const sendOfferMail = async (name, email, location, startDateTime, price) => {
+  const subject = `Offerte Pierino voor ${name} reservatie-aanvraag`;
+
+  const body = `
+    Beste ${name},<br><br>
+    Voor jouw aanvraag om reservatie op <strong>${new Date(
+      startDateTime
+    ).toLocaleString("nl-BE")}</strong> te <strong>${location}</strong>,<br>
+    voorzien wij een prijs van <strong>€${price}</strong>.<br><br>
+
+    Deze prijs is inclusief afstandsvergoeding en het voorzien van de gepaste hoeveelheid ijs. <br> <br>
+
+    Gelieve ons een mail te sturen naar <a href="mailto:pierino@gmail.com">pierino@gmail.com</a>.<br><br>
+    Het Pierino team dankt u.
+  `;
+
+  await transporter.sendMail({
+    from: '"Pierino Team" <njinehappypierre@gmail.com>',
+    to: email,
+    subject,
+    html: body,
   });
 };
 

@@ -133,6 +133,31 @@ const ManagementScreen = () => {
     });
   };
 
+  const sendOffer = async (id) => {
+    try {
+      const res = await fetch(
+        "https://pierino-backend-a1790776fc10.herokuapp.com/send-offer",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id }),
+        }
+      );
+
+      const data = await res.json();
+      if (data.success) {
+        alert("Offerte succesvol verzonden!");
+      } else {
+        alert("Fout bij verzenden: " + data.error);
+      }
+    } catch (error) {
+      alert("Netwerkfout bij verzenden van offerte.");
+      console.error(error);
+    }
+  };
+
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Manage Bookings</h2>
@@ -199,6 +224,12 @@ const ManagementScreen = () => {
                     ></textarea>
 
                     <div className="mt-4 flex gap-2">
+                      <button
+                        onClick={() => sendOffer(booking.id)}
+                        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-2 rounded mr-2"
+                      >
+                        Stuur Offerte
+                      </button>
                       <button
                         onClick={() => updateBooking(booking.id, "approved")}
                         className="bg-green-500 text-white py-1 px-3 rounded-lg"
