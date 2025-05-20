@@ -435,7 +435,6 @@
   -webkit-transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   -o-transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  font-size: 29px;
   left: 41px;
   z-index: 1;
 }
@@ -879,7 +878,6 @@
     -webkit-transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     -o-transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    font-size: 29px;
     left: 10px;
   }
 
