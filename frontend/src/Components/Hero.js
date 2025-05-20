@@ -1,6 +1,6 @@
 import React from "react";
-import "./Hero.css"
-import logoIceCream from './images/pierino-logo.webp';
+import "./Hero.css";
+import logoIceCream from "./images/pierino-logo.webp";
 import iceCreamHeaderD from "./images/ice-cream-header-d.png";
 import iceCreamHeaderD2x from "./images/ice-cream-header-d@2x.png";
 import iceCreamHeaderT from "./images/ice-cream-header-t.png";
@@ -18,22 +18,36 @@ import girlIceCreamT from "./images/girl-icecream-t.png";
 import girlIceCreamT2x from "./images/girl-icecream-t@2x.png";
 
 const Hero = () => {
-
-  
   return (
     <header id="header" className="wrapper">
       <div className="js-menu-container">
         <button className="menu-toggle js-close-menu">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="currentcolor">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="currentcolor"
+          >
             <path d="M1.25925 1L14.7407 15" stroke="currentcolor" />
             <path d="M1 14.7407L15 1.25924" stroke="currentcolor" />
           </svg>
         </button>
         <div className="menu-drawer-navigation">
-          <button data-modal-open-mobile-buy type="button" className="submit-btn">
+          <button
+            data-modal-open-mobile-buy
+            type="button"
+            className="submit-btn"
+          >
             <span className="submit-btn-content">
               Manage
-              <svg xmlns="http://www.w3.org/2000/svg" width="7" height="10" viewBox="0 0 7 10" fill="none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="7"
+                height="10"
+                viewBox="0 0 7 10"
+                fill="none"
+              >
                 <path
                   d="M1.03772 1L5.71697 5L1.03772 9"
                   stroke="#D41443"
@@ -45,11 +59,25 @@ const Hero = () => {
             </span>
           </button>
           <ul className="menu-drawer">
-            <li><a href="/" className="link">Home</a></li>
-            <li><a href="ijs-bestellen" className="link">Bestellen</a></li>
-            <li><a href="offer" className="link">Reserveren</a></li>
+            <li>
+              <a href="/" className="link">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="ijs-bestellen" className="link">
+                Bestellen
+              </a>
+            </li>
+            <li>
+              <a href="offer" className="link">
+                Reserveren
+              </a>
+            </li>
             <li className="last-link">
-              <a href="contact" className="link">Contact</a>
+              <a href="contact" className="link">
+                Contact
+              </a>
             </li>
           </ul>
         </div>
@@ -80,11 +108,25 @@ const Hero = () => {
           {/* <!-- PC navigation menu --> */}
           <div>
             <ul className="menu-pc">
-              <li><a href="/" className="link">Home</a></li>
-              <li><a href="ijs-bestellen" className="link">Bestellen</a></li>
-              <li><a href="offer" className="link">Reserveren</a></li>
+              <li>
+                <a href="/" className="link">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="ijs-bestellen" className="link">
+                  Bestellen
+                </a>
+              </li>
+              <li>
+                <a href="offer" className="link">
+                  Reserveren
+                </a>
+              </li>
               <li className="last-link">
-                <a href="contact" className="link">Contact</a>
+                <a href="contact" className="link">
+                  Contact
+                </a>
               </li>
             </ul>
           </div>
@@ -92,18 +134,35 @@ const Hero = () => {
           <div className="header-buttons">
             {/* <!-- burger menu --> */}
             <button className="menu-button js-open-menu">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" fill="none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="14"
+                viewBox="0 0 20 14"
+                fill="none"
+              >
                 <path d="M0 1H20" stroke="#D41443" />
                 <path d="M0 7H20" stroke="#D41443" />
                 <path d="M0 13H20" stroke="#D41443" />
               </svg>
             </button>
 
-            <button data-modal-open-buy data-modal-open-mobile-buy type="button" className="submit-btn">
+            <button
+              data-modal-open-buy
+              data-modal-open-mobile-buy
+              type="button"
+              className="submit-btn"
+            >
               <span className="submit-btn-content">
                 <a href="\management">Manage</a>
-                
-                <svg xmlns="http://www.w3.org/2000/svg" width="7" height="10" viewBox="0 0 7 10" fill="none">
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="7"
+                  height="10"
+                  viewBox="0 0 7 10"
+                  fill="none"
+                >
                   <path
                     d="M1.03772 1L5.71697 5L1.03772 9"
                     stroke="#D41443"
@@ -131,7 +190,7 @@ const Hero = () => {
           {/* <!-- Mobile --> */}
           <source
             media="(min-width:480px)"
-            srcSet={`${iceCreamHeaderM}, ${iceCreamHeaderM2x} 2x`} 
+            srcSet={`${iceCreamHeaderM}, ${iceCreamHeaderM2x} 2x`}
           />
           {/* <!-- Fallback image for unsupported browsers --> */}
           <img src={iceCreamHeaderD} alt="Icecream cone" />
@@ -142,15 +201,19 @@ const Hero = () => {
         <div className="header-title">
           <div className="left-header-container">
             <h1>
-             Pierino ijs <br />
-              made with <br /><span className="passion">passion</span>
+              Pierino ijs <br />
+              made with <br />
+              <span className="passion">passion</span>
             </h1>
             <div className="hero-buttons">
-              <a className="link-hero-button hero-btn-red" href="\ijs-bestellen">
+              <a
+                className="link-hero-button hero-btn-red"
+                href="\ijs-bestellen"
+              >
                 <span className="btn-products">Bestellen</span>
               </a>
-              <a className="link-hero-button hero-btn" href="#about">
-                <span className="btn-about">Onze werkwijze</span>
+              <a className="link-hero-button hero-btn" href="\offer">
+                <span className="btn-about">Reserveren</span>
               </a>
             </div>
 
@@ -168,7 +231,7 @@ const Hero = () => {
                 />
                 {/* <!-- Fallback image for unsupported browsers --> */}
                 <img
-                  src={milkHeaderD} 
+                  src={milkHeaderD}
                   className="milk-header-img"
                   alt="bio milk"
                 />
@@ -176,15 +239,9 @@ const Hero = () => {
 
               <div className="milk-description">
                 <p>
-                Geniet van een bolletje ijs gemaakt met passie en trakteer je smaakpapillen op een onvergetelijke ervaring.
+                  Geniet van een bolletje ijs gemaakt met passie en trakteer je
+                  smaakpapillen op een onvergetelijke ervaring.
                 </p>
-                <a href="#about">
-                  <img
-                    src={arrowRight}
-                    className="link-how-its-made"
-                    alt="arrow right"
-                  />
-                </a>
               </div>
             </div>
           </div>
@@ -227,7 +284,11 @@ const Hero = () => {
         </div>
       </div>
       {/* <!-- modal  --> */}
-      <div className="modal-buy is-hidden-buy" data-modal-buy data-modal-mobile-buy>
+      <div
+        className="modal-buy is-hidden-buy"
+        data-modal-buy
+        data-modal-mobile-buy
+      >
         <div className="modal-content-buy">
           <button className="close-btn-buy" data-modal-close-buy>
             <svg
@@ -279,11 +340,7 @@ const Hero = () => {
                 className="form-buy-email"
                 placeholder="Email"
               />
-              <input
-                type="submit"
-                className="submit-btn-buy"
-                value="Submit"
-              />
+              <input type="submit" className="submit-btn-buy" value="Submit" />
             </div>
           </form>
         </div>
