@@ -229,6 +229,10 @@
   letter-spacing: 0.24px;
 }
 
+h2.card-heading {
+  border-bottom: none;
+}
+
 /* Tablet */
 @media screen and (min-width: 768px) {
   .content {
@@ -403,10 +407,10 @@
   }
 
   @media (min-device-pixel-ratio: 2),
-    (-webkit-min-device-pixel-ratio: 2),
-    (-o-min-device-pixel-ratio: 2/1),
-    (min-resolution: 192dpi),
-    (min-resolution: 2dppx) {
+  (-webkit-min-device-pixel-ratio: 2),
+  (-o-min-device-pixel-ratio: 2/1),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
     .about-and-advantages {
       background-image: url(../Components/images/milk-bg-x2-d.png);
       width: 100%;
