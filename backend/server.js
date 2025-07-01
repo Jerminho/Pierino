@@ -395,7 +395,7 @@ const removeFromGoogleCalendar = async (
   try {
     const authClient = await auth.getClient();
     const calendarId =
-      "3203d2e4dc7bb4918cd9263a49a2c17e6f4f1286aa400dd35e4e9dca0262fc0f@group.calendar.google.com";
+      "9f77cf8e6dd08b5b4c921d6a6d181e61f519ad55eab6a08fdf584361307dcc62@group.calendar.google.com";
 
     // Search for the event
     const events = await calendar.events.list({
@@ -451,7 +451,7 @@ const addToGoogleCalendar = async (
 
     const authClient = await auth.getClient();
     const calendarId =
-      "3203d2e4dc7bb4918cd9263a49a2c17e6f4f1286aa400dd35e4e9dca0262fc0f@group.calendar.google.com"; // Use 'primary' for the default calendar
+      "9f77cf8e6dd08b5b4c921d6a6d181e61f519ad55eab6a08fdf584361307dcc62@group.calendar.google.com"; // Use 'primary' for the default calendar
 
     // Interpreteer de string/timestamp als lokale tijd in Brussels
     const start = DateTime.fromJSDate(startDateTime).setZone("Europe/Brussels");
@@ -542,7 +542,7 @@ const sendConfirmationEmail = async (
 
   // Send email to the client
   await transporter.sendMail({
-    from: '"NH-Test" <njinehappypierre@gmail.com>',
+    from: '"Pierino Team" <pierino.reservaties@gmail.com>',
     to: email,
     subject: emailSubject,
     html: emailBody,
@@ -573,12 +573,12 @@ const sendOfferMail = async (
 
     Deze prijs is inclusief afstandsvergoeding en het voorzien van de gepaste hoeveelheid ijs. <br> <br>
 
-    Gelieve ons een mail te sturen naar <a href="mailto:pierino@gmail.com">pierino@gmail.com</a>.<br><br>
-    Het Pierino team dankt u.
+    Gelieve ons een mail te sturen naar <a href="mailto:pierino.reservaties@gmail.com">pierino.reservaties@gmail.com</a>.<br><br>
+    Het Pierino Team dankt u.
   `;
 
   await transporter.sendMail({
-    from: '"Pierino Team" <njinehappypierre@gmail.com>',
+    from: '"Pierino Team" <pierino.reservaties@gmail.com>',
     to: email,
     subject,
     html: body,
@@ -623,8 +623,8 @@ const sendConfirmationEmailToAdmin = async (
 
   // Send email to the admin (your email)
   await transporter.sendMail({
-    from: '"NH-Test" <njinehappypierre@gmail.com>',
-    to: "njinehappypierre@gmail.com", // You can set an environment variable for admin email
+    from: '"Pierino Team" <pierino.reservaties@gmail.com>',
+    to: "pierino.reservaties@gmail.com", // You can set an environment variable for admin email
     subject: emailSubject,
     html: emailBody,
   });
