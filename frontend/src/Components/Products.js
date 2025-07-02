@@ -66,9 +66,11 @@ const Products = () => {
             <svg className="dots-product">
               <use href={`${symbols}#icon-dots-dots`}></use>
             </svg>
-            <a href="offer" className="paragraph-coffee-product">
-              Reserveer jouw ijskar vandaag! Maak je evenement extra speciaal
-              met onze ijskar vol heerlijk ambachtelijk ijs!
+            <a href="offer">
+              <p className="paragraph-coffee-product">
+                Reserveer jouw ijskar vandaag! Maak je evenement extra speciaal
+                met onze ijskar vol heerlijk ambachtelijk ijs!
+              </p>
             </a>
             <div className="icons">
               <svg className="arrow-right-product">
@@ -76,10 +78,12 @@ const Products = () => {
               </svg>
             </div>
             <div className="product__overlay">
-              <p className="product__text">
-                Of het nu gaat om een feest, bruiloft of bedrijfsbijeenkomst –
-                wij zorgen voor een onvergetelijke ervaring.
-              </p>
+              <a href="offer">
+                <p className="product__text">
+                  Of het nu gaat om een feest, bruiloft of bedrijfsbijeenkomst –
+                  wij zorgen voor een onvergetelijke ervaring.
+                </p>
+              </a>
             </div>
           </div>
           <div className="rectangle-3-product">
