@@ -81,7 +81,6 @@ const OfferForm = () => {
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
         />
-
         <input
           type="email"
           name="email"
@@ -91,7 +90,6 @@ const OfferForm = () => {
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
         />
-
         <input
           type="text"
           name="location"
@@ -101,7 +99,9 @@ const OfferForm = () => {
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
         />
-
+        <label htmlFor="startDateTime" className="block mb-1 font-medium">
+          Start Date & Time
+        </label>
         <input
           type="datetime-local"
           name="startDateTime"
@@ -109,8 +109,11 @@ const OfferForm = () => {
           onChange={handleChange}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
-        />
-
+        />{" "}
+        <br />
+        <label htmlFor="endDateTime" className="block mb-1 font-medium">
+          End Date & Time
+        </label>
         <input
           type="datetime-local"
           name="endDateTime"
@@ -119,7 +122,6 @@ const OfferForm = () => {
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
         />
-
         <select
           name="attendees"
           value={formData.attendees}
@@ -134,12 +136,10 @@ const OfferForm = () => {
             </option>
           ))}
         </select>
-
         <p className="text-sm font-semibold text-pink-600 text-center">
           Na het versturen van uw offerteaanvraag ontvangt u een voorstel binnen
           de 24u.
         </p>
-
         <button
           type="submit"
           className="w-full py-3 px-6 bg-gradient-to-r from-pink-400 to-red-400 hover:from-pink-300 hover:to-red-300 text-white font-bold rounded-lg transition-all duration-300"

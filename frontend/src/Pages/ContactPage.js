@@ -12,7 +12,7 @@ function ContactPage() {
     const formData = new FormData(event.target);
 
     formData.append("access_key", "8661fa52-27ac-4ad7-9c82-459d860bdf53");
-    formData.append("recipient", "info@pierinoijs.be");
+    formData.append("recipient", "info@pierinoijs.be,");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -37,7 +37,6 @@ function ContactPage() {
   };
 
   return (
-    
     <div
       className="flex flex-col min-h-screen justify-between relative overflow-hidden"
       style={{
@@ -53,7 +52,8 @@ function ContactPage() {
           </h1>
 
           <p className="text-base sm:text-lg text-white mb-6">
-          Neem gerust contact met ons op via de onderstaande gegevens en we helpen je met plezier verder.
+            Neem gerust contact met ons op via de onderstaande gegevens en we
+            helpen je met plezier verder.
           </p>
 
           <form
@@ -104,4 +104,3 @@ function ContactPage() {
 }
 
 export default ContactPage;
-
