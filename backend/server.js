@@ -218,16 +218,26 @@ app.post("/update-booking", async (req, res) => {
         end_datetime
       );
     } else {
-      subject = "❌ Booking Declined";
+      subject = "Pierino Booking Declined ";
       text = `Hello ${name}, unfortunately, your booking at ${location} has been declined.`;
+      emailBody = `
+      <h3>Booking Declined</h3>
+      <p>Dear ${name},</p>
+      <p>Thank you for your interest in booking at <strong>${location}</strong>.</p>
+      <p>Unfortunately, we are unable to accommodate your booking at this time.</p> 
+      <p>You are very welcome to submit a new booking request for a different date or time.</p><br>
+      <p>If you have any questions or need assistance, please feel free to contact us.</p><br>
+      <p>Kind regards,<br>The Pierino Team</p>
+    `;
     }
 
     // Send email to the client
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: `"Pierino Team" <${process.env.EMAIL_USER}>`,
       to: email,
       subject,
       text,
+      html: emailBody,
     });
 
     res.json({ success: true, message: `Booking ${status}.` });
@@ -503,7 +513,7 @@ const sendConfirmationEmail = async (
 ) => {
   const emailSubject = `Booking Confirmation - ${name}`;
   const emailBody = `
-      <h3>Booking Confirmation</h3>
+     
       <p>Dear ${name},</p>
       <p>Thank you for your booking. Here are the details:</p>
       <ul>
