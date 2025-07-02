@@ -61,7 +61,7 @@ const Products = () => {
             </div>
           </div>
 
-          <Link to="/offer" className="rectangle-2-product">
+          <Link to="/offer">
             <div className="rectangle-2-product">
               <h3 className="coffee-title-product">Reserveren</h3>
               <svg className="dots-product">
