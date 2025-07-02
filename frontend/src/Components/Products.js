@@ -61,30 +61,30 @@ const Products = () => {
             </div>
           </div>
 
-          <div className="rectangle-2-product">
-            <a href="offer">
+          <a href="offer">
+            <div className="rectangle-2-product">
               <h3 className="coffee-title-product">Reserveren</h3>
-            </a>
 
-            <svg className="dots-product">
-              <use href={`${symbols}#icon-dots-dots`}></use>
-            </svg>
-            <p className="paragraph-coffee-product">
-              Reserveer jouw ijskar vandaag! Maak je evenement extra speciaal
-              met onze ijskar vol heerlijk ambachtelijk ijs!
-            </p>
-            <div className="icons">
-              <svg className="arrow-right-product">
-                <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
+              <svg className="dots-product">
+                <use href={`${symbols}#icon-dots-dots`}></use>
               </svg>
-            </div>
-            <div className="product__overlay">
-              <p className="product__text">
-                Of het nu gaat om een feest, bruiloft of bedrijfsbijeenkomst –
-                wij zorgen voor een onvergetelijke ervaring.
+              <p className="paragraph-coffee-product">
+                Reserveer jouw ijskar vandaag! Maak je evenement extra speciaal
+                met onze ijskar vol heerlijk ambachtelijk ijs!
               </p>
+              <div className="icons">
+                <svg className="arrow-right-product">
+                  <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
+                </svg>
+              </div>
+              <div className="product__overlay">
+                <p className="product__text">
+                  Of het nu gaat om een feest, bruiloft of bedrijfsbijeenkomst –
+                  wij zorgen voor een onvergetelijke ervaring.
+                </p>
+              </div>
             </div>
-          </div>
+          </a>
           <div className="rectangle-3-product">
             <h3 className="milkshake-title-product">Contacteren</h3>
             <svg className="dots-product">
