@@ -104,6 +104,7 @@ const OfferForm = () => {
         </label>
         <input
           type="datetime-local"
+          id="startDateTime"
           name="startDateTime"
           value={formData.startDateTime}
           onChange={handleChange}
@@ -116,6 +117,7 @@ const OfferForm = () => {
         </label>
         <input
           type="datetime-local"
+          id="endDateTime"
           name="endDateTime"
           value={formData.endDateTime}
           onChange={handleChange}
