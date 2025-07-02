@@ -45,8 +45,8 @@ function ContactPage() {
         backgroundPosition: "center",
       }}
     >
-      <main className="flex flex-col items-center justify-center flex-grow text-center relative z-20 p-6">
-        <div className="relative z-20 p-5 text-white bg-pink-400 bg-opacity-50 rounded-xl mx-2 sm:mx-4 shadow-lg">
+      <main className="flex flex-col items-center justify-center flex-grow text-center relative p-6">
+        <div className="relative p-5 text-white bg-pink-400 bg-opacity-50 rounded-xl mx-2 sm:mx-4 shadow-lg">
           <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
             Contacteer ons
           </h1>

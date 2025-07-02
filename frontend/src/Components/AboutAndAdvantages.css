@@ -535,3 +535,7 @@ h2.card-heading {
     width: 288px;
   }
 }
+
+button.about-button {
+  display: none;
+}
