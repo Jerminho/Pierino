@@ -117,7 +117,7 @@ app.post("/book", async (req, res) => {
       ]
     );
 
-    res.json({ success: true, message: "Booking submitted!", price });
+    res.json({ success: true, message: "Booking submitted! You will receive a quotation (offerte) from us within 24 hours. Please also check your spam folder", price });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
