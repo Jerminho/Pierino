@@ -44,20 +44,24 @@ const Products = () => {
             <svg className="dots-product">
               <use href={`${symbols}#icon-dots-dots`}></use>
             </svg>
-            <p className="paragraph-strawberry-product">
-              Zin in verfrissend, ambachtelijk ijs? Bestel nu en trakteer jezelf
-              op de lekkerste smaken!
-            </p>
+            <a href="ijs-bestellen">
+              <p className="paragraph-strawberry-product">
+                Zin in verfrissend, ambachtelijk ijs? Bestel nu en trakteer
+                jezelf op de lekkerste smaken!
+              </p>
+            </a>
             <div className="icons">
               <svg className="arrow-right-product">
                 <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
               </svg>
             </div>
             <div className="product__overlay">
-              <p className="product__text">
-                Of je nu thuis geniet of een feest plant, wij zorgen voor het
-                perfecte ijsmoment. ❄️✨
-              </p>
+              <a href="ijs-bestellen">
+                <p className="product__text">
+                  Of je nu thuis geniet of een feest plant, wij zorgen voor het
+                  perfecte ijsmoment. ❄️✨
+                </p>
+              </a>
             </div>
           </div>
 
@@ -91,20 +95,24 @@ const Products = () => {
             <svg className="dots-product">
               <use href={`${symbols}#icon-dots-dots`}></use>
             </svg>
-            <p className="paragraph-milkshake-product">
-              Heb je vragen, wil je een bestelling plaatsen of een ijskar
-              reserveren? Neem gerust contact met ons op!
-            </p>
+            <a href="contact">
+              <p className="paragraph-milkshake-product">
+                Heb je vragen, wil je een bestelling plaatsen of een ijskar
+                reserveren? Neem gerust contact met ons op!
+              </p>
+            </a>
             <div className="icons">
               <svg className="arrow-right-product">
                 <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
               </svg>
             </div>
             <div className="product__overlay">
-              <p className="product__text">
-                Wij helpen je met plezier verder. Stuur ons een bericht en we
-                reageren zo snel mogelijk!
-              </p>
+              <a href="contact">
+                <p className="product__text">
+                  Wij helpen je met plezier verder. Stuur ons een bericht en we
+                  reageren zo snel mogelijk!
+                </p>
+              </a>
             </div>
           </div>
         </div>
