@@ -117,7 +117,12 @@ app.post("/book", async (req, res) => {
       ]
     );
 
-    res.json({ success: true, message: "Booking submitted! You will receive a quotation (offerte) from us within 24 hours. Please also check your spam folder", price });
+    res.json({
+      success: true,
+      message:
+        "Booking submitted! You will receive a quotation (offerte) from us within 24 hours. Please also check your spam folder",
+      price,
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -192,6 +197,15 @@ app.post("/update-booking", async (req, res) => {
       text = message
         ? `Hello ${name}, your booking at ${location} has been approved! Additional Message: ${message}`
         : `Hello ${name}, your booking at ${location} has been approved! The Pierino team thanks you.`;
+
+      emailBody = `
+        <h3>Booking Approved</h3>
+        <p>Dear ${name},</p>
+        <p>Your booking at <strong>${location}</strong> has been approved!</p>
+        ${message ? `<p><strong>Message:</strong> ${message}</p>` : ""}
+        <p>We look forward to serving you.</p>
+        <p>Kind regards,<br>The Pierino Team</p>
+      `;
 
       // Add event to Google Calendar
       console.log("📅 Voeg toe aan Google Calendar...");
