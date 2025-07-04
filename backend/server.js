@@ -142,6 +142,30 @@ app.post("/book", async (req, res) => {
       html: emailBody,
     });
 
+    await transporter.sendMail({
+      from: `"Pierino Notificaties" <${process.env.EMAIL_USER}>`,
+      to: "pierino.reservaties@gmail.com",
+      subject: "❗ Nieuwe Offerteaanvraag - Actie vereist",
+      text: `${name} heeft een nieuwe offerteaanvraag ingediend.`,
+      html: `
+        <h2 style="color: red;">❗ Nieuwe Offerteaanvraag</h2>
+        <p><strong>Naam:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Locatie:</strong> ${location}</p>
+        <p><strong>Datum:</strong> ${new Date(
+          startDateTime
+        ).toLocaleString()} – ${new Date(endDateTime).toLocaleString()}</p>
+        <p><strong>Aantal personen:</strong> ${attendeeRange}</p>
+        <p><strong>Geschatte prijs:</strong> €${price}</p>
+        <p style="color: red; font-weight: bold;">⚠️ Controleer deze aanvraag zo snel mogelijk!</p>
+      `,
+      headers: {
+        "X-Priority": "1", // 1 = Highest priority
+        "X-MSMail-Priority": "High",
+        Importance: "high",
+      },
+    });
+
     res.json({
       success: true,
       message:
