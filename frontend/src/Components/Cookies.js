@@ -1,30 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import "./Cookies.css"
+import React, { useState, useEffect } from "react";
+import "./Cookies.css";
 
 const Cookies = () => {
-  const [isCookieAccepted, setIsCookieAccepted] = useState(false);
+  const [hasConsented, setHasConsented] = useState(false);
 
-  // Controleer of de gebruiker al akkoord is gegaan met cookies
   useEffect(() => {
-    const cookieConsent = localStorage.getItem('cookieConsent');
-    if (cookieConsent === 'true') {
-      setIsCookieAccepted(true);
+    const cookieConsent = localStorage.getItem("cookieConsent");
+    if (cookieConsent === "true" || cookieConsent === "false") {
+      setHasConsented(true);
     }
   }, []);
 
-  // Cookie toestemming opslaan
   const acceptCookies = () => {
-    localStorage.setItem('cookieConsent', 'true');
-    setIsCookieAccepted(true);
+    localStorage.setItem("cookieConsent", "true");
+    setHasConsented(true);
   };
 
   const declineCookies = () => {
-    localStorage.setItem('cookieConsent', 'false');
-    setIsCookieAccepted(false);
+    localStorage.setItem("cookieConsent", "false");
+    setHasConsented(true);
   };
 
-  // Als de gebruiker akkoord is gegaan, tonen we geen cookie banner meer
-  if (isCookieAccepted) {
+  if (hasConsented) {
     return null;
   }
 
@@ -32,7 +29,9 @@ const Cookies = () => {
     <div className="cookie-banner">
       <div className="cookie-banner-content">
         <p>
-          Wij gebruiken cookies om uw ervaring op onze website te verbeteren. Door verder te gaan met het gebruiken van de site gaat u akkoord met ons gebruik van cookies.
+          Wij gebruiken cookies om uw ervaring op onze website te verbeteren.
+          Door verder te gaan met het gebruiken van de site gaat u akkoord met
+          ons gebruik van cookies.
         </p>
         <div className="cookie-banner-actions">
           <button className="btn-accept" onClick={acceptCookies}>
