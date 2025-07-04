@@ -88,7 +88,6 @@ const calculatePrice = (attendees) => {
 // 📌 API: Get Pricing Options
 app.get("/pricing", (req, res) => res.json(pricingRanges));
 
-// 📌 API: Submit a Booking
 app.post("/book", async (req, res) => {
   const {
     name,
@@ -117,13 +116,40 @@ app.post("/book", async (req, res) => {
       ]
     );
 
+    // ✅ Send confirmation email
+    const subject = "Offerteaanvraag ontvangen – Pierino";
+    const text = `Bedankt ${name}, we hebben je aanvraag ontvangen voor een ijskar op ${location}. We sturen binnen 24u een voorstel.`;
+
+    const emailBody = `
+      <h3>Offerteaanvraag Bevestiging</h3>
+      <p>Beste ${name},</p>
+      <p>Bedankt voor je aanvraag voor een ijskar op <strong>${location}</strong>.</p>
+      <p>Wij bekijken je aanvraag en sturen binnen de 24u een voorstel terug.</p>
+      <p><strong>Datum:</strong> ${new Date(
+        startDateTime
+      ).toLocaleString()} – ${new Date(endDateTime).toLocaleString()}</p>
+      <p><strong>Aantal personen:</strong> ${attendeeRange}</p>
+      <p><strong>Geschatte prijs:</strong> €${price}</p>
+      <br/>
+      <p>Met vriendelijke groet,<br>Team Pierino</p>
+    `;
+
+    await transporter.sendMail({
+      from: `"Pierino Team" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject,
+      text,
+      html: emailBody,
+    });
+
     res.json({
       success: true,
       message:
-        "Booking submitted! You will receive a quotation (offerte) from us within 24 hours. Please also check your spam folder",
+        "Booking submitted! You will receive a quotation (offerte) from us within 24 hours. Please also check your spam folder.",
       price,
     });
   } catch (error) {
+    console.error("❌ Booking submission failed:", error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -193,10 +219,10 @@ app.post("/update-booking", async (req, res) => {
     let subject, text;
 
     if (status === "approved") {
-      subject = "🎉 Booking Approved!";
+      subject = "Booking Approved!";
       text = message
         ? `Hello ${name}, your booking at ${location} has been approved! Additional Message: ${message}`
-        : `Hello ${name}, your booking at ${location} has been approved! The Pierino team thanks you.`;
+        : `Hello ${name}, your booking at ${location} has been approved! The Pierino Team thanks you.`;
 
       emailBody = `
         <h3>Booking Approved</h3>
@@ -550,7 +576,7 @@ const sendConfirmationEmail = async (
           minute: "2-digit",
         })}</li>
       </ul>
-      <p>${message || "The Pierino team thanks you."}</p>
+      <p>${message || "The Pierino Team thanks you."}</p>
       <p>You can view your event in your Google Calendar: <a href="https://calendar.google.com/calendar/r/eventedit?text=Booking+by+${name}&dates=${new Date(
     startDateTime
   )
@@ -597,7 +623,8 @@ const sendOfferMail = async (
 
     Deze prijs is inclusief afstandsvergoeding en het voorzien van de gepaste hoeveelheid ijs. <br> <br>
 
-    Gelieve ons een mail te sturen naar <a href="mailto:pierino.reservaties@gmail.com">pierino.reservaties@gmail.com</a>.<br><br>
+    Gelieve te reageren op deze mail ter bevestiging van dit voorstel.<br><br>
+    
     Het Pierino Team dankt u.
   `;
 
