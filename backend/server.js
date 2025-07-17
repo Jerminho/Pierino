@@ -111,6 +111,7 @@ app.post("/book", async (req, res) => {
         startDateTime,
         endDateTime,
         "pending",
+        price,
         attendeeRange,
       ]
     );
@@ -128,6 +129,7 @@ app.post("/book", async (req, res) => {
         startDateTime
       ).toLocaleString()} – ${new Date(endDateTime).toLocaleString()}</p>
       <p><strong>Aantal personen:</strong> ${attendeeRange}</p>
+      <p><strong>Geschatte prijs:</strong> €${price}</p>
       <br/>
       <p>Met vriendelijke groet,<br>Team Pierino</p>
     `;
