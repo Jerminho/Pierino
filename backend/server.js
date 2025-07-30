@@ -97,13 +97,14 @@ app.post("/book", async (req, res) => {
     endDateTime,
     attendees,
     attendeeRange,
+    commentary,
   } = req.body;
   const price = calculatePrice(attendees);
   if (!price) return res.status(400).json({ error: "Invalid attendee count" });
 
   try {
     const result = await pool.query(
-      "INSERT INTO bookings (name, email, location, start_datetime, end_datetime, status, price, attendee_range) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      "INSERT INTO bookings (name, email, location, start_datetime, end_datetime, status, price, attendee_range, commentary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
       [
         name,
         email,
@@ -113,6 +114,7 @@ app.post("/book", async (req, res) => {
         "pending",
         price,
         attendeeRange,
+        commentary || null,
       ]
     );
 
@@ -156,6 +158,7 @@ app.post("/book", async (req, res) => {
         ).toLocaleString()} – ${new Date(endDateTime).toLocaleString()}</p>
         <p><strong>Aantal personen:</strong> ${attendeeRange}</p>
         <p><strong>Geschatte prijs:</strong> €${price}</p>
+        <p><strong>Opmerking klant:</strong> ${commentary || "Geen"}</p>
         <p style="color: red; font-weight: bold;">⚠️ Controleer deze aanvraag zo snel mogelijk!</p>
       `,
       headers: {
