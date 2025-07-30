@@ -98,13 +98,17 @@ app.post("/book", async (req, res) => {
     attendees,
     attendeeRange,
     commentary,
+    wantsInvoice,
+    invoiceVAT,
+    invoiceName,
+    invoiceAddress,
   } = req.body;
   const price = calculatePrice(attendees);
   if (!price) return res.status(400).json({ error: "Invalid attendee count" });
 
   try {
     const result = await pool.query(
-      "INSERT INTO bookings (name, email, location, start_datetime, end_datetime, status, price, attendee_range, commentary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+      "INSERT INTO bookings (name, email, location, start_datetime, end_datetime, status, price, attendee_range, commentary, wants_invoice, invoice_vat, invoice_name, invoice_address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *",
       [
         name,
         email,
@@ -115,6 +119,10 @@ app.post("/book", async (req, res) => {
         price,
         attendeeRange,
         commentary || null,
+        wantsInvoice || false,
+        invoiceVAT || null,
+        invoiceName || null,
+        invoiceAddress || null,
       ]
     );
 
@@ -156,7 +164,18 @@ app.post("/book", async (req, res) => {
         <p><strong>Datum:</strong> ${new Date(
           startDateTime
         ).toLocaleString()} – ${new Date(endDateTime).toLocaleString()}</p>
-        <p><strong>Aantal personen:</strong> ${attendeeRange}</p>
+        <p><strong>Aantal personen:</strong> ${attendeeRange}</p> <br/>
+        ${
+          wantsInvoice
+            ? `
+      <h4>Facturatiegegevens</h4>
+      <p><strong>BTW-nummer:</strong> ${invoiceVAT}</p>
+      <p><strong>Bedrijfsnaam:</strong> ${invoiceName}</p>
+      <p><strong>Adres:</strong> ${invoiceAddress}</p>
+    `
+            : `<p><strong>Factuur gewenst:</strong> Nee</p>`
+        }
+
         <p><strong>Geschatte prijs:</strong> €${price}</p>
         <p><strong>Opmerking klant:</strong> ${commentary || "Geen"}</p>
         <p style="color: red; font-weight: bold;">⚠️ Controleer deze aanvraag zo snel mogelijk!</p>
