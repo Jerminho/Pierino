@@ -6,7 +6,10 @@ const OfferForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    location: "",
+    street: "",
+    number: "",
+    postalCode: "",
+    city: "",
     startDateTime: "",
     endDateTime: "",
     attendees: "",
@@ -57,8 +60,16 @@ const OfferForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const fullLocation = `${formData.street} ${formData.number} ${formData.postalCode} ${formData.city}`;
+
+    const payload = {
+      ...formData,
+      location: fullLocation, // 👈 send combined location
+    };
+
     try {
-      const response = await axios.post(`${API_URL}/book`, formData); // Send booking data to the live backend
+      const response = await axios.post(`${API_URL}/book`, payload); // Send booking data to the live backend
       alert(response.data.message);
       window.location.reload(); // Reload the page
     } catch (error) {
@@ -92,12 +103,39 @@ const OfferForm = () => {
         />
         <input
           type="text"
-          name="location"
-          placeholder="Event Location"
-          value={formData.location}
+          name="street"
+          placeholder="Straat"
+          value={formData.street}
           onChange={handleChange}
-          className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
+          className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <input
+          type="text"
+          name="number"
+          placeholder="Nummer"
+          value={formData.number}
+          onChange={handleChange}
+          required
+          className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <input
+          type="text"
+          name="postalCode"
+          placeholder="Postcode"
+          value={formData.postalCode}
+          onChange={handleChange}
+          required
+          className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <input
+          type="text"
+          name="city"
+          placeholder="Gemeente"
+          value={formData.city}
+          onChange={handleChange}
+          required
+          className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
         />
         <label htmlFor="startDateTime" className="block mb-1 font-medium">
           Start Date & Time
