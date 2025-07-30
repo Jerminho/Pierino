@@ -18,7 +18,10 @@ const OfferForm = () => {
     wantsInvoice: "", // "yes" or "no"
     invoiceVAT: "",
     invoiceName: "",
-    invoiceAddress: "",
+    invoiceStreet: "",
+    invoiceNumber: "",
+    invoicePostalCode: "",
+    invoiceCity: "",
   });
   const [estimatedPrice, setEstimatedPrice] = useState(null);
 
@@ -69,6 +72,7 @@ const OfferForm = () => {
     const fullLocation = `${formData.street} ${formData.number} ${formData.postalCode} ${formData.city}`;
 
     const wantsInvoice = formData.wantsInvoice === "yes";
+    const invoiceAddress = `${formData.invoiceStreet} ${formData.invoiceNumber} ${formData.invoicePostalCode} ${formData.invoiceCity}`;
 
     const payload = {
       ...formData,
@@ -77,7 +81,7 @@ const OfferForm = () => {
       wantsInvoice,
       invoiceVAT: wantsInvoice ? formData.invoiceVAT : null,
       invoiceName: wantsInvoice ? formData.invoiceName : null,
-      invoiceAddress: wantsInvoice ? formData.invoiceAddress : null,
+      invoiceAddress: wantsInvoice ? invoiceAddress : null,
     };
 
     try {
@@ -243,9 +247,39 @@ const OfferForm = () => {
             />
             <input
               type="text"
-              name="invoiceAddress"
-              placeholder="Facturatieadres"
-              value={formData.invoiceAddress}
+              name="invoiceStreet"
+              placeholder="Straat"
+              value={formData.invoiceStreet}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+            />
+
+            <input
+              type="text"
+              name="invoiceNumber"
+              placeholder="Nummer"
+              value={formData.invoiceNumber}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+            />
+
+            <input
+              type="text"
+              name="invoicePostalCode"
+              placeholder="Postcode"
+              value={formData.invoicePostalCode}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+            />
+
+            <input
+              type="text"
+              name="invoiceCity"
+              placeholder="Gemeente"
+              value={formData.invoiceCity}
               onChange={handleChange}
               required
               className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
