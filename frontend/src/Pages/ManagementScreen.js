@@ -269,6 +269,11 @@ const ManagementScreen = () => {
                         💾 Save End
                       </button>
                     </div>
+
+                    <p className="text-gray-600">
+                      Opmerking: {booking.commentary}
+                    </p>
+
                     <p className={`font-bold ${statusColors.pending}`}>
                       Status: Pending
                     </p>
@@ -302,6 +307,13 @@ const ManagementScreen = () => {
                       >
                         ❌ Decline
                       </button>
+                      <br />
+                      <button
+                        onClick={() => deleteBooking(booking.id)}
+                        className="bg-gray-500 text-white py-1 px-3 rounded-lg mt-2"
+                      >
+                        🗑️ Delete
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -334,6 +346,11 @@ const ManagementScreen = () => {
                     <p className="text-gray-600">
                       End: {new Date(booking.end_datetime).toLocaleString()}
                     </p>
+
+                    <p className="text-gray-600">
+                      Opmerking: {booking.commentary}
+                    </p>
+
                     <p className={`font-bold ${statusColors.approved}`}>
                       Status: Approved
                     </p>
@@ -375,6 +392,11 @@ const ManagementScreen = () => {
                     <p className="text-gray-600">
                       End: {new Date(booking.end_datetime).toLocaleString()}
                     </p>
+
+                    <p className="text-gray-600">
+                      Opmerking: {booking.commentary}
+                    </p>
+
                     <p className={`font-bold ${statusColors.declined}`}>
                       Status: Declined
                     </p>
