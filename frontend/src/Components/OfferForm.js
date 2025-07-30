@@ -14,6 +14,7 @@ const OfferForm = () => {
     endDateTime: "",
     attendees: "",
     attendeeRange: "",
+    commentary: "",
   });
   const [estimatedPrice, setEstimatedPrice] = useState(null);
 
@@ -66,6 +67,7 @@ const OfferForm = () => {
     const payload = {
       ...formData,
       location: fullLocation, // 👈 send combined location
+      commentary: formData.commentary,
     };
 
     try {
@@ -176,6 +178,14 @@ const OfferForm = () => {
             </option>
           ))}
         </select>
+        <textarea
+          name="commentary"
+          placeholder="Extra opmerkingen (bv. over de locatie, voorkeuren...)"
+          value={formData.commentary}
+          onChange={handleChange}
+          className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+          rows={4}
+        />
         <p className="text-sm font-semibold text-pink-600 text-center">
           Na het versturen van uw offerteaanvraag ontvangt u een voorstel binnen
           de 24u.
