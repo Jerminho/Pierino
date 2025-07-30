@@ -15,6 +15,10 @@ const OfferForm = () => {
     attendees: "",
     attendeeRange: "",
     commentary: "",
+    wantsInvoice: "", // "yes" or "no"
+    invoiceVAT: "",
+    invoiceName: "",
+    invoiceAddress: "",
   });
   const [estimatedPrice, setEstimatedPrice] = useState(null);
 
@@ -64,10 +68,16 @@ const OfferForm = () => {
 
     const fullLocation = `${formData.street} ${formData.number} ${formData.postalCode} ${formData.city}`;
 
+    const wantsInvoice = formData.wantsInvoice === "yes";
+
     const payload = {
       ...formData,
       location: fullLocation, // 👈 send combined location
       commentary: formData.commentary,
+      wantsInvoice,
+      invoiceVAT: wantsInvoice ? formData.invoiceVAT : null,
+      invoiceName: wantsInvoice ? formData.invoiceName : null,
+      invoiceAddress: wantsInvoice ? formData.invoiceAddress : null,
     };
 
     try {
@@ -186,6 +196,62 @@ const OfferForm = () => {
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           rows={4}
         />
+        <label className="block font-medium">Wenst u een factuur?</label>
+        <div className="flex gap-6 mb-2">
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="wantsInvoice"
+              value="yes"
+              checked={formData.wantsInvoice === "yes"}
+              onChange={handleChange}
+              required
+            />
+            Ja
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="wantsInvoice"
+              value="no"
+              checked={formData.wantsInvoice === "no"}
+              onChange={handleChange}
+              required
+            />
+            Nee
+          </label>
+        </div>
+        {formData.wantsInvoice === "yes" && (
+          <>
+            <input
+              type="text"
+              name="invoiceVAT"
+              placeholder="BTW-nummer"
+              value={formData.invoiceVAT}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+            />
+            <input
+              type="text"
+              name="invoiceName"
+              placeholder="Bedrijfsnaam"
+              value={formData.invoiceName}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+            />
+            <input
+              type="text"
+              name="invoiceAddress"
+              placeholder="Facturatieadres"
+              value={formData.invoiceAddress}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+            />
+          </>
+        )}
         <p className="text-sm font-semibold text-pink-600 text-center">
           Na het versturen van uw offerteaanvraag ontvangt u een voorstel binnen
           de 24u.

@@ -274,6 +274,26 @@ const ManagementScreen = () => {
                       Opmerking: {booking.commentary}
                     </p>
 
+                    {booking.wants_invoice && (
+                      <div className="mt-2 bg-yellow-50 border-l-4 border-yellow-400 p-2 rounded">
+                        <h5 className="font-semibold text-yellow-700">
+                          Facturatiegegevens
+                        </h5>
+                        <p>
+                          <strong>BTW-nummer:</strong>{" "}
+                          {booking.invoice_vat || "—"}
+                        </p>
+                        <p>
+                          <strong>Bedrijfsnaam:</strong>{" "}
+                          {booking.invoice_name || "—"}
+                        </p>
+                        <p>
+                          <strong>Adres:</strong>{" "}
+                          {booking.invoice_address || "—"}
+                        </p>
+                      </div>
+                    )}
+
                     <p className={`font-bold ${statusColors.pending}`}>
                       Status: Pending
                     </p>
@@ -351,6 +371,26 @@ const ManagementScreen = () => {
                       Opmerking: {booking.commentary}
                     </p>
 
+                    {booking.wants_invoice && (
+                      <div className="mt-2 bg-yellow-50 border-l-4 border-yellow-400 p-2 rounded">
+                        <h5 className="font-semibold text-yellow-700">
+                          Facturatiegegevens
+                        </h5>
+                        <p>
+                          <strong>BTW-nummer:</strong>{" "}
+                          {booking.invoice_vat || "—"}
+                        </p>
+                        <p>
+                          <strong>Bedrijfsnaam:</strong>{" "}
+                          {booking.invoice_name || "—"}
+                        </p>
+                        <p>
+                          <strong>Adres:</strong>{" "}
+                          {booking.invoice_address || "—"}
+                        </p>
+                      </div>
+                    )}
+
                     <p className={`font-bold ${statusColors.approved}`}>
                       Status: Approved
                     </p>
@@ -396,6 +436,26 @@ const ManagementScreen = () => {
                     <p className="text-gray-600">
                       Opmerking: {booking.commentary}
                     </p>
+
+                    {booking.wants_invoice && (
+                      <div className="mt-2 bg-yellow-50 border-l-4 border-yellow-400 p-2 rounded">
+                        <h5 className="font-semibold text-yellow-700">
+                          Facturatiegegevens
+                        </h5>
+                        <p>
+                          <strong>BTW-nummer:</strong>{" "}
+                          {booking.invoice_vat || "—"}
+                        </p>
+                        <p>
+                          <strong>Bedrijfsnaam:</strong>{" "}
+                          {booking.invoice_name || "—"}
+                        </p>
+                        <p>
+                          <strong>Adres:</strong>{" "}
+                          {booking.invoice_address || "—"}
+                        </p>
+                      </div>
+                    )}
 
                     <p className={`font-bold ${statusColors.declined}`}>
                       Status: Declined
