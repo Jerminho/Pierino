@@ -6,6 +6,7 @@ const OfferForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     street: "",
     number: "",
     postalCode: "",
@@ -116,6 +117,16 @@ const OfferForm = () => {
           onChange={handleChange}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
+        />
+        <input
+          type="tel"
+          name="phone"
+          placeholder="+32 4 12 34 56 78"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+          pattern="^\+?[0-9\s\-]{7,20}$"
+          className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
         />
         <input
           type="text"
