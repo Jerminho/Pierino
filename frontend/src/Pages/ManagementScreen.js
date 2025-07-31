@@ -153,15 +153,20 @@ const ManagementScreen = () => {
   };
 
   // 📌 Group bookings by their status (fetched from the database)
-  const pendingBookings = bookings.filter(
-    (booking) => booking.status === "pending"
-  );
-  const approvedBookings = bookings.filter(
-    (booking) => booking.status === "approved"
-  );
-  const declinedBookings = bookings.filter(
-    (booking) => booking.status === "declined"
-  );
+  const sortByStartDate = (a, b) =>
+    new Date(a.start_datetime) - new Date(b.start_datetime);
+
+  const pendingBookings = bookings
+    .filter((booking) => booking.status === "pending")
+    .sort(sortByStartDate);
+
+  const approvedBookings = bookings
+    .filter((booking) => booking.status === "approved")
+    .sort(sortByStartDate);
+
+  const declinedBookings = bookings
+    .filter((booking) => booking.status === "declined")
+    .sort(sortByStartDate);
 
   // 📌 Handle message change
   const handleMessageChange = (id, message) => {
