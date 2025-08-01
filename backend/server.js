@@ -180,7 +180,7 @@ Team Pierino`;
         <p><strong>Locatie:</strong> ${location}</p>
         <p><strong>Datum:</strong> ${new Date(
           startDateTime
-        ).toLocaleString()} – ${new Date(endDateTime).toLocaleString()}</p>
+        ).toLocaleString()}</p>
         <p><strong>Aantal personen:</strong> ${attendeeRange}</p> <br/>
         ${
           wantsInvoice
