@@ -12,7 +12,7 @@ const OfferForm = () => {
     postalCode: "",
     city: "",
     startDateTime: "",
-    endDateTime: "",
+    // endDateTime: "",
     attendees: "",
     attendeeRange: "",
     commentary: "",
@@ -177,7 +177,7 @@ const OfferForm = () => {
           required
         />{" "}
         <br />
-        <label htmlFor="endDateTime" className="block mb-1 font-medium">
+        {/* <label htmlFor="endDateTime" className="block mb-1 font-medium">
           End Date & Time
         </label>
         <input
@@ -188,7 +188,7 @@ const OfferForm = () => {
           onChange={handleChange}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
-        />
+        /> */}
         <select
           name="attendees"
           value={formData.attendees}

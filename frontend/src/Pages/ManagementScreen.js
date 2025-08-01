@@ -13,7 +13,7 @@ const ManagementScreen = () => {
   const [messages, setMessages] = useState({}); // State to store messages for each booking
   // State for editable prices
   const [editedPrices, setEditedPrices] = useState({});
-  const [editedEndTimes, setEditedEndTimes] = useState({});
+  // const [editedEndTimes, setEditedEndTimes] = useState({});
 
   // State for search input by name
   const [searchTerm, setSearchTerm] = useState("");
@@ -73,41 +73,41 @@ const ManagementScreen = () => {
   };
 
   // Handle end time input change
-  const handleEndTimeChange = (bookingId, newEndTime) => {
-    setEditedEndTimes((prev) => ({ ...prev, [bookingId]: newEndTime }));
-  };
+  // const handleEndTimeChange = (bookingId, newEndTime) => {
+  //   setEditedEndTimes((prev) => ({ ...prev, [bookingId]: newEndTime }));
+  // };
 
   // Handle saving updated end time
-  const saveEndTime = async (bookingId) => {
-    const newEnd = editedEndTimes[bookingId];
-    if (!newEnd || isNaN(new Date(newEnd).getTime())) {
-      alert("Please enter a valid date/time.");
-      return;
-    }
+  // const saveEndTime = async (bookingId) => {
+  //   const newEnd = editedEndTimes[bookingId];
+  //   if (!newEnd || isNaN(new Date(newEnd).getTime())) {
+  //     alert("Please enter a valid date/time.");
+  //     return;
+  //   }
 
-    try {
-      const res = await fetch(
-        `https://pierino-backend-a1790776fc10.herokuapp.com/bookings/${bookingId}/endtime`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ end_datetime: newEnd }),
-        }
-      );
+  //   try {
+  //     const res = await fetch(
+  //       `https://pierino-backend-a1790776fc10.herokuapp.com/bookings/${bookingId}/endtime`,
+  //       {
+  //         method: "PUT",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({ end_datetime: newEnd }),
+  //       }
+  //     );
 
-      const data = await res.json();
+  //     const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to update end time.");
-      }
+  //     if (!res.ok) {
+  //       throw new Error(data.error || "Failed to update end time.");
+  //     }
 
-      alert("End time updated successfully.");
-      window.location.reload(); // Or optionally refresh local state
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
-    }
-  };
+  //     alert("End time updated successfully.");
+  //     window.location.reload(); // Or optionally refresh local state
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert(error.message);
+  //   }
+  // };
 
   // 📌 Handle Approve/Decline Booking
   const updateBooking = async (id, status) => {
@@ -265,7 +265,8 @@ const ManagementScreen = () => {
                     <p className="text-gray-600">
                       Start: {new Date(booking.start_datetime).toLocaleString()}
                     </p>
-                    <p className="text-gray-600">
+                    <br />
+                    {/* <p className="text-gray-600">
                       End: {new Date(booking.end_datetime).toLocaleString()}
                     </p>
                     <div className="flex items-center gap-2 mt-2">
@@ -288,7 +289,7 @@ const ManagementScreen = () => {
                       >
                         💾 Save End
                       </button>
-                    </div>
+                    </div> */}
 
                     <p className="text-gray-600">
                       Opmerking: {booking.commentary}
@@ -383,9 +384,10 @@ const ManagementScreen = () => {
                     <p className="text-gray-600">
                       Start: {new Date(booking.start_datetime).toLocaleString()}
                     </p>
-                    <p className="text-gray-600">
+                    <br />
+                    {/* <p className="text-gray-600">
                       End: {new Date(booking.end_datetime).toLocaleString()}
-                    </p>
+                    </p> */}
 
                     <p className="text-gray-600">
                       Opmerking: {booking.commentary}
@@ -448,15 +450,14 @@ const ManagementScreen = () => {
                     </p>
                     <p className="text-gray-600">
                       Start: {new Date(booking.start_datetime).toLocaleString()}
-                    </p>
-                    <p className="text-gray-600">
+                    </p>{" "}
+                    <br />
+                    {/* <p className="text-gray-600">
                       End: {new Date(booking.end_datetime).toLocaleString()}
-                    </p>
-
+                    </p> */}
                     <p className="text-gray-600">
                       Opmerking: {booking.commentary}
                     </p>
-
                     {booking.wants_invoice && (
                       <div className="mt-2 bg-yellow-50 border-l-4 border-yellow-400 p-2 rounded">
                         <h5 className="font-semibold text-yellow-700">
@@ -476,7 +477,6 @@ const ManagementScreen = () => {
                         </p>
                       </div>
                     )}
-
                     <p className={`font-bold ${statusColors.declined}`}>
                       Status: Declined
                     </p>
