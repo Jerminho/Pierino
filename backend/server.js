@@ -129,21 +129,36 @@ app.post("/book", async (req, res) => {
     );
 
     // ✅ Send confirmation email
-    const subject = "Offerteaanvraag ontvangen – Pierino";
-    const text = `Bedankt ${name}, we hebben je aanvraag ontvangen voor een ijskar op ${location}. We sturen binnen 24u een voorstel.`;
+    const subject = "Bevestiging van je offerteaanvraag – Pierino Ijs";
+
+    const text = `Beste ${name},
+
+Bedankt voor je aanvraag voor een ijskar op ${location}. We hebben je aanvraag goed ontvangen en ons team bekijkt momenteel alle details.
+
+Binnen de 24 uur ontvang je van ons een persoonlijk voorstel. Heb je in de tussentijd vragen of aanvullingen? Je mag ons altijd contacteren door deze e-mail te beantwoorden.
+
+Met vriendelijke groeten,  
+Team Pierino`;
 
     const emailBody = `
-      <h3>Offerteaanvraag Bevestiging</h3>
-      <p>Beste ${name},</p>
-      <p>Bedankt voor je aanvraag voor een ijskar op <strong>${location}</strong>.</p>
-      <p>Wij bekijken je aanvraag en sturen binnen de 24u een voorstel terug.</p>
-      <p><strong>Datum:</strong> ${new Date(
-        startDateTime
-      ).toLocaleString()} – ${new Date(endDateTime).toLocaleString()}</p>
-      <p><strong>Aantal personen:</strong> ${attendeeRange}</p>
-      <br/>
-      <p>Met vriendelijke groet,<br>Team Pierino</p>
-    `;
+  <h3>Bevestiging offerteaanvraag – Pierino Ijs</h3>
+  <p>Beste ${name},</p>
+
+  <p>Hartelijk dank voor je aanvraag voor een ijskar op <strong>${location}</strong>. We hebben je aanvraag goed ontvangen.</p>
+
+  <p>Ons team bekijkt momenteel alle details en zal je binnen de <strong>24 uur</strong> een voorstel toesturen.</p>
+
+  <p><strong>Datum van het evenement:</strong> ${new Date(
+    startDateTime
+  ).toLocaleString()}</p>
+  <p><strong>Geschat aantal personen:</strong> ${attendeeRange}</p>
+
+  <p>Heb je in de tussentijd nog vragen of extra info? Aarzel niet om ons te contacteren.</p>
+
+  <br/>
+  <p>Met vriendelijke groeten,<br>Team Pierino</p>
+  <p style="font-size: 0.9em; color: #666;">Ijskarren · Feesten · Bedrijfsevents · En meer!</p>
+`;
 
     await transporter.sendMail({
       from: `"Pierino Team" <${process.env.EMAIL_USER}>`,
