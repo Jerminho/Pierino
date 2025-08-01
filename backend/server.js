@@ -539,7 +539,7 @@ const addToGoogleCalendar = async (
 
     // Interpreteer de string/timestamp als lokale tijd in Brussels
     const start = DateTime.fromJSDate(startDateTime).setZone("Europe/Brussels");
-    // const end = DateTime.fromJSDate(endDateTime).setZone("Europe/Brussels");
+    const end = start.plus({ hours: 1 }); // Default to 1 hour duration
 
     console.log("typeof startDateTime:", typeof startDateTime);
     // console.log("typeof endDateTime:", typeof endDateTime);
@@ -554,10 +554,10 @@ const addToGoogleCalendar = async (
         dateTime: startDateTime.toISOString(),
         timeZone: "UTC",
       },
-      // end: {
-      //   dateTime: endDateTime.toISOString(),
-      //   timeZone: "UTC",
-      // },
+      end: {
+        dateTime: end.toISOString(),
+        timeZone: "UTC",
+      },
     };
 
     // Insert the event into Google Calendar
