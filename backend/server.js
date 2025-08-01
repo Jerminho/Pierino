@@ -95,7 +95,7 @@ app.post("/book", async (req, res) => {
     phone,
     location,
     startDateTime,
-    endDateTime,
+    // endDateTime,
     attendees,
     attendeeRange,
     commentary,
@@ -109,14 +109,14 @@ app.post("/book", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "INSERT INTO bookings (name, email, phone, location, start_datetime, end_datetime, status, price, attendee_range, commentary, wants_invoice, invoice_vat, invoice_name, invoice_address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *",
+      "INSERT INTO bookings (name, email, phone, location, start_datetime, status, price, attendee_range, commentary, wants_invoice, invoice_vat, invoice_name, invoice_address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *",
       [
         name,
         email,
         location,
         phone,
         startDateTime,
-        endDateTime,
+        // endDateTime,
         "pending",
         price,
         attendeeRange,
@@ -210,7 +210,7 @@ app.get("/bookings", async (req, res) => {
     const formattedBookings = result.rows.map((booking) => ({
       ...booking,
       start_datetime: new Date(booking.start_datetime).toISOString(), // blijf consistent in UTC, laat frontend het omzetten
-      end_datetime: new Date(booking.end_datetime).toISOString(),
+      // end_datetime: new Date(booking.end_datetime).toISOString(),
     }));
 
     res.json(formattedBookings);
@@ -260,8 +260,7 @@ app.post("/update-booking", async (req, res) => {
     const updateQuery = "UPDATE bookings SET status = $1 WHERE id = $2"; // Gebruik $1 en $2 voor parameterbinding
     await pool.query(updateQuery, [status, id]);
 
-    const { email, name, location, start_datetime, end_datetime } =
-      bookingResult.rows[0];
+    const { email, name, location, start_datetime } = bookingResult.rows[0];
 
     let subject, text;
 
@@ -282,7 +281,7 @@ app.post("/update-booking", async (req, res) => {
 
       // Add event to Google Calendar
       console.log("📅 Voeg toe aan Google Calendar...");
-      await addToGoogleCalendar(name, location, start_datetime, end_datetime);
+      await addToGoogleCalendar(name, location, start_datetime);
 
       // Send confirmation email to client
       console.log("📨 Verstuur bevestigingsmail naar klant...");
@@ -291,19 +290,12 @@ app.post("/update-booking", async (req, res) => {
         email,
         location,
         start_datetime,
-        end_datetime,
         message
       );
 
       // Send confirmation email to admin
       console.log("📨 Verstuur bevestiging naar admin...");
-      await sendConfirmationEmailToAdmin(
-        name,
-        email,
-        location,
-        start_datetime,
-        end_datetime
-      );
+      await sendConfirmationEmailToAdmin(name, email, location, start_datetime);
     } else {
       subject = "Pierino Booking Declined ";
       text = `Hello ${name}, unfortunately, your booking at ${location} has been declined.`;
@@ -364,36 +356,36 @@ app.put("/bookings/:id/price", async (req, res) => {
   }
 });
 
-// 📌 API: Update Booking End Time
-app.put("/bookings/:id/endtime", async (req, res) => {
-  const { id } = req.params;
-  const { end_datetime } = req.body;
+// // 📌 API: Update Booking End Time
+// app.put("/bookings/:id/endtime", async (req, res) => {
+//   const { id } = req.params;
+//   const { end_datetime } = req.body;
 
-  if (!end_datetime || isNaN(new Date(end_datetime).getTime())) {
-    return res.status(400).json({ error: "Invalid end_datetime value." });
-  }
+//   if (!end_datetime || isNaN(new Date(end_datetime).getTime())) {
+//     return res.status(400).json({ error: "Invalid end_datetime value." });
+//   }
 
-  try {
-    const result = await pool.query(
-      "UPDATE bookings SET end_datetime = $1 WHERE id = $2 AND status = 'pending' RETURNING *",
-      [end_datetime, id]
-    );
+//   try {
+//     const result = await pool.query(
+//       "UPDATE bookings SET end_datetime = $1 WHERE id = $2 AND status = 'pending' RETURNING *",
+//       [end_datetime, id]
+//     );
 
-    if (result.rowCount === 0) {
-      return res
-        .status(404)
-        .json({ error: "Pending booking not found or already processed." });
-    }
+//     if (result.rowCount === 0) {
+//       return res
+//         .status(404)
+//         .json({ error: "Pending booking not found or already processed." });
+//     }
 
-    res.json({
-      success: true,
-      message: "End time updated successfully.",
-      updated: result.rows[0],
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+//     res.json({
+//       success: true,
+//       message: "End time updated successfully.",
+//       updated: result.rows[0],
+//     });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 // 📌 API: Send Offer Mail
 app.post("/send-offer", async (req, res) => {
@@ -409,15 +401,14 @@ app.post("/send-offer", async (req, res) => {
     }
 
     const booking = result.rows[0];
-    const { name, email, location, start_datetime, end_datetime, price } =
-      booking;
+    const { name, email, location, start_datetime, price } = booking;
 
     await sendOfferMail(
       name,
       email,
       location,
       start_datetime,
-      end_datetime,
+      // end_datetime,
       price
     );
 
@@ -441,8 +432,7 @@ app.delete("/delete-booking/:id", async (req, res) => {
       return res.status(404).json({ error: "Booking not found" });
     }
 
-    const { status, start_datetime, end_datetime, name, location } =
-      bookingResult.rows[0];
+    const { status, start_datetime, name, location } = bookingResult.rows[0];
 
     // Delete from database
     const deleteQuery = "DELETE FROM bookings WHERE id = $1"; // Gebruik $1 voor parameterbinding
@@ -450,7 +440,7 @@ app.delete("/delete-booking/:id", async (req, res) => {
 
     console.log("Status from DB:", status);
     console.log("Start:", start_datetime);
-    console.log("End:", end_datetime);
+    // console.log("End:", end_datetime);
     console.log("Name:", name);
     console.log("Location:", location);
 
@@ -459,8 +449,7 @@ app.delete("/delete-booking/:id", async (req, res) => {
       eventRemoved = await removeFromGoogleCalendar(
         name,
         location,
-        start_datetime,
-        end_datetime
+        start_datetime
       );
     }
 
@@ -486,8 +475,8 @@ app.delete("/delete-booking/:id", async (req, res) => {
 const removeFromGoogleCalendar = async (
   name,
   location,
-  startDateTime,
-  endDateTime
+  startDateTime
+  // endDateTime
 ) => {
   try {
     const authClient = await auth.getClient();
@@ -505,9 +494,7 @@ const removeFromGoogleCalendar = async (
       return (
         event.summary === `Booking by ${name}` &&
         new Date(event.start.dateTime).toISOString() ===
-          new Date(startDateTime).toISOString() &&
-        new Date(event.end.dateTime).toISOString() ===
-          new Date(endDateTime).toISOString()
+          new Date(startDateTime).toISOString()
       );
     });
 
@@ -533,18 +520,18 @@ const removeFromGoogleCalendar = async (
 const addToGoogleCalendar = async (
   name,
   location,
-  startDateTime,
-  endDateTime
+  startDateTime
+  // endDateTime
 ) => {
   console.log("📥 addToGoogleCalendar was called with:", {
     name,
     location,
     startDateTime,
-    endDateTime,
+    // endDateTime,
   });
   try {
     console.log("Adding event to Google Calendar with the following details:");
-    console.log({ name, location, startDateTime, endDateTime });
+    console.log({ name, location, startDateTime });
 
     const authClient = await auth.getClient();
     const calendarId =
@@ -552,12 +539,12 @@ const addToGoogleCalendar = async (
 
     // Interpreteer de string/timestamp als lokale tijd in Brussels
     const start = DateTime.fromJSDate(startDateTime).setZone("Europe/Brussels");
-    const end = DateTime.fromJSDate(endDateTime).setZone("Europe/Brussels");
+    // const end = DateTime.fromJSDate(endDateTime).setZone("Europe/Brussels");
 
     console.log("typeof startDateTime:", typeof startDateTime);
-    console.log("typeof endDateTime:", typeof endDateTime);
+    // console.log("typeof endDateTime:", typeof endDateTime);
     console.log("🧪 Parsed start:", start.toString());
-    console.log("🧪 Parsed end:", end.toString());
+    // console.log("🧪 Parsed end:", end.toString());
 
     // Event object
     const event = {
@@ -567,10 +554,10 @@ const addToGoogleCalendar = async (
         dateTime: startDateTime.toISOString(),
         timeZone: "UTC",
       },
-      end: {
-        dateTime: endDateTime.toISOString(),
-        timeZone: "UTC",
-      },
+      // end: {
+      //   dateTime: endDateTime.toISOString(),
+      //   timeZone: "UTC",
+      // },
     };
 
     // Insert the event into Google Calendar
@@ -595,7 +582,7 @@ const sendConfirmationEmail = async (
   email,
   location,
   startDateTime,
-  endDateTime,
+  // endDateTime,
   message
 ) => {
   const emailSubject = `Booking Confirmation - ${name}`;
@@ -616,24 +603,19 @@ const sendConfirmationEmail = async (
           hour: "2-digit",
           minute: "2-digit",
         })}</li>
-        <li><strong>End Time:</strong> ${new Date(
-          endDateTime
-        ).toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })}</li>
+        
       </ul>
       <p>${message || "The Pierino Team thanks you."}</p>
-      <p>You can view your event in your Google Calendar: <a href="https://calendar.google.com/calendar/r/eventedit?text=Booking+by+${name}&dates=${new Date(
+      <p>
+  You can view your event in your Google Calendar: <a href="https://calendar.google.com/calendar/r/eventedit?text=Booking+by+${name}&dates=${new Date(
     startDateTime
   )
     .toISOString()
-    .replace(/[-:]/g, "")}/${new Date(endDateTime)
+    .replace(/[-:]/g, "")}/${new Date(startDateTime)
     .toISOString()
-    .replace(
-      /[-:]/g,
-      ""
-    )}&location=${location}" target="_blank">View Event</a></p>
+    .replace(/[-:]/g, "")}&location=${location}" target="_blank">View Event</a>
+</p>
+
       <p>Thank you!</p>
     `;
 
@@ -647,14 +629,7 @@ const sendConfirmationEmail = async (
 };
 
 // 📌 Function: Send Offer Mail
-const sendOfferMail = async (
-  name,
-  email,
-  location,
-  startDateTime,
-  endDateTime,
-  price
-) => {
+const sendOfferMail = async (name, email, location, startDateTime, price) => {
   const subject = `Offerte Pierino voor ${name} reservatie-aanvraag`;
 
   const body = `
@@ -664,11 +639,7 @@ const sendOfferMail = async (
     ).toLocaleString("nl-BE")}</strong> te <strong>${location}</strong>,<br>
     voorzien wij een prijs van <strong>€${price}</strong>.<br><br>
 
-    Voor deze reservatie voorzien wij een eindtijd van <strong>${new Date(
-      endDateTime
-    ).toLocaleString("nl-BE")}</strong>.<br><br>
-
-    Deze prijs is inclusief afstandsvergoeding en het voorzien van de gepaste hoeveelheid ijs. <br> <br>
+    Deze prijs is inclusief afstandsvergoeding en het voorzien van de gepaste hoeveelheid ijs. <br><br>
 
     Gelieve te reageren op deze mail ter bevestiging van dit voorstel.<br><br>
     
@@ -688,8 +659,8 @@ const sendConfirmationEmailToAdmin = async (
   name,
   email,
   location,
-  startDateTime,
-  endDateTime
+  startDateTime
+  // endDateTime
 ) => {
   const emailSubject = `New Booking - ${name}`;
   const emailBody = `
@@ -709,12 +680,7 @@ const sendConfirmationEmailToAdmin = async (
           hour: "2-digit",
           minute: "2-digit",
         })}</li>
-        <li><strong>End Time:</strong> ${new Date(
-          endDateTime
-        ).toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })}</li>
+        
       </ul>
       <p>Thank you!</p>
     `;
