@@ -570,7 +570,7 @@ const addToGoogleCalendar = async (
         timeZone: "UTC",
       },
       end: {
-        dateTime: end.toISOString(),
+        dateTime: end.toISO(),
         timeZone: "UTC",
       },
     };
