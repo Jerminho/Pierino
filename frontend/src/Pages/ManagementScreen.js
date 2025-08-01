@@ -15,6 +15,9 @@ const ManagementScreen = () => {
   const [editedPrices, setEditedPrices] = useState({});
   const [editedEndTimes, setEditedEndTimes] = useState({});
 
+  // State for search input by name
+  const [searchTerm, setSearchTerm] = useState("");
+
   // 📌 Fetch bookings from the backend
   useEffect(() => {
     axios
@@ -156,15 +159,19 @@ const ManagementScreen = () => {
   const sortByStartDate = (a, b) =>
     new Date(a.start_datetime) - new Date(b.start_datetime);
 
-  const pendingBookings = bookings
+  const filteredBookings = bookings.filter((booking) =>
+    booking.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const pendingBookings = filteredBookings
     .filter((booking) => booking.status === "pending")
     .sort(sortByStartDate);
 
-  const approvedBookings = bookings
+  const approvedBookings = filteredBookings
     .filter((booking) => booking.status === "approved")
     .sort(sortByStartDate);
 
-  const declinedBookings = bookings
+  const declinedBookings = filteredBookings
     .filter((booking) => booking.status === "declined")
     .sort(sortByStartDate);
 
@@ -214,6 +221,14 @@ const ManagementScreen = () => {
         <>
           {/* Pending Bookings Section */}
           <div>
+            <input
+              type="text"
+              placeholder="Search by name..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="mb-4 p-2 border border-gray-300 rounded w-full md:w-1/3"
+            />
+
             <h3 className="text-xl font-semibold mb-2">Pending Bookings</h3>
             {pendingBookings.length === 0 ? (
               <p>No pending bookings.</p>
