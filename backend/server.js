@@ -113,8 +113,8 @@ app.post("/book", async (req, res) => {
       [
         name,
         email,
-        location,
         phone,
+        location,
         startDateTime,
         // endDateTime,
         "pending",
@@ -177,6 +177,7 @@ Team Pierino`;
         <h2 style="color: red;">❗ Nieuwe Offerteaanvraag</h2>
         <p><strong>Naam:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Telefoonnummer:</strong> ${phone}</p>
         <p><strong>Locatie:</strong> ${location}</p>
         <p><strong>Datum:</strong> ${new Date(
           startDateTime
@@ -531,61 +532,83 @@ const removeFromGoogleCalendar = async (
   }
 };
 
-// 📌 Function: Add Event to Google Calendar
 const addToGoogleCalendar = async (
   name,
   location,
-  startDateTime
-  // endDateTime
+  startDateTime,
+  phone,
+  email,
+  attendeeRange,
+  commentary,
+  wantsInvoice,
+  invoiceVAT,
+  invoiceName,
+  invoiceAddress
 ) => {
   console.log("📥 addToGoogleCalendar was called with:", {
     name,
     location,
     startDateTime,
-    // endDateTime,
+    phone,
+    email,
+    attendeeRange,
+    commentary,
+    wantsInvoice,
+    invoiceVAT,
+    invoiceName,
+    invoiceAddress,
   });
-  try {
-    console.log("Adding event to Google Calendar with the following details:");
-    console.log({ name, location, startDateTime });
 
+  try {
     const authClient = await auth.getClient();
     const calendarId =
-      "9f77cf8e6dd08b5b4c921d6a6d181e61f519ad55eab6a08fdf584361307dcc62@group.calendar.google.com"; // Use 'primary' for the default calendar
+      "9f77cf8e6dd08b5b4c921d6a6d181e61f519ad55eab6a08fdf584361307dcc62@group.calendar.google.com";
 
-    // Interpreteer de string/timestamp als lokale tijd in Brussels
     const start = DateTime.fromJSDate(startDateTime).setZone("Europe/Brussels");
-    const end = start.plus({ hours: 1 }); // Default to 1 hour duration
+    const end = start.plus({ hours: 1 });
 
-    console.log("typeof startDateTime:", typeof startDateTime);
-    // console.log("typeof endDateTime:", typeof endDateTime);
-    console.log("🧪 Parsed start:", start.toString());
-    // console.log("🧪 Parsed end:", end.toString());
+    // 📌 Compose a rich event description
+    const description = `
+📌 *Nieuwe offerteaanvraag*
 
-    // Event object
+👤 Naam: ${name}
+📧 Email: ${email}
+📞 Telefoon: ${phone}
+📍 Locatie: ${location}
+📅 Datum: ${start.toFormat("dd/LL/yyyy HH:mm")}
+👥 Aantal personen: ${attendeeRange}
+🗒️ Opmerking: ${commentary || "Geen"}
+
+🧾 Facturatie:
+${
+  wantsInvoice
+    ? `BTW-nummer: ${invoiceVAT || "Niet opgegeven"}
+Bedrijfsnaam: ${invoiceName || "Niet opgegeven"}
+Adres: ${invoiceAddress || "Niet opgegeven"}`
+    : "Geen factuur gevraagd"
+}
+    `.trim();
+
     const event = {
       summary: `Booking by ${name}`,
-      description: `Email: ${name}\nLocation: ${location}`,
+      description,
       start: {
-        dateTime: startDateTime.toISOString(),
+        dateTime: start.toUTC().toISO(),
         timeZone: "UTC",
       },
       end: {
-        dateTime: end.toISO(),
+        dateTime: end.toUTC().toISO(),
         timeZone: "UTC",
       },
     };
 
-    // Insert the event into Google Calendar
     const response = await calendar.events.insert({
       auth: authClient,
-      calendarId: calendarId,
+      calendarId,
       requestBody: event,
     });
 
-    console.log("Event added to Google Calendar:", response.data);
-    console.log("start.toISO():", start.toISO());
-    console.log("start.toUTC().toISO():", start.toUTC().toISO());
-    console.log("start.toFormat('HH:mm ZZZZ'):", start.toFormat("HH:mm ZZZZ"));
+    console.log("✅ Event added to Google Calendar:", response.data);
   } catch (error) {
     console.error("❌ Google Calendar Error:", error);
   }
