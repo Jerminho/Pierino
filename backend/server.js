@@ -85,6 +85,20 @@ const calculatePrice = (attendees) => {
     : null;
 };
 
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1]; // Bearer <token>
+
+  if (!token) return res.status(401).json({ message: "Token required" });
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: "Invalid token" });
+
+    req.user = user; // Attach user data (e.g., username)
+    next();
+  });
+}
+
 // 📌 API: Get Pricing Options
 app.get("/pricing", (req, res) => res.json(pricingRanges));
 
@@ -218,7 +232,7 @@ Team Pierino`;
 });
 
 // 📌 API: Fetch Pending Bookings
-app.get("/bookings", async (req, res) => {
+app.get("/bookings", authenticateToken, async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM bookings");
 
@@ -226,7 +240,6 @@ app.get("/bookings", async (req, res) => {
     const formattedBookings = result.rows.map((booking) => ({
       ...booking,
       start_datetime: new Date(booking.start_datetime).toISOString(), // blijf consistent in UTC, laat frontend het omzetten
-      // end_datetime: new Date(booking.end_datetime).toISOString(),
     }));
 
     res.json(formattedBookings);
@@ -276,7 +289,7 @@ app.post("/update-booking", async (req, res) => {
     const updateQuery = "UPDATE bookings SET status = $1 WHERE id = $2"; // Gebruik $1 en $2 voor parameterbinding
     await pool.query(updateQuery, [status, id]);
 
-       // 3️⃣ Haal alle benodigde gegevens uit booking
+    // 3️⃣ Haal alle benodigde gegevens uit booking
     const {
       email,
       name,
@@ -310,7 +323,7 @@ app.post("/update-booking", async (req, res) => {
 
       // Add event to Google Calendar
       console.log("📅 Voeg toe aan Google Calendar...");
-       await addToGoogleCalendar(
+      await addToGoogleCalendar(
         name,
         location,
         start_datetime,
