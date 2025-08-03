@@ -17,11 +17,15 @@ const ManagementScreen = () => {
 
   // State for search input by name
   const [searchTerm, setSearchTerm] = useState("");
-
-  // 📌 Fetch bookings from the backend
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
     axios
-      .get("https://pierino-backend-a1790776fc10.herokuapp.com/bookings") // Fetch bookings with status info
+      .get("https://pierino-backend-a1790776fc10.herokuapp.com/bookings", {
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ Send token to backend
+        },
+      })
       .then((response) => {
         console.log("Fetched bookings:", response.data);
         setBookings(response.data);
