@@ -276,7 +276,20 @@ app.post("/update-booking", async (req, res) => {
     const updateQuery = "UPDATE bookings SET status = $1 WHERE id = $2"; // Gebruik $1 en $2 voor parameterbinding
     await pool.query(updateQuery, [status, id]);
 
-    const { email, name, location, start_datetime } = bookingResult.rows[0];
+       // 3️⃣ Haal alle benodigde gegevens uit booking
+    const {
+      email,
+      name,
+      location,
+      start_datetime,
+      phone,
+      attendee_range,
+      commentary,
+      wants_invoice,
+      invoice_vat,
+      invoice_name,
+      invoice_address,
+    } = bookingResult.rows[0];
 
     let subject, text;
 
@@ -297,7 +310,19 @@ app.post("/update-booking", async (req, res) => {
 
       // Add event to Google Calendar
       console.log("📅 Voeg toe aan Google Calendar...");
-      await addToGoogleCalendar(name, location, start_datetime);
+       await addToGoogleCalendar(
+        name,
+        location,
+        start_datetime,
+        phone,
+        email,
+        attendee_range,
+        commentary,
+        wants_invoice,
+        invoice_vat,
+        invoice_name,
+        invoice_address
+      );
 
       // Send confirmation email to client
       console.log("📨 Verstuur bevestigingsmail naar klant...");
