@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const statusColors = {
@@ -8,6 +9,7 @@ const statusColors = {
 };
 
 const ManagementScreen = () => {
+  const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState({}); // State to store messages for each booking
@@ -17,6 +19,40 @@ const ManagementScreen = () => {
 
   // State for search input by name
   const [searchTerm, setSearchTerm] = useState("");
+
+   // Inactivity logout effect
+  useEffect(() => {
+    let timeout;
+
+    const logoutAfterInactivity = () => {
+      localStorage.removeItem("token");
+      alert("Session expired due to inactivity. You will be logged out.");
+      navigate("/login");
+    };
+
+    const resetTimer = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(logoutAfterInactivity, 5 * 60 * 1000); // 5 minutes
+    };
+
+    // List of events that indicate user activity
+    const activityEvents = ["mousemove", "keydown", "click", "scroll"];
+
+    activityEvents.forEach((event) =>
+      window.addEventListener(event, resetTimer)
+    );
+
+    resetTimer(); // Start timer on mount
+
+    // Cleanup listeners and timeout on unmount
+    return () => {
+      activityEvents.forEach((event) =>
+        window.removeEventListener(event, resetTimer)
+      );
+      clearTimeout(timeout);
+    };
+  }, [navigate]);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
