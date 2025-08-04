@@ -20,7 +20,7 @@ const ManagementScreen = () => {
   // State for search input by name
   const [searchTerm, setSearchTerm] = useState("");
 
-   // Inactivity logout effect
+  // Inactivity logout effect
   useEffect(() => {
     let timeout;
 
@@ -232,7 +232,7 @@ const ManagementScreen = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ id }),
+          body: JSON.stringify({ id, message: messages[id] || "" }), // ✅ include message
         }
       );
 
