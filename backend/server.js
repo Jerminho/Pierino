@@ -681,7 +681,7 @@ const sendConfirmationEmail = async (
         })}</li>
         
       </ul>
-      <p>${message || "The Pierino Team thanks you."}</p>
+      <p>Extra message${message || "The Pierino Team thanks you."}</p>
       <p>
   You can view your event in your Google Calendar: <a href="https://calendar.google.com/calendar/r/eventedit?text=Booking+by+${name}&dates=${new Date(
     startDateTime
@@ -705,7 +705,14 @@ const sendConfirmationEmail = async (
 };
 
 // 📌 Function: Send Offer Mail
-const sendOfferMail = async (name, email, location, startDateTime, price) => {
+const sendOfferMail = async (
+  name,
+  email,
+  location,
+  startDateTime,
+  price,
+  message
+) => {
   const subject = `Offerte Pierino voor ${name} reservatie-aanvraag`;
 
   const body = `
@@ -716,6 +723,8 @@ const sendOfferMail = async (name, email, location, startDateTime, price) => {
     voorzien wij een prijs van <strong>€${price}</strong>.<br><br>
 
     Deze prijs is inclusief afstandsvergoeding en het voorzien van de gepaste hoeveelheid ijs. <br><br>
+
+    ${message ? `<p>${message}</p><br>` : ""}
 
     Gelieve te reageren op deze mail ter bevestiging van dit voorstel.<br><br>
     
