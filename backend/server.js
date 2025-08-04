@@ -443,7 +443,7 @@ app.put("/bookings/:id/price", async (req, res) => {
 
 // 📌 API: Send Offer Mail
 app.post("/send-offer", async (req, res) => {
-  const { id } = req.body;
+  const { id, message } = req.body; // ✅ Include `message`
 
   try {
     const result = await pool.query("SELECT * FROM bookings WHERE id = $1", [
@@ -463,7 +463,8 @@ app.post("/send-offer", async (req, res) => {
       location,
       start_datetime,
       // end_datetime,
-      price
+      price,
+      message // ✅ Pass it to the mail function
     );
 
     res.json({ success: true, message: "Offerte verzonden." });
