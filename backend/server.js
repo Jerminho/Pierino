@@ -158,16 +158,16 @@ Team Pierino`;
   <h3>Bevestiging offerteaanvraag – Pierino Ijs</h3>
   <p>Beste ${name},</p>
 
-  <p>Hartelijk dank voor je aanvraag voor een ijskar op <strong>${location}</strong>. We hebben je aanvraag goed ontvangen.</p>
+  <p>Hartelijk dank voor uw aanvraag voor een ijskar op <strong>${location}</strong>. We hebben uw aanvraag goed ontvangen.</p>
 
-  <p>Ons team bekijkt momenteel alle details en zal je binnen de <strong>24 uur</strong> een voorstel toesturen.</p>
+  <p>Ons team bekijkt momenteel alle details en zal u binnen de <strong>24 uur</strong> een voorstel toesturen.</p>
 
   <p><strong>Datum van het evenement:</strong> ${new Date(
     startDateTime
   ).toLocaleString()}</p>
   <p><strong>Geschat aantal personen:</strong> ${attendeeRange}</p>
 
-  <p>Heb je in de tussentijd nog vragen of extra info? Aarzel niet om ons te contacteren.</p>
+  <p>Heeft u in de tussentijd nog vragen of extra info? Aarzel dan niet om ons te contacteren.</p>
 
   <br/>
   <p>Met vriendelijke groeten,<br>Team Pierino</p>
@@ -307,18 +307,19 @@ app.post("/update-booking", async (req, res) => {
     let subject, text;
 
     if (status === "approved") {
-      subject = "Booking Approved!";
+      subject = "Pierino Reservatie bevestigd!";
       text = message
-        ? `Hello ${name}, your booking at ${location} has been approved! Additional Message: ${message}`
-        : `Hello ${name}, your booking at ${location} has been approved! The Pierino Team thanks you.`;
+        ? `Beste ${name}, uw reservatie bij ${location} is aanvaard! Extra bericht: ${message}`
+        : `Beste ${name}, uw reservatie bij ${location} is aanvaard! Het Pierino Team dankt u.`;
 
       emailBody = `
-        <h3>Booking Approved</h3>
-        <p>Dear ${name},</p>
-        <p>Your booking at <strong>${location}</strong> has been approved!</p>
+        <h3>Pierino Reservatie bevestigd</h3>
+        <p>Beste ${name},</p>
+        <p>Uw reservatie op <strong>${location}</strong> werd aanvaard!</p>
         ${message ? `<p><strong>Message:</strong> ${message}</p>` : ""}
-        <p>We look forward to serving you.</p>
-        <p>Kind regards,<br>The Pierino Team</p>
+        <p>We kijken ernaar uit jullie te bedienen.</p>
+        <p>Met vriendelijke groeten,<br>Team Pierino</p>
+  <p style="font-size: 0.9em; color: #666;">Ijskarren · Feesten · Bedrijfsevents · En meer!</p>
       `;
 
       // Add event to Google Calendar
@@ -677,7 +678,7 @@ const sendConfirmationEmail = async (
         <li><strong>Datum:</strong> ${new Date(
           startDateTime
         ).toLocaleDateString("en-GB")}</li>
-        <li><strong>Start Time:</strong> ${new Date(
+        <li><strong>Starttijd:</strong> ${new Date(
           startDateTime
         ).toLocaleTimeString("en-GB", {
           hour: "2-digit",
@@ -685,7 +686,7 @@ const sendConfirmationEmail = async (
         })}</li>
         
       </ul>
-      <p>Extra message: ${message || "Bedankt voor uw vertrouwen."}</p>
+      <p>${message || "Bedankt voor uw vertrouwen."}</p>
       <p>
   Bekijk uw evenement hier: <a href="https://calendar.google.com/calendar/r/eventedit?text=Booking+by+${name}&dates=${new Date(
     startDateTime
