@@ -258,6 +258,16 @@ const ManagementScreen = () => {
       const data = await res.json();
       if (data.success) {
         alert("Offerte succesvol verzonden!");
+        // ✅ Clear the input fields for this booking
+        setOfferInputs((prev) => ({
+          ...prev,
+          [id]: { transportFee: "", duration: "", message: "" },
+        }));
+
+        setMessages((prev) => ({
+          ...prev,
+          [id]: "",
+        }));
       } else {
         alert("Fout bij verzenden: " + data.error);
       }
