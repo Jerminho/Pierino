@@ -249,8 +249,8 @@ const ManagementScreen = () => {
           body: JSON.stringify({
             id,
             message,
-            transportFee: offerData.transportFee || 0,
-            duration: offerData.duration || "",
+            transportFee: offerData.transportFee || 20,
+            duration: offerData.duration || 60,
           }),
         }
       );
