@@ -71,7 +71,7 @@ const Hero = () => {
             </li>
             <li>
               <a href="offer" className="link">
-                Reserveren
+                Ijskar Reserveren
               </a>
             </li>
             <li className="last-link">
@@ -120,7 +120,7 @@ const Hero = () => {
               </li>
               <li>
                 <a href="offer" className="link">
-                  Reserveren
+                  Ijskar Reserveren
                 </a>
               </li>
               <li className="last-link">
