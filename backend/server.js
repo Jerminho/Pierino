@@ -351,16 +351,16 @@ app.post("/update-booking", async (req, res) => {
       console.log("📨 Verstuur bevestiging naar admin...");
       await sendConfirmationEmailToAdmin(name, email, location, start_datetime);
     } else {
-      subject = "Pierino Booking Declined ";
-      text = `Hello ${name}, unfortunately, your booking at ${location} has been declined.`;
+      subject = "Pierino Reservering Geweigerd";
       emailBody = `
-      <h3>Booking Declined</h3>
-      <p>Dear ${name},</p>
-      <p>Thank you for your interest in booking at <strong>${location}</strong>.</p>
-      <p>Unfortunately, we are unable to accommodate your booking at this time.</p> 
-      <p>You are very welcome to submit a new booking request for a different date or time.</p><br>
-      <p>If you have any questions or need assistance, please feel free to contact us.</p><br>
-      <p>Kind regards,<br>The Pierino Team</p>
+  <h3>Reservering Geweigerd</h3>
+  <p>Beste ${name},</p>
+  <p>Bedankt voor uw interesse om te reserveren bij Pierino-ijs op locatie: <strong>${location}</strong>.</p>
+  <p>Helaas kunnen we uw reservering op dit moment niet accepteren.</p>
+  <p>U bent uiteraard welkom om een nieuwe reserveringsaanvraag in te dienen voor een andere datum of tijd.</p><br>
+  <p>Als u vragen hebt of hulp nodig hebt, neem gerust contact met ons op.</p><br>
+  <p>Met vriendelijke groeten,<br>Team Pierino</p>
+  <p style="font-size: 0.9em; color: #666;">Ijskarren · Feesten · Bedrijfsevents · En meer!</p>
     `;
     }
 
@@ -665,18 +665,18 @@ const sendConfirmationEmail = async (
   // endDateTime,
   message
 ) => {
-  const emailSubject = `Booking Confirmation - ${name}`;
+  const emailSubject = `Pierino Reservatiebevestiging- ${name}`;
   const emailBody = `
      
-      <p>Dear ${name},</p>
-      <p>Thank you for your booking. Here are the details:</p>
+      <p>Beste ${name},</p>
+      <p>Bedankt voor uw reservatie. Hier zijn de details:</p>
       <ul>
-        <li><strong>Name:</strong> ${name}</li>
+        <li><strong>Naam:</strong> ${name}</li>
         <li><strong>Email:</strong> ${email}</li>
-        <li><strong>Location:</strong> ${location}</li>
-        <li><strong>Date:</strong> ${new Date(startDateTime).toLocaleDateString(
-          "en-GB"
-        )}</li>
+        <li><strong>Locatie:</strong> ${location}</li>
+        <li><strong>Datum:</strong> ${new Date(
+          startDateTime
+        ).toLocaleDateString("en-GB")}</li>
         <li><strong>Start Time:</strong> ${new Date(
           startDateTime
         ).toLocaleTimeString("en-GB", {
@@ -685,9 +685,9 @@ const sendConfirmationEmail = async (
         })}</li>
         
       </ul>
-      <p>Extra message${message || "The Pierino Team thanks you."}</p>
+      <p>Extra message: ${message || "Bedankt voor uw vertrouwen."}</p>
       <p>
-  You can view your event in your Google Calendar: <a href="https://calendar.google.com/calendar/r/eventedit?text=Booking+by+${name}&dates=${new Date(
+  Bekijk uw evenement hier: <a href="https://calendar.google.com/calendar/r/eventedit?text=Booking+by+${name}&dates=${new Date(
     startDateTime
   )
     .toISOString()
@@ -696,7 +696,10 @@ const sendConfirmationEmail = async (
     .replace(/[-:]/g, "")}&location=${location}" target="_blank">View Event</a>
 </p>
 
-      <p>Thank you!</p>
+      <br>
+    
+  <p>Met vriendelijke groeten,<br>Team Pierino</p>
+  <p style="font-size: 0.9em; color: #666;">Ijskarren · Feesten · Bedrijfsevents · En meer!</p>
     `;
 
   // Send email to the client
@@ -730,8 +733,9 @@ const sendOfferMail = async (
   const subject = `Offerte Pierino voor ${name} reservatie-aanvraag`;
 
   const body = `
-    Beste ${name},<br><br>
-    Voor jouw aanvraag om reservatie op <strong>${new Date(
+    Beste ${name},<br>
+    Allereerst dank om aan Pierino-ijs te denken!<br>
+    Voor uw aanvraag om reservatie op <strong>${new Date(
       startDateTime
     ).toLocaleString("nl-BE")}</strong> te <strong>${location}</strong>,<br>
     voorzien wij een prijs van <strong>€${price}</strong>.<br><br>
@@ -740,12 +744,15 @@ const sendOfferMail = async (
     deze is reeds verrekend in het minimumbedrag.<br>
     Wij voorzien een tijdsduur van <strong>${durationText}</strong> 
     om al uw genodigden op een rustige manier te bedienen.<br><br>
+    De betaling zou <strong>cash/bankcontact</strong> na het bedienen van de genodigden mogen gebeuren indien mogelijk. 
 
     ${message ? `<p>${message}</p><br>` : ""}
 
-    Gelieve te reageren op deze mail ter bevestiging van dit voorstel.<br><br>
+    Gelieve te reageren op deze mail ter bevestiging van dit voorstel.<br>
+    Dit voorstel is 2 weken geldig, rekening houdend met komende en lopende aanvragen.<br><br>
     
-    Het Pierino Team dankt u.
+  <p>Met vriendelijke groeten,<br>Team Pierino</p>
+  <p style="font-size: 0.9em; color: #666;">Ijskarren · Feesten · Bedrijfsevents · En meer!</p>
   `;
 
   await transporter.sendMail({
@@ -764,19 +771,18 @@ const sendConfirmationEmailToAdmin = async (
   startDateTime
   // endDateTime
 ) => {
-  const emailSubject = `New Booking - ${name}`;
+  const emailSubject = `Nieuwe reservatie - ${name}`;
   const emailBody = `
-      <h3>New Booking</h3>
       <p>Dear Admin,</p>
-      <p>A new booking has been confirmed. Here are the details:</p>
+      <p>Er werd zojuist een nieuwe reservatie bevestigd. Hier zijn de details:</p>
       <ul>
-        <li><strong>Name:</strong> ${name}</li>
+        <li><strong>Naam:</strong> ${name}</li>
         <li><strong>Email:</strong> ${email}</li>
-        <li><strong>Location:</strong> ${location}</li>
-        <li><strong>Date:</strong> ${new Date(startDateTime).toLocaleDateString(
-          "en-GB"
-        )}</li>
-        <li><strong>Start Time:</strong> ${new Date(
+        <li><strong>Locatie:</strong> ${location}</li>
+        <li><strong>Datum:</strong> ${new Date(
+          startDateTime
+        ).toLocaleDateString("en-GB")}</li>
+        <li><strong>Starttijd:</strong> ${new Date(
           startDateTime
         ).toLocaleTimeString("en-GB", {
           hour: "2-digit",
@@ -784,7 +790,8 @@ const sendConfirmationEmailToAdmin = async (
         })}</li>
         
       </ul>
-      <p>Thank you!</p>
+      <p>Gelieve deze reservatie te respecteren!</p> <br/>
+  <p style="font-size: 0.9em; color: #666;">Ijskarren · Feesten · Bedrijfsevents · En meer!</p>
     `;
 
   // Send email to the admin (your email)
