@@ -16,6 +16,7 @@ const ManagementScreen = () => {
   // State for editable prices
   const [editedPrices, setEditedPrices] = useState({});
   // const [editedEndTimes, setEditedEndTimes] = useState({});
+  const [offerInputs, setOfferInputs] = useState({});
 
   // State for search input by name
   const [searchTerm, setSearchTerm] = useState("");
@@ -223,8 +224,20 @@ const ManagementScreen = () => {
     });
   };
 
+  // 1️⃣ Add handleInputChange here
+  const handleInputChange = (id, field, value) => {
+    setOfferInputs((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [field]: value,
+      },
+    }));
+  };
+
   const sendOffer = async (id) => {
     try {
+      const offerData = offerInputs[id] || {};
       const res = await fetch(
         "https://pierino-backend-a1790776fc10.herokuapp.com/send-offer",
         {
@@ -232,7 +245,12 @@ const ManagementScreen = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ id, message: messages[id] || "" }), // ✅ include message
+          body: JSON.stringify({
+            id,
+            message: offerData.message || "",
+            transportFee: offerData.transportFee || 0,
+            duration: offerData.duration || "",
+          }),
         }
       );
 
@@ -358,6 +376,36 @@ const ManagementScreen = () => {
                     <p className={`font-bold ${statusColors.pending}`}>
                       Status: Pending
                     </p>
+
+                    {/* Transport Fee */}
+                    <input
+                      type="number"
+                      className="mt-2 p-2 border rounded-lg w-full"
+                      placeholder="Transport Fee"
+                      value={offerInputs[booking.id]?.transportFee || ""}
+                      onChange={(e) =>
+                        handleInputChange(
+                          booking.id,
+                          "transportFee",
+                          e.target.value
+                        )
+                      }
+                    />
+
+                    {/* Duration */}
+                    <input
+                      type="number"
+                      className="mt-2 p-2 border rounded-lg w-full"
+                      placeholder="Duurtijd in minuten"
+                      value={offerInputs[booking.id]?.duration || ""}
+                      onChange={(e) =>
+                        handleInputChange(
+                          booking.id,
+                          "duration",
+                          e.target.value
+                        )
+                      }
+                    />
 
                     {/* Message Area */}
                     <textarea

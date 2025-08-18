@@ -443,7 +443,7 @@ app.put("/bookings/:id/price", async (req, res) => {
 
 // 📌 API: Send Offer Mail
 app.post("/send-offer", async (req, res) => {
-  const { id, message } = req.body; // ✅ Include `message`
+  const { id, message, transportFee, duration } = req.body; // ✅ Include new fields
 
   try {
     const result = await pool.query("SELECT * FROM bookings WHERE id = $1", [
@@ -457,18 +457,21 @@ app.post("/send-offer", async (req, res) => {
     const booking = result.rows[0];
     const { name, email, location, start_datetime, price } = booking;
 
+    // ✅ Pass all arguments to sendOfferMail
     await sendOfferMail(
       name,
       email,
       location,
       start_datetime,
-      // end_datetime,
       price,
-      message // ✅ Pass it to the mail function
+      transportFee,
+      duration,
+      message
     );
 
     res.json({ success: true, message: "Offerte verzonden." });
   } catch (error) {
+    console.error("Error sending offer:", error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -705,15 +708,25 @@ const sendConfirmationEmail = async (
   });
 };
 
-// 📌 Function: Send Offer Mail
+// 📌 Function: Send Offer Mail (with transportFee + duration + optional message)
 const sendOfferMail = async (
   name,
   email,
   location,
   startDateTime,
   price,
+  transportFee,
+  duration,
   message
 ) => {
+  // ⏱️ Format duration from minutes → "X uur en Y minuten"
+  const hours = Math.floor(duration / 60);
+  const minutes = duration % 60;
+  let durationText = "";
+  if (hours > 0) durationText += `${hours} uur`;
+  if (minutes > 0)
+    durationText += `${hours > 0 ? " en " : ""}${minutes} minuten`;
+
   const subject = `Offerte Pierino voor ${name} reservatie-aanvraag`;
 
   const body = `
@@ -723,7 +736,10 @@ const sendOfferMail = async (
     ).toLocaleString("nl-BE")}</strong> te <strong>${location}</strong>,<br>
     voorzien wij een prijs van <strong>€${price}</strong>.<br><br>
 
-    Deze prijs is inclusief afstandsvergoeding en het voorzien van de gepaste hoeveelheid ijs. <br><br>
+    Er wordt een verplaatsingskost aangerekend van <strong>${transportFee} euro</strong>, 
+    deze is reeds verrekend in het minimumbedrag.<br>
+    Wij voorzien een tijdsduur van <strong>${durationText}</strong> 
+    om al uw genodigden op een rustige manier te bedienen.<br><br>
 
     ${message ? `<p>${message}</p><br>` : ""}
 
