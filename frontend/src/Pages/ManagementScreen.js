@@ -238,6 +238,7 @@ const ManagementScreen = () => {
   const sendOffer = async (id) => {
     try {
       const offerData = offerInputs[id] || {};
+      const message = messages[id] || "";
       const res = await fetch(
         "https://pierino-backend-a1790776fc10.herokuapp.com/send-offer",
         {
@@ -247,7 +248,7 @@ const ManagementScreen = () => {
           },
           body: JSON.stringify({
             id,
-            message: offerData.message || "",
+            message,
             transportFee: offerData.transportFee || 0,
             duration: offerData.duration || "",
           }),
