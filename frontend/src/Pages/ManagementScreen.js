@@ -33,7 +33,7 @@ const ManagementScreen = () => {
 
     const resetTimer = () => {
       clearTimeout(timeout);
-      timeout = setTimeout(logoutAfterInactivity, 5 * 60 * 1000); // 5 minutes
+      timeout = setTimeout(logoutAfterInactivity, 30 * 60 * 1000); // 5 minutes
     };
 
     // List of events that indicate user activity
