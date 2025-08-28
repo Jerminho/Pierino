@@ -39,25 +39,31 @@ const Products = () => {
           <h2 className="products-title">PRODUCTEN</h2>
         </div>
         <div className="products-shown">
-          <a href="ijs-bestellen" className="block">
-            <div className="rectangle-product cursor-pointer">
-              <h3 className="strawberry-title-product">Bestellen</h3>
-              <svg className="dots-product">
-                <use href={`${symbols}#icon-dots-dots`}></use>
-              </svg>
-              <div className="icons">
-                <svg className="arrow-right-product">
-                  <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
-                </svg>
-              </div>
-              <div className="product__overlay">
+           <div className="rectangle-product">
+            <h3 className="strawberry-title-product">Bestellen</h3>
+            <svg className="dots-product">
+              <use href={`${symbols}#icon-dots-dots`}></use>
+            </svg>
+            <a href="ijs-bestellen">
+              <p className="paragraph-strawberry-product">
+                Zin in verfrissend, ambachtelijk ijs? Bestel nu en trakteer
+                jezelf op de lekkerste smaken!
+              </p>
+            </a>
+            <div className="icons">
+              <a href="ijs-bestellen">
+              <svg className="arrow-right-product">
+                <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
+              </svg></a>
+            </div>
+            <div className="product__overlay">
+              <a href="ijs-bestellen">
                 <p className="product__text">
                   Of je nu thuis geniet of een feest plant, wij zorgen voor het
                   perfecte ijsmoment. ❄️✨
                 </p>
-              </div>
+              </a>
             </div>
-          </a>
 
           <div className="rectangle-2-product">
             <h3 className="coffee-title-product">Reserveren</h3>
