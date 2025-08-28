@@ -319,7 +319,7 @@ const OfferForm = () => {
               Verzenden...
             </div>
           ) : (
-            "Submit Booking"
+            "Offerteaanvraag indienen"
           )}
         </button>
       </form>
