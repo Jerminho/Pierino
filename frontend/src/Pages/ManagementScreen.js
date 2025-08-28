@@ -279,7 +279,7 @@ const ManagementScreen = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Manage Bookings</h2>
+      <h2 className="text-2xl font-bold mb-4">Reservaties beheren</h2>
       {loading ? (
         <div className="text-center">
           <div className="spinner-border animate-spin" role="status">
@@ -298,9 +298,11 @@ const ManagementScreen = () => {
               className="mb-4 p-2 border border-gray-300 rounded w-full md:w-1/3"
             />
 
-            <h3 className="text-xl font-semibold mb-2">Pending Bookings</h3>
+            <h3 className="text-xl font-semibold mb-2">
+              Openstaande reservaties
+            </h3>
             {pendingBookings.length === 0 ? (
-              <p>No pending bookings.</p>
+              <p>Geen openstaande reservaties.</p>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {pendingBookings.map((booking) => (
@@ -385,14 +387,14 @@ const ManagementScreen = () => {
                     )}
 
                     <p className={`font-bold ${statusColors.pending}`}>
-                      Status: Pending
+                      Status: Openstaand
                     </p>
 
                     {/* Transport Fee */}
                     <input
                       type="number"
                       className="mt-2 p-2 border rounded-lg w-full"
-                      placeholder="Transport Fee"
+                      placeholder="Verplaatsingskosten"
                       value={offerInputs[booking.id]?.transportFee || ""}
                       onChange={(e) =>
                         handleInputChange(
@@ -421,7 +423,7 @@ const ManagementScreen = () => {
                     {/* Message Area */}
                     <textarea
                       className="mt-2 p-2 border rounded-lg w-full"
-                      placeholder="Optional message for the client"
+                      placeholder="Extra optioneel bericht voor de klant"
                       value={messages[booking.id] || ""}
                       onChange={(e) =>
                         handleMessageChange(booking.id, e.target.value)
@@ -439,20 +441,20 @@ const ManagementScreen = () => {
                         onClick={() => updateBooking(booking.id, "approved")}
                         className="bg-green-500 text-white py-1 px-3 rounded-lg"
                       >
-                        ✅ Approve
+                        Aanvaard
                       </button>
                       <button
                         onClick={() => updateBooking(booking.id, "declined")}
                         className="bg-red-500 text-white py-1 px-3 rounded-lg"
                       >
-                        ❌ Decline
+                        Weiger
                       </button>
                       <br />
                       <button
                         onClick={() => deleteBooking(booking.id)}
                         className="bg-gray-500 text-white py-1 px-3 rounded-lg mt-2"
                       >
-                        🗑️ Delete
+                        Verwijder
                       </button>
                     </div>
                   </div>
@@ -463,9 +465,11 @@ const ManagementScreen = () => {
 
           {/* Approved Bookings Section */}
           <div className="mt-8">
-            <h3 className="text-xl font-semibold mb-2">Approved Bookings</h3>
+            <h3 className="text-xl font-semibold mb-2">
+              Bevestigde reservaties
+            </h3>
             {approvedBookings.length === 0 ? (
-              <p>No approved bookings.</p>
+              <p>Geen bevestigde reservaties.</p>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {approvedBookings.map((booking) => (
@@ -513,14 +517,14 @@ const ManagementScreen = () => {
                     )}
 
                     <p className={`font-bold ${statusColors.approved}`}>
-                      Status: Approved
+                      Status: Aanvaard
                     </p>
                     <br />
                     <button
                       onClick={() => deleteBooking(booking.id)}
                       className="bg-gray-500 text-white py-1 px-3 rounded-lg mt-2"
                     >
-                      🗑️ Delete
+                      Verwijder
                     </button>
                   </div>
                 ))}
@@ -530,9 +534,11 @@ const ManagementScreen = () => {
 
           {/* Declined Bookings Section */}
           <div className="mt-8">
-            <h3 className="text-xl font-semibold mb-2">Declined Bookings</h3>
+            <h3 className="text-xl font-semibold mb-2">
+              Geweigerde reservaties
+            </h3>
             {declinedBookings.length === 0 ? (
-              <p>No declined bookings.</p>
+              <p>Geen geweigerde reservaties.</p>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {declinedBookings.map((booking) => (
@@ -577,14 +583,14 @@ const ManagementScreen = () => {
                       </div>
                     )}
                     <p className={`font-bold ${statusColors.declined}`}>
-                      Status: Declined
+                      Status: Geweigerd
                     </p>
                     <br />
                     <button
                       onClick={() => deleteBooking(booking.id)}
                       className="bg-gray-500 text-white py-1 px-3 rounded-lg mt-2"
                     >
-                      🗑️ Delete
+                      Verwijder
                     </button>
                   </div>
                 ))}

@@ -27,7 +27,6 @@ const OfferForm = () => {
   const [estimatedPrice, setEstimatedPrice] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-
   // Use your Heroku app URL here
   const API_URL = "https://pierino-backend-a1790776fc10.herokuapp.com"; // Heroku API URL
 
@@ -70,33 +69,33 @@ const OfferForm = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  const fullLocation = `${formData.street} ${formData.number} ${formData.postalCode} ${formData.city}`;
-  const wantsInvoice = formData.wantsInvoice === "yes";
-  const invoiceAddress = `${formData.invoiceStreet} ${formData.invoiceNumber} ${formData.invoicePostalCode} ${formData.invoiceCity}`;
+    const fullLocation = `${formData.street} ${formData.number} ${formData.postalCode} ${formData.city}`;
+    const wantsInvoice = formData.wantsInvoice === "yes";
+    const invoiceAddress = `${formData.invoiceStreet} ${formData.invoiceNumber} ${formData.invoicePostalCode} ${formData.invoiceCity}`;
 
-  const payload = {
-    ...formData,
-    location: fullLocation,
-    commentary: formData.commentary,
-    wantsInvoice,
-    invoiceVAT: wantsInvoice ? formData.invoiceVAT : null,
-    invoiceName: wantsInvoice ? formData.invoiceName : null,
-    invoiceAddress: wantsInvoice ? invoiceAddress : null,
+    const payload = {
+      ...formData,
+      location: fullLocation,
+      commentary: formData.commentary,
+      wantsInvoice,
+      invoiceVAT: wantsInvoice ? formData.invoiceVAT : null,
+      invoiceName: wantsInvoice ? formData.invoiceName : null,
+      invoiceAddress: wantsInvoice ? invoiceAddress : null,
+    };
+
+    try {
+      const response = await axios.post(`${API_URL}/book`, payload);
+      alert(response.data.message);
+      window.location.reload();
+    } catch (error) {
+      alert("Error submitting booking");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
-  try {
-    const response = await axios.post(`${API_URL}/book`, payload);
-    alert(response.data.message);
-    window.location.reload();
-  } catch (error) {
-    alert("Error submitting booking");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
 
   return (
     <div className="bg-white bg-opacity-90 shadow-lg rounded-2xl p-6 sm:p-8 max-w-lg mx-auto">
@@ -107,7 +106,7 @@ const OfferForm = () => {
         <input
           type="text"
           name="name"
-          placeholder="Your Name"
+          placeholder="Naam"
           value={formData.name}
           onChange={handleChange}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
@@ -116,7 +115,7 @@ const OfferForm = () => {
         <input
           type="email"
           name="email"
-          placeholder="Your Email"
+          placeholder="Email"
           value={formData.email}
           onChange={handleChange}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
@@ -169,7 +168,7 @@ const OfferForm = () => {
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
         />
         <label htmlFor="startDateTime" className="block mb-1 font-medium">
-          Start Date & Time
+          Start Datum & Tijd
         </label>
         <input
           type="datetime-local"
@@ -200,10 +199,10 @@ const OfferForm = () => {
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
         >
-          <option value="">Select Attendees</option>
+          <option value="">Aantal bezoekers</option>
           {pricingOptions.map((option, index) => (
             <option key={index} value={option.max}>
-              {option.min} - {option.max} Attendees
+              {option.min} - {option.max} Bezoekers
             </option>
           ))}
         </select>
@@ -306,24 +305,23 @@ const OfferForm = () => {
           de 24u.
         </p>
         <button
-  type="submit"
-  disabled={isSubmitting}
-  className={`w-full py-3 px-6 font-bold rounded-lg transition-all duration-300 ${
-    isSubmitting
-      ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-      : "bg-gradient-to-r from-pink-400 to-red-400 hover:from-pink-300 hover:to-red-300 text-white"
-  }`}
->
-  {isSubmitting ? (
-    <div className="flex items-center justify-center gap-2">
-      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-      Verzenden...
-    </div>
-  ) : (
-    "Submit Booking"
-  )}
-</button>
-
+          type="submit"
+          disabled={isSubmitting}
+          className={`w-full py-3 px-6 font-bold rounded-lg transition-all duration-300 ${
+            isSubmitting
+              ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+              : "bg-gradient-to-r from-pink-400 to-red-400 hover:from-pink-300 hover:to-red-300 text-white"
+          }`}
+        >
+          {isSubmitting ? (
+            <div className="flex items-center justify-center gap-2">
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              Verzenden...
+            </div>
+          ) : (
+            "Submit Booking"
+          )}
+        </button>
       </form>
     </div>
   );
