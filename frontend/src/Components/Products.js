@@ -39,7 +39,7 @@ const Products = () => {
           <h2 className="products-title">PRODUCTEN</h2>
         </div>
         <div className="products-shown">
-           <div className="rectangle-product">
+          <div className="rectangle-product">
             <h3 className="strawberry-title-product">Bestellen</h3>
             <svg className="dots-product">
               <use href={`${symbols}#icon-dots-dots`}></use>
@@ -51,10 +51,11 @@ const Products = () => {
               </p>
             </a>
             <div className="icons">
-              <a href="ijs-bestellen"><svg className="arrow-right-product">
-                <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
-              </svg></a>
-              
+              <a href="ijs-bestellen">
+                <svg className="arrow-right-product">
+                  <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
+                </svg>
+              </a>
             </div>
             <div className="product__overlay">
               <a href="ijs-bestellen">
@@ -64,6 +65,7 @@ const Products = () => {
                 </p>
               </a>
             </div>
+          </div>
 
           <div className="rectangle-2-product">
             <h3 className="coffee-title-product">Reserveren</h3>
