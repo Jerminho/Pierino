@@ -444,7 +444,7 @@ app.put("/bookings/:id/price", async (req, res) => {
 
 // 📌 API: Send Offer Mail
 app.post("/send-offer", async (req, res) => {
-  const { id, message, transportFee, duration } = req.body; // ✅ Include new fields
+  const { id, message, transportFee, duration } = req.body;
 
   try {
     const result = await pool.query("SELECT * FROM bookings WHERE id = $1", [
@@ -458,7 +458,6 @@ app.post("/send-offer", async (req, res) => {
     const booking = result.rows[0];
     const { name, email, location, start_datetime, price } = booking;
 
-    // ✅ Pass all arguments to sendOfferMail
     await sendOfferMail(
       name,
       email,
@@ -469,6 +468,11 @@ app.post("/send-offer", async (req, res) => {
       duration,
       message
     );
+
+    // ✅ Markeer offerte als verzonden
+    await pool.query("UPDATE bookings SET offer_sent = true WHERE id = $1", [
+      id,
+    ]);
 
     res.json({ success: true, message: "Offerte verzonden." });
   } catch (error) {
@@ -739,7 +743,8 @@ const sendOfferMail = async (
     Voor uw aanvraag om reservatie op <strong>${new Date(
       startDateTime
     ).toLocaleString("nl-BE")}</strong> te <strong>${location}</strong>,<br>
-    voorzien wij een prijs van <strong>€${price}</strong>.<br><br>
+    voorzien wij een <strong>minimumprijs van €${price}</strong>.<br>
+    De prijs voor 1 bol bedraagt 3 euro, 2 bollen 5 euro, 3 bollen 6 euro. <br><br>
 
     Er wordt een verplaatsingskost aangerekend van <strong>${transportFee} euro</strong>, 
     deze is reeds verrekend in het minimumbedrag.<br>
