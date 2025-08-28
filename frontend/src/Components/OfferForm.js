@@ -176,6 +176,7 @@ const OfferForm = () => {
           name="startDateTime"
           value={formData.startDateTime}
           onChange={handleChange}
+          min={new Date().toISOString().slice(0, 16)}
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
         />{" "}
