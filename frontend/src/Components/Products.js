@@ -51,10 +51,10 @@ const Products = () => {
               </p>
             </a>
             <div className="icons">
-              <a href="ijs-bestellen">
-              <svg className="arrow-right-product">
+              <a href="ijs-bestellen"><svg className="arrow-right-product">
                 <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
               </svg></a>
+              
             </div>
             <div className="product__overlay">
               <a href="ijs-bestellen">
