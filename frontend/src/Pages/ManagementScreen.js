@@ -432,17 +432,22 @@ const ManagementScreen = () => {
 
                     <div className="mt-4 flex gap-2">
                       <button
-                        onClick={() => sendOffer(booking.id)}
-                        disabled={booking.offer_sent}
+                        onClick={() => {
+                          if (booking.offer_sent) {
+                            const proceed = window.confirm(
+                              "⚠️ Er werd al een offerte voor deze booking verstuurd.\n\nWil je toch nog een nieuwe offerte versturen?"
+                            );
+                            if (!proceed) return; // gebruiker heeft geannuleerd
+                          }
+                          sendOffer(booking.id); // verstuur (eerste keer of opnieuw)
+                        }}
                         className={`font-bold py-1 px-2 rounded mr-2 ${
                           booking.offer_sent
-                            ? "bg-gray-400 cursor-not-allowed text-white"
+                            ? "bg-gray-400 hover:bg-gray-500 text-white"
                             : "bg-yellow-500 hover:bg-yellow-600 text-white"
                         }`}
                       >
-                        {booking.offer_sent
-                          ? "Offerte reeds verzonden"
-                          : "Stuur Offerte"}
+                        {booking.offer_sent ? "Stuur opnieuw" : "Stuur Offerte"}
                       </button>
                       <button
                         onClick={() => updateBooking(booking.id, "approved")}
