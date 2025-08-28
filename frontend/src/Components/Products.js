@@ -50,13 +50,13 @@ const Products = () => {
                 jezelf op de lekkerste smaken!
               </p>
             </a>
-            <a href="ijs-bestellen">
-              <div className="icons">
+            <div className="icons">
+              <a href="ijs-bestellen">
                 <svg className="arrow-right-product">
                   <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
                 </svg>
-              </div>
-            </a>
+              </a>
+            </div>
             <div className="product__overlay">
               <a href="ijs-bestellen">
                 <p className="product__text">
@@ -79,9 +79,11 @@ const Products = () => {
               </p>
             </a>
             <div className="icons">
-              <svg className="arrow-right-product">
-                <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
-              </svg>
+              <a href="offer">
+                <svg className="arrow-right-product">
+                  <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
+                </svg>
+              </a>
             </div>
             <div className="product__overlay">
               <a href="offer">
@@ -104,9 +106,11 @@ const Products = () => {
               </p>
             </a>
             <div className="icons">
-              <svg className="arrow-right-product">
-                <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
-              </svg>
+              <a href="contact">
+                <svg className="arrow-right-product">
+                  <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
+                </svg>
+              </a>
             </div>
             <div className="product__overlay">
               <a href="contact">
