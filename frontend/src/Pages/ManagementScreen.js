@@ -268,6 +268,9 @@ const ManagementScreen = () => {
           ...prev,
           [id]: "",
         }));
+
+        // ✅ Pagina automatisch herladen zodat de knop grijs wordt
+        window.location.reload();
       } else {
         alert("Fout bij verzenden: " + data.error);
       }
