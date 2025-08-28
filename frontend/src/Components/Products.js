@@ -45,10 +45,6 @@ const Products = () => {
               <svg className="dots-product">
                 <use href={`${symbols}#icon-dots-dots`}></use>
               </svg>
-              <p className="paragraph-strawberry-product">
-                Zin in verfrissend, ambachtelijk ijs? Bestel nu en trakteer
-                jezelf op de lekkerste smaken!
-              </p>
               <div className="icons">
                 <svg className="arrow-right-product">
                   <use href="../src/images/symbols/symbol-defs.svg#icon-arrow-small"></use>
