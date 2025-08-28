@@ -433,9 +433,16 @@ const ManagementScreen = () => {
                     <div className="mt-4 flex gap-2">
                       <button
                         onClick={() => sendOffer(booking.id)}
-                        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-2 rounded mr-2"
+                        disabled={booking.offer_sent}
+                        className={`font-bold py-1 px-2 rounded mr-2 ${
+                          booking.offer_sent
+                            ? "bg-gray-400 cursor-not-allowed text-white"
+                            : "bg-yellow-500 hover:bg-yellow-600 text-white"
+                        }`}
                       >
-                        Stuur Offerte
+                        {booking.offer_sent
+                          ? "Offerte reeds verzonden"
+                          : "Stuur Offerte"}
                       </button>
                       <button
                         onClick={() => updateBooking(booking.id, "approved")}
