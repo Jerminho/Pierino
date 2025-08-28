@@ -222,7 +222,7 @@ Team Pierino`;
     res.json({
       success: true,
       message:
-        "Booking submitted! You will receive a quotation (offerte) from us within 24 hours. Please also check your spam folder.",
+        "Uw reservering is succesvol verzonden! Binnen 24 uur ontvangt u een offerte van ons. Mail niet ontvangen? Check zeker eens uw spamfolder.",
       price,
     });
   } catch (error) {
