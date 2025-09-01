@@ -450,6 +450,17 @@ const ManagementScreen = () => {
                     <div className="mt-4 flex gap-2">
                       <button
                         onClick={() => {
+                          const transportFee =
+                            offerInputs[booking.id]?.transportFee;
+                          const duration = offerInputs[booking.id]?.duration;
+
+                          if (!transportFee || !duration) {
+                            alert(
+                              "⚠️ Vul zowel de verplaatsingskosten als de duur in voordat je een offerte verstuurt."
+                            );
+                            return; // stop de functie, offerte wordt niet verzonden
+                          }
+
                           if (booking.offer_sent) {
                             const proceed = window.confirm(
                               "⚠️ Er werd al een offerte voor deze booking verstuurd.\n\nWil je toch nog een nieuwe offerte versturen?"
