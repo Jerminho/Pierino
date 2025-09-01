@@ -302,6 +302,8 @@ app.post("/update-booking", async (req, res) => {
       invoice_vat,
       invoice_name,
       invoice_address,
+      transport_fee, // ✅ nieuw
+      duration, // ✅ nieuw
     } = bookingResult.rows[0];
 
     let subject, text;
@@ -335,7 +337,9 @@ app.post("/update-booking", async (req, res) => {
         wants_invoice,
         invoice_vat,
         invoice_name,
-        invoice_address
+        invoice_address,
+        transport_fee, // ✅ nieuw
+        duration // ✅ nieuw
       );
 
       // Send confirmation email to client
@@ -469,10 +473,11 @@ app.post("/send-offer", async (req, res) => {
       message
     );
 
-    // ✅ Markeer offerte als verzonden
-    await pool.query("UPDATE bookings SET offer_sent = true WHERE id = $1", [
-      id,
-    ]);
+    // ✅ Sla transport_fee, duration en offer_sent meteen op in de DB
+    await pool.query(
+      "UPDATE bookings SET transport_fee = $1, duration = $2, offer_sent = true WHERE id = $3",
+      [transportFee, duration, id]
+    );
 
     res.json({ success: true, message: "Offerte verzonden." });
   } catch (error) {
@@ -590,7 +595,9 @@ const addToGoogleCalendar = async (
   wantsInvoice,
   invoiceVAT,
   invoiceName,
-  invoiceAddress
+  invoiceAddress,
+  transport_fee,
+  duration
 ) => {
   console.log("📥 addToGoogleCalendar was called with:", {
     name,
@@ -625,6 +632,9 @@ const addToGoogleCalendar = async (
 📅 Datum: ${start.toFormat("dd/LL/yyyy HH:mm")}
 👥 Aantal personen: ${attendeeRange}
 🗒️ Opmerking: ${commentary || "Geen"}
+
+💰 Transportkosten: €${transport_fee || "Niet opgegeven"}
+⏱️ Duur: ${duration || 60} minuten
 
 🧾 Facturatie:
 ${
@@ -743,7 +753,7 @@ const sendOfferMail = async (
     Voor uw aanvraag om reservatie op <strong>${new Date(
       startDateTime
     ).toLocaleString("nl-BE")}</strong> te <strong>${location}</strong>,<br>
-    voorzien wij een <strong>minimumprijs van €${price}</strong>.<br>
+    voorzien wij een <strong>minimumprijs van €${price}</strong>.<br><br>
     De prijs voor 1 bol bedraagt 3 euro, 2 bollen 5 euro, 3 bollen 6 euro. <br><br>
 
     Er wordt een verplaatsingskost aangerekend van <strong>${transportFee} euro</strong>, 
