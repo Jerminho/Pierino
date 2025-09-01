@@ -18,6 +18,8 @@ const ManagementScreen = () => {
   // const [editedEndTimes, setEditedEndTimes] = useState({});
   const [offerInputs, setOfferInputs] = useState({});
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   // State for search input by name
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -152,24 +154,32 @@ const ManagementScreen = () => {
 
   // 📌 Handle Approve/Decline Booking
   const updateBooking = async (id, status) => {
+    if (isSubmitting) return; // voorkomt dubbele clicks
+    setIsSubmitting(true);
+
     try {
-      const message = messages[id] || ""; // Get the message for this booking (if any)
+      const message = messages[id] || "";
       const response = await axios.post(
         "https://pierino-backend-a1790776fc10.herokuapp.com/update-booking",
         { id, status, message }
       );
 
       if (response.data.success) {
-        alert(`✅ The status of this booking has been updated to '${status}'.`);
-        window.location.reload(); // Reload the page
+        alert(
+          `✅ De status van deze reservatie is bijgewerkt naar '${status}'.`
+        );
+        window.location.reload();
       } else {
-        alert("⚠️ Failed to update booking status. Please try again.");
+        alert(
+          "⚠️ Kon de status van de reservatie niet bijwerken. Probeer het opnieuw."
+        );
       }
     } catch (error) {
-      console.error(`Failed to ${status} booking:`, error);
+      console.error(`Fout bij het verwerken van de reservatie:`, error);
+      alert("Er is een fout opgetreden bij het verwerken van de booking.");
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // window.location.reload(); // Reload the page
   };
 
   // 📌 Handle Deleting a Booking
@@ -406,6 +416,7 @@ const ManagementScreen = () => {
                           e.target.value
                         )
                       }
+                      required
                     />
 
                     {/* Duration */}
@@ -421,6 +432,7 @@ const ManagementScreen = () => {
                           e.target.value
                         )
                       }
+                      required
                     />
 
                     {/* Message Area */}
@@ -454,10 +466,23 @@ const ManagementScreen = () => {
                       </button>
                       <button
                         onClick={() => updateBooking(booking.id, "approved")}
-                        className="bg-green-500 text-white py-1 px-3 rounded-lg"
+                        disabled={isSubmitting}
+                        className={`bg-green-500 text-white py-1 px-3 rounded-lg transition-all duration-300 ${
+                          isSubmitting
+                            ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                            : ""
+                        }`}
                       >
-                        Aanvaard
+                        {isSubmitting ? (
+                          <div className="flex items-center gap-2">
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            Aanvaarden...
+                          </div>
+                        ) : (
+                          "Aanvaard"
+                        )}
                       </button>
+
                       <button
                         onClick={() => updateBooking(booking.id, "declined")}
                         className="bg-red-500 text-white py-1 px-3 rounded-lg"
