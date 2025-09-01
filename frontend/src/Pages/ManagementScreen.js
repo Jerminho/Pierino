@@ -176,7 +176,9 @@ const ManagementScreen = () => {
       }
     } catch (error) {
       console.error(`Fout bij het verwerken van de reservatie:`, error);
-      alert("Er is een fout opgetreden bij het verwerken van de booking.");
+      alert(
+        "Er is een fout opgetreden bij het verwerken van de booking. Heb je eerst een offerte verzonden?"
+      );
     } finally {
       setIsSubmitting(false);
     }
