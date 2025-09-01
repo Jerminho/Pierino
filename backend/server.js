@@ -285,6 +285,17 @@ app.post("/update-booking", async (req, res) => {
     if (bookingResult.rows.length === 0)
       return res.status(404).json({ error: "Booking not found" });
 
+    // 🚨 Validatie: transport_fee en duration moeten ingevuld zijn voor goedkeuring
+    if (
+      status === "approved" &&
+      (!booking.transport_fee || !booking.duration)
+    ) {
+      return res.status(400).json({
+        error:
+          "De reservatie kan niet worden aanvaard. Verstuur eerst een offerte met transportkosten en duur ingevuld.",
+      });
+    }
+
     // Update booking status
     const updateQuery = "UPDATE bookings SET status = $1 WHERE id = $2"; // Gebruik $1 en $2 voor parameterbinding
     await pool.query(updateQuery, [status, id]);
