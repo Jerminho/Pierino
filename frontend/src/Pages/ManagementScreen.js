@@ -18,7 +18,7 @@ const ManagementScreen = () => {
   // const [editedEndTimes, setEditedEndTimes] = useState({});
   const [offerInputs, setOfferInputs] = useState({});
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittingBookingId, setSubmittingBookingId] = useState(null);
 
   // State for search input by name
   const [searchTerm, setSearchTerm] = useState("");
@@ -154,8 +154,8 @@ const ManagementScreen = () => {
 
   // 📌 Handle Approve/Decline Booking
   const updateBooking = async (id, status) => {
-    if (isSubmitting) return; // voorkomt dubbele clicks
-    setIsSubmitting(true);
+    if (submittingBookingId) return; // voorkomt dubbele clicks zolang er al één bezig is
+    setSubmittingBookingId(id); // zet deze specifieke booking op "laden..."
 
     try {
       const message = messages[id] || "";
@@ -180,7 +180,7 @@ const ManagementScreen = () => {
         "Er is een fout opgetreden bij het verwerken van de booking. Heb je eerst een offerte verzonden?"
       );
     } finally {
-      setIsSubmitting(false);
+      setSubmittingBookingId(null); // reset naar geen enkele knop
     }
   };
 
@@ -479,14 +479,14 @@ const ManagementScreen = () => {
                       </button>
                       <button
                         onClick={() => updateBooking(booking.id, "approved")}
-                        disabled={isSubmitting}
+                        disabled={submittingBookingId === booking.id}
                         className={`bg-green-500 text-white py-1 px-3 rounded-lg transition-all duration-300 ${
-                          isSubmitting
+                          submittingBookingId === booking.id
                             ? "bg-gray-300 text-gray-600 cursor-not-allowed"
                             : ""
                         }`}
                       >
-                        {isSubmitting ? (
+                        {submittingBookingId === booking.id ? (
                           <div className="flex items-center gap-2">
                             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                             Aanvaarden...
