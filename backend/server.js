@@ -304,6 +304,7 @@ app.post("/update-booking", async (req, res) => {
       invoice_address,
       transport_fee, // ✅ nieuw
       duration, // ✅ nieuw
+      price,
     } = bookingResult.rows[0];
 
     let subject, text;
@@ -339,7 +340,8 @@ app.post("/update-booking", async (req, res) => {
         invoice_name,
         invoice_address,
         transport_fee, // ✅ nieuw
-        duration // ✅ nieuw
+        duration, // ✅ nieuw
+        price
       );
 
       // Send confirmation email to client
@@ -597,7 +599,8 @@ const addToGoogleCalendar = async (
   invoiceName,
   invoiceAddress,
   transport_fee,
-  duration
+  duration,
+  price
 ) => {
   console.log("📥 addToGoogleCalendar was called with:", {
     name,
@@ -611,6 +614,9 @@ const addToGoogleCalendar = async (
     invoiceVAT,
     invoiceName,
     invoiceAddress,
+    transport_fee,
+    duration,
+    price,
   });
 
   try {
@@ -633,7 +639,8 @@ const addToGoogleCalendar = async (
 👥 Aantal personen: ${attendeeRange}
 🗒️ Opmerking: ${commentary || "Geen"}
 
-💰 Transportkosten: €${transport_fee || "Niet opgegeven"}
+💰 Prijs: €${price || "Niet opgegeven"}
+🚚 Transportkosten: €${transport_fee || "Niet opgegeven"}
 ⏱️ Duur: ${duration || 60} minuten
 
 🧾 Facturatie:
