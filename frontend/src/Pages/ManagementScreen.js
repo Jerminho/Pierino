@@ -30,7 +30,7 @@ const ManagementScreen = () => {
     const logoutAfterInactivity = () => {
       localStorage.removeItem("token");
       alert("Session expired due to inactivity. You will be logged out.");
-      navigate("/login");
+      navigate("/log-in");
     };
 
     const resetTimer = () => {
