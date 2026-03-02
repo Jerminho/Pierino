@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./Products.css"; // Assuming the styles are in this file
 // Import images correctly
 // import iceCream1x from "./images/ice-cream-header-d.png";

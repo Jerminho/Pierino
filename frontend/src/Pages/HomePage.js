@@ -4,7 +4,7 @@ import React from "react";
 import Products from "../Components/Products";
 import AboutAndAdvantages from "../Components/AboutAndAdvantages";
 import Gallery from "../Components/Gallery";
-import Contacts from "../Components/Contacts";
+// import Contacts from "../Components/Contacts";
 
 const HomePage = () => {
   return (
