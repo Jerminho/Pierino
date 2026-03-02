@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Products.css"; // Assuming the styles are in this file
 // Import images correctly
-import iceCream1x from "./images/ice-cream-header-d.png";
-import iceCream2x from "./images/ice-cream-header-d@2x.png";
-import milk1x from "./images/milk-header-d.png";
-import milk2x from "./images/milk-header-d@2x.png";
-import girlIceCream1x from "./images/girl-icecream-d.png";
-import girlIceCream2x from "./images/girl-icecream-d@2x.png";
-import arrowRight from "./images/arrow-right.png";
+// import iceCream1x from "./images/ice-cream-header-d.png";
+// import iceCream2x from "./images/ice-cream-header-d@2x.png";
+// import milk1x from "./images/milk-header-d.png";
+// import milk2x from "./images/milk-header-d@2x.png";
+// import girlIceCream1x from "./images/girl-icecream-d.png";
+// import girlIceCream2x from "./images/girl-icecream-d@2x.png";
+// import arrowRight from "./images/arrow-right.png";
 // Import symbols correctly
 import symbols from "./images/symbols/symbol-defs.svg";
 import backgroundImage from "../Components/images/bgIceCream.png"; // Background image

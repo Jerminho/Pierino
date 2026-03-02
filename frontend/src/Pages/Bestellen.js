@@ -17,7 +17,7 @@ const Bestellen = () => {
   const [klantGegevens, setKlantGegevens] = useState({
     naam: "", email: "", telefoon: "", opmerkingen: "",
   });
-  const [resultaat, setResultaat] = useState("");
+  const [, setResultaat] = useState("");
   const navigate = useNavigate();
 
   const prijsPerLiter = 15;

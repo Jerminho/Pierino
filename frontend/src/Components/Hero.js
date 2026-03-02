@@ -11,7 +11,6 @@ import milkHeaderD from "./images/milk-header-d.png";
 import milkHeaderD2x from "./images/milk-header-d@2x.png";
 import milkHeaderT from "./images/milk-header-t.png";
 import milkHeaderT2x from "./images/milk-header-t@2x.png";
-import arrowRight from "./images/arrow-right.png";
 import girlIceCreamD from "./images/girl-icecream-d.png";
 import girlIceCreamD2x from "./images/girl-icecream-d@2x.png";
 import girlIceCreamT from "./images/girl-icecream-t.png";
