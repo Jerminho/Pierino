@@ -29,11 +29,11 @@ const OfferForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Use your Heroku app URL here
-  const API_URL = "https://pierino-70f82f18a24c.herokuapp.com/"; // Heroku API URL
+  const API_URL = "https://pierino-70f82f18a24c.herokuapp.com"; // Heroku API URL
 
   useEffect(() => {
     axios
-      .get(`${API_URL}pricing`) // Fetch pricing data from the live backend
+      .get(`${API_URL}/pricing`) // Fetch pricing data from the live backend
       .then((response) => setPricingOptions(response.data))
       .catch((error) => console.error("Error fetching pricing data", error));
   }, []);
