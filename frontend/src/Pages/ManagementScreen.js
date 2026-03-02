@@ -42,7 +42,7 @@ const ManagementScreen = () => {
     const activityEvents = ["mousemove", "keydown", "click", "scroll"];
 
     activityEvents.forEach((event) =>
-      window.addEventListener(event, resetTimer)
+      window.addEventListener(event, resetTimer),
     );
 
     resetTimer(); // Start timer on mount
@@ -50,7 +50,7 @@ const ManagementScreen = () => {
     // Cleanup listeners and timeout on unmount
     return () => {
       activityEvents.forEach((event) =>
-        window.removeEventListener(event, resetTimer)
+        window.removeEventListener(event, resetTimer),
       );
       clearTimeout(timeout);
     };
@@ -60,7 +60,7 @@ const ManagementScreen = () => {
     const token = localStorage.getItem("token");
 
     axios
-      .get("https://pierino-backend-a1790776fc10.herokuapp.com/bookings", {
+      .get("https://pierino-70f82f18a24c.herokuapp.com/bookings", {
         headers: {
           Authorization: `Bearer ${token}`, // ✅ Send token to backend
         },
@@ -91,12 +91,12 @@ const ManagementScreen = () => {
 
     try {
       const res = await fetch(
-        `https://pierino-backend-a1790776fc10.herokuapp.com/bookings/${bookingId}/price`,
+        `https://pierino-70f82f18a24c.herokuapp.com/bookings/${bookingId}/price`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ price: newPrice }),
-        }
+        },
       );
 
       const data = await res.json();
@@ -130,7 +130,7 @@ const ManagementScreen = () => {
 
   //   try {
   //     const res = await fetch(
-  //       `https://pierino-backend-a1790776fc10.herokuapp.com/bookings/${bookingId}/endtime`,
+  //       `https://pierino-70f82f18a24c.herokuapp.com/bookings/${bookingId}/endtime`,
   //       {
   //         method: "PUT",
   //         headers: { "Content-Type": "application/json" },
@@ -160,24 +160,24 @@ const ManagementScreen = () => {
     try {
       const message = messages[id] || "";
       const response = await axios.post(
-        "https://pierino-backend-a1790776fc10.herokuapp.com/update-booking",
-        { id, status, message }
+        "https://pierino-70f82f18a24c.herokuapp.com/update-booking",
+        { id, status, message },
       );
 
       if (response.data.success) {
         alert(
-          `✅ De status van deze reservatie is bijgewerkt naar '${status}'.`
+          `✅ De status van deze reservatie is bijgewerkt naar '${status}'.`,
         );
         window.location.reload();
       } else {
         alert(
-          "⚠️ Kon de status van de reservatie niet bijwerken. Probeer het opnieuw."
+          "⚠️ Kon de status van de reservatie niet bijwerken. Probeer het opnieuw.",
         );
       }
     } catch (error) {
       console.error(`Fout bij het verwerken van de reservatie:`, error);
       alert(
-        "Er is een fout opgetreden bij het verwerken van de booking. Heb je eerst een offerte verzonden?"
+        "Er is een fout opgetreden bij het verwerken van de booking. Heb je eerst een offerte verzonden?",
       );
     } finally {
       setSubmittingBookingId(null); // reset naar geen enkele knop
@@ -188,7 +188,7 @@ const ManagementScreen = () => {
   const deleteBooking = async (id) => {
     try {
       const response = await axios.delete(
-        `https://pierino-backend-a1790776fc10.herokuapp.com/delete-booking/${id}`
+        `https://pierino-70f82f18a24c.herokuapp.com/delete-booking/${id}`,
       );
       const { success, eventRemoved } = response.data;
 
@@ -213,7 +213,7 @@ const ManagementScreen = () => {
     new Date(a.start_datetime) - new Date(b.start_datetime);
 
   const filteredBookings = bookings.filter((booking) =>
-    booking.name.toLowerCase().includes(searchTerm.toLowerCase())
+    booking.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const pendingBookings = filteredBookings
@@ -252,7 +252,7 @@ const ManagementScreen = () => {
       const offerData = offerInputs[id] || {};
       const message = messages[id] || "";
       const res = await fetch(
-        "https://pierino-backend-a1790776fc10.herokuapp.com/send-offer",
+        "https://pierino-70f82f18a24c.herokuapp.com/send-offer",
         {
           method: "POST",
           headers: {
@@ -264,7 +264,7 @@ const ManagementScreen = () => {
             transportFee: offerData.transportFee || 20,
             duration: offerData.duration || 60,
           }),
-        }
+        },
       );
 
       const data = await res.json();
@@ -415,7 +415,7 @@ const ManagementScreen = () => {
                         handleInputChange(
                           booking.id,
                           "transportFee",
-                          e.target.value
+                          e.target.value,
                         )
                       }
                       required
@@ -431,7 +431,7 @@ const ManagementScreen = () => {
                         handleInputChange(
                           booking.id,
                           "duration",
-                          e.target.value
+                          e.target.value,
                         )
                       }
                       required
@@ -456,14 +456,14 @@ const ManagementScreen = () => {
 
                           if (!transportFee || !duration) {
                             alert(
-                              "⚠️ Vul zowel de verplaatsingskosten als de duur in voordat je een offerte verstuurt."
+                              "⚠️ Vul zowel de verplaatsingskosten als de duur in voordat je een offerte verstuurt.",
                             );
                             return; // stop de functie, offerte wordt niet verzonden
                           }
 
                           if (booking.offer_sent) {
                             const proceed = window.confirm(
-                              "⚠️ Er werd al een offerte voor deze booking verstuurd.\n\nWil je toch nog een nieuwe offerte versturen?"
+                              "⚠️ Er werd al een offerte voor deze booking verstuurd.\n\nWil je toch nog een nieuwe offerte versturen?",
                             );
                             if (!proceed) return; // gebruiker heeft geannuleerd
                           }

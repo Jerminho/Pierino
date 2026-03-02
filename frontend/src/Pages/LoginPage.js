@@ -12,7 +12,7 @@ export default function LoginPage() {
 
     try {
       const res = await fetch(
-        "https://pierino-backend-a1790776fc10.herokuapp.com/api/login",
+        "https://pierino-70f82f18a24c.herokuapp.com/api/login",
         {
           method: "POST",
           headers: {
