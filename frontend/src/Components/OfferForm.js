@@ -24,7 +24,7 @@ const OfferForm = () => {
     invoicePostalCode: "",
     invoiceCity: "",
   });
-  const [estimatedPrice, setEstimatedPrice] = useState(null);
+  const [, setEstimatedPrice] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Use your Heroku app URL here
@@ -32,14 +32,14 @@ const OfferForm = () => {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/pricing`) // Fetch pricing data from the live backend
+      .get(`${API_URL}pricing`) // Fetch pricing data from the live backend
       .then((response) => setPricingOptions(response.data))
       .catch((error) => console.error("Error fetching pricing data", error));
   }, []);
 
   const calculatePrice = (attendees) => {
     const range = pricingOptions.find(
-      (r) => attendees >= r.min && attendees <= r.max
+      (r) => attendees >= r.min && attendees <= r.max,
     );
     if (range) {
       return range.baseCalculation * range.pricePerAttendee + 20;
@@ -52,7 +52,7 @@ const OfferForm = () => {
 
     if (name === "attendees") {
       const selectedOption = pricingOptions.find(
-        (option) => option.max.toString() === value
+        (option) => option.max.toString() === value,
       );
       const selectedRange = `${selectedOption.min} - ${selectedOption.max}`;
 
