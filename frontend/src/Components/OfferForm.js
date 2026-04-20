@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { DateTime } from "luxon";
 
 const OfferForm = () => {
   const [pricingOptions, setPricingOptions] = useState([]);
@@ -76,10 +77,14 @@ const OfferForm = () => {
     const fullLocation = `${formData.street} ${formData.number} ${formData.postalCode} ${formData.city}`;
     const wantsInvoice = formData.wantsInvoice === "yes";
     const invoiceAddress = `${formData.invoiceStreet} ${formData.invoiceNumber} ${formData.invoicePostalCode} ${formData.invoiceCity}`;
+    const localDateTime = formData.startDateTime; // "2026-04-21T15:19"
+    // Create a date object interpreting the input as local time
+    const dateObject = new Date(localDateTime);
 
     const payload = {
       ...formData,
       location: fullLocation,
+      startDateTime: dateObject.toISOString(),
       commentary: formData.commentary,
       wantsInvoice,
       invoiceVAT: wantsInvoice ? formData.invoiceVAT : null,
