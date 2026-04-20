@@ -654,16 +654,16 @@ Adres: ${invoiceAddress || "Niet opgegeven"}`
     `.trim();
 
     const event = {
-      summary: `Booking by ${name}`,
-      description,
-      start: {
-        dateTime: start.toUTC().toISO(),
-        timeZone: "UTC",
-      },
-      end: {
-        dateTime: end.toUTC().toISO(),
-        timeZone: "UTC",
-      },
+  summary: `Booking by ${name}`,
+  description,
+  start: {
+    dateTime: start.toISO(),
+    timeZone: "Europe/Brussels",
+  },
+  end: {
+    dateTime: end.toISO(),
+    timeZone: "Europe/Brussels",
+  },
     };
 
     const response = await calendar.events.insert({
@@ -834,3 +834,5 @@ app.get("*", (_, res) => {
 });
 // 📌 Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+module.exports = { addToGoogleCalendar };
