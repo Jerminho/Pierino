@@ -78,7 +78,7 @@ const TRANSPORT_FEE = 20;
 // 📌 Calculate Price Function
 const calculatePrice = (attendees) => {
   const range = pricingRanges.find(
-    (r) => attendees >= r.min && attendees <= r.max
+    (r) => attendees >= r.min && attendees <= r.max,
   );
   return range
     ? range.baseCalculation * range.pricePerAttendee + TRANSPORT_FEE
@@ -139,11 +139,14 @@ app.post("/book", async (req, res) => {
         invoiceVAT || null,
         invoiceName || null,
         invoiceAddress || null,
-      ]
+      ],
     );
 
     // ✅ Send confirmation email
     const subject = "Bevestiging van je offerteaanvraag – Pierino Ijs";
+    const formattedDate = DateTime.fromJSDate(new Date(startDateTime))
+      .setZone("Europe/Brussels")
+      .toFormat("dd/LL/yyyy HH:mm");
 
     const text = `Beste ${name},
 
@@ -162,9 +165,7 @@ Team Pierino`;
 
   <p>Ons team bekijkt momenteel alle details en zal u binnen de <strong>24 uur</strong> een voorstel toesturen.</p>
 
-  <p><strong>Datum van het evenement:</strong> ${new Date(
-    startDateTime
-  ).toLocaleString()}</p>
+  <p><strong>Datum van het evenement:</strong> ${formattedDate}</p>
   <p><strong>Geschat aantal personen:</strong> ${attendeeRange}</p>
 
   <p>Heeft u in de tussentijd nog vragen of extra info? Aarzel dan niet om ons te contacteren.</p>
@@ -193,9 +194,7 @@ Team Pierino`;
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Telefoonnummer:</strong> ${phone}</p>
         <p><strong>Locatie:</strong> ${location}</p>
-        <p><strong>Datum:</strong> ${new Date(
-          startDateTime
-        ).toLocaleString()}</p>
+        <p><strong>Datum:</strong> ${formattedDate}</p>
         <p><strong>Aantal personen:</strong> ${attendeeRange}</p> <br/>
         ${
           wantsInvoice
@@ -341,7 +340,7 @@ app.post("/update-booking", async (req, res) => {
         invoice_address,
         transport_fee, // ✅ nieuw
         duration, // ✅ nieuw
-        price
+        price,
       );
 
       // Send confirmation email to client
@@ -351,7 +350,7 @@ app.post("/update-booking", async (req, res) => {
         email,
         location,
         start_datetime,
-        message
+        message,
       );
 
       // Send confirmation email to admin
@@ -398,7 +397,7 @@ app.put("/bookings/:id/price", async (req, res) => {
   try {
     const result = await pool.query(
       "UPDATE bookings SET price = $1 WHERE id = $2 AND status = 'pending' RETURNING *",
-      [price, id]
+      [price, id],
     );
 
     if (result.rowCount === 0) {
@@ -472,13 +471,13 @@ app.post("/send-offer", async (req, res) => {
       price,
       transportFee,
       duration,
-      message
+      message,
     );
 
     // ✅ Sla transport_fee, duration en offer_sent meteen op in de DB
     await pool.query(
       "UPDATE bookings SET transport_fee = $1, duration = $2, offer_sent = true WHERE id = $3",
-      [transportFee, duration, id]
+      [transportFee, duration, id],
     );
 
     res.json({ success: true, message: "Offerte verzonden." });
@@ -519,7 +518,7 @@ app.delete("/delete-booking/:id", async (req, res) => {
       eventRemoved = await removeFromGoogleCalendar(
         name,
         location,
-        start_datetime
+        start_datetime,
       );
     }
 
@@ -545,7 +544,7 @@ app.delete("/delete-booking/:id", async (req, res) => {
 const removeFromGoogleCalendar = async (
   name,
   location,
-  startDateTime
+  startDateTime,
   // endDateTime
 ) => {
   try {
@@ -600,7 +599,7 @@ const addToGoogleCalendar = async (
   invoiceAddress,
   transport_fee,
   duration,
-  price
+  price,
 ) => {
   console.log("📥 addToGoogleCalendar was called with:", {
     name,
@@ -654,16 +653,16 @@ Adres: ${invoiceAddress || "Niet opgegeven"}`
     `.trim();
 
     const event = {
-  summary: `Booking by ${name}`,
-  description,
-  start: {
-    dateTime: start.toISO(),
-    timeZone: "Europe/Brussels",
-  },
-  end: {
-    dateTime: end.toISO(),
-    timeZone: "Europe/Brussels",
-  },
+      summary: `Booking by ${name}`,
+      description,
+      start: {
+        dateTime: start.toISO(),
+        timeZone: "Europe/Brussels",
+      },
+      end: {
+        dateTime: end.toISO(),
+        timeZone: "Europe/Brussels",
+      },
     };
 
     const response = await calendar.events.insert({
@@ -685,8 +684,13 @@ const sendConfirmationEmail = async (
   location,
   startDateTime,
   // endDateTime,
-  message
+  message,
 ) => {
+  // 🕒 Formatteert alles in één keer: "21/04/2026 15:19"
+  const fullDateTimeFormatted = DateTime.fromJSDate(new Date(startDateTime))
+    .setZone("Europe/Brussels")
+    .toFormat("dd/LL/yyyy HH:mm");
+
   const emailSubject = `Pierino Reservatiebevestiging- ${name}`;
   const emailBody = `
      
@@ -696,26 +700,16 @@ const sendConfirmationEmail = async (
         <li><strong>Naam:</strong> ${name}</li>
         <li><strong>Email:</strong> ${email}</li>
         <li><strong>Locatie:</strong> ${location}</li>
-        <li><strong>Datum:</strong> ${new Date(
-          startDateTime
-        ).toLocaleDateString("en-GB")}</li>
-        <li><strong>Starttijd:</strong> ${new Date(
-          startDateTime
-        ).toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })}</li>
+        <li><strong>Datum & Tijd:</strong> ${fullDateTimeFormatted}</li>
         
       </ul>
       <p>${message || "Bedankt voor uw vertrouwen."}</p>
       <p>
-  Bekijk uw evenement hier: <a href="https://calendar.google.com/calendar/r/eventedit?text=Booking+by+${name}&dates=${new Date(
-    startDateTime
-  )
-    .toISOString()
-    .replace(/[-:]/g, "")}/${new Date(startDateTime)
-    .toISOString()
-    .replace(/[-:]/g, "")}&location=${location}" target="_blank">View Event</a>
+  <p>
+  Bekijk uw evenement hier: 
+  <a href="https://calendar.google.com/calendar/r/eventedit?text=Booking+by+${name}&dates=${new Date(startDateTime).toISOString().replace(/[-:]/g, "").split(".")[0]}Z/${new Date(new Date(startDateTime).getTime() + 60 * 60 * 1000).toISOString().replace(/[-:]/g, "").split(".")[0]}Z&location=${encodeURIComponent(location)}&ctz=Europe/Brussels" target="_blank">
+    View Event
+  </a>
 </p>
 
       <br>
@@ -742,7 +736,7 @@ const sendOfferMail = async (
   price,
   transportFee,
   duration,
-  message
+  message,
 ) => {
   // ⏱️ Format duration from minutes → "X uur en Y minuten"
   const hours = Math.floor(duration / 60);
@@ -752,14 +746,16 @@ const sendOfferMail = async (
   if (minutes > 0)
     durationText += `${hours > 0 ? " en " : ""}${minutes} minuten`;
 
+  // 🕒 De Luxon methode die je voorstelde:
+  const formattedDate = DateTime.fromJSDate(new Date(startDateTime))
+    .setZone("Europe/Brussels")
+    .toFormat("dd/LL/yyyy HH:mm");
   const subject = `Offerte Pierino voor ${name} reservatie-aanvraag`;
 
   const body = `
     Beste ${name},<br>
     Allereerst dank om aan Pierino-ijs te denken!<br>
-    Voor uw aanvraag om reservatie op <strong>${new Date(
-      startDateTime
-    ).toLocaleString("nl-BE")}</strong> te <strong>${location}</strong>,<br>
+    Voor uw aanvraag om reservatie op <strong>${formattedDate}</strong> te <strong>${location}</strong>,<br>
     voorzien wij een <strong>minimumprijs van €${price}</strong>.<br><br>
     De prijs voor 1 bol bedraagt 3 euro, 2 bollen 5 euro, 3 bollen 6 euro. <br><br>
 
@@ -791,7 +787,7 @@ const sendConfirmationEmailToAdmin = async (
   name,
   email,
   location,
-  startDateTime
+  startDateTime,
   // endDateTime
 ) => {
   const emailSubject = `Nieuwe reservatie - ${name}`;
@@ -803,10 +799,10 @@ const sendConfirmationEmailToAdmin = async (
         <li><strong>Email:</strong> ${email}</li>
         <li><strong>Locatie:</strong> ${location}</li>
         <li><strong>Datum:</strong> ${new Date(
-          startDateTime
+          startDateTime,
         ).toLocaleDateString("en-GB")}</li>
         <li><strong>Starttijd:</strong> ${new Date(
-          startDateTime
+          startDateTime,
         ).toLocaleTimeString("en-GB", {
           hour: "2-digit",
           minute: "2-digit",
