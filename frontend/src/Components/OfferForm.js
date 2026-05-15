@@ -105,11 +105,11 @@ const OfferForm = () => {
   return (
     <div className="bg-white bg-opacity-90 shadow-lg rounded-2xl p-6 sm:p-8 max-w-lg mx-auto">
       <h2 className="text-3xl font-bold text-pink-600 text-center mb-2">
-        Gratis offerte voor ijswagen
+        Vrijblijvende offerte voor ijswagen
       </h2>
 
       <p className="text-center text-gray-600 text-sm mb-6">
-        Vraag vrijblijvend een offerte aan voor reservaties van onze ijswagen.
+        Vraags een offerte aan voor reservaties van onze ijswagen.
       </p>
       <form onSubmit={handleSubmit} className="space-y-5">
         <input
