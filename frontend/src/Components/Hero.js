@@ -33,10 +33,13 @@ const Hero = () => {
           </svg>
         </button>
         <div className="menu-drawer-navigation">
-          <a href="\log-in" className="submit-btn link-hero-button hero-btn">
+          <button
+            data-modal-open-mobile-buy
+            type="button"
+            className="submit-btn"
+          >
             <span className="submit-btn-content">
-              <span className="btn-about">Manage</span>
-
+              <a href="\log-in">Manage</a>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="7"
@@ -53,7 +56,7 @@ const Hero = () => {
                 />
               </svg>
             </span>
-          </a>
+          </button>
           <ul className="menu-drawer">
             <li>
               <a href="/" className="link">
@@ -143,14 +146,9 @@ const Hero = () => {
               </svg>
             </button>
 
-            <button
-              data-modal-open-buy
-              data-modal-open-mobile-buy
-              type="button"
-              className="submit-btn"
-            >
+            <a href="\log-in" className="submit-btn link-hero-button hero-btn">
               <span className="submit-btn-content">
-                <a href="\log-in">Manage</a>
+                <span className="btn-about">Manage</span>
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +166,7 @@ const Hero = () => {
                   />
                 </svg>
               </span>
-            </button>
+            </a>
           </div>
         </div>
 
