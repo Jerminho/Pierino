@@ -105,7 +105,7 @@ const OfferForm = () => {
   return (
     <div className="bg-white bg-opacity-90 shadow-lg rounded-2xl p-6 sm:p-8 max-w-lg mx-auto">
       <h2 className="text-3xl font-bold text-pink-600 text-center mb-6">
-        Reserveer een ijswagen
+        Vraag een gratis offerte aan voor een ijswagen
       </h2>
       <form onSubmit={handleSubmit} className="space-y-5">
         <input
@@ -139,7 +139,7 @@ const OfferForm = () => {
         <input
           type="text"
           name="street"
-          placeholder="Straat"
+          placeholder="Straat van het evenement"
           value={formData.street}
           onChange={handleChange}
           required
@@ -148,7 +148,7 @@ const OfferForm = () => {
         <input
           type="text"
           name="number"
-          placeholder="Nummer"
+          placeholder="straatnummer"
           value={formData.number}
           onChange={handleChange}
           required
@@ -157,7 +157,7 @@ const OfferForm = () => {
         <input
           type="text"
           name="postalCode"
-          placeholder="Postcode"
+          placeholder="Postcode van het evenement"
           value={formData.postalCode}
           onChange={handleChange}
           required
@@ -166,7 +166,7 @@ const OfferForm = () => {
         <input
           type="text"
           name="city"
-          placeholder="Gemeente"
+          placeholder="Gemeente van het evenement"
           value={formData.city}
           onChange={handleChange}
           required

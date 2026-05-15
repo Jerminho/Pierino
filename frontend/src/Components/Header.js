@@ -20,7 +20,7 @@ const Header = () => {
             <Link to="/ijs-bestellen" className="hover:text-blue-500">IJs Bestellen</Link>
           </li>
           <li>
-            <Link to="/offer" className="hover:text-blue-500">Ijskar Reserveren</Link>
+            <Link to="/offer" className="hover:text-blue-500">Offerte aanvragen</Link>
           </li>
           <li>
             <Link to="/contact" className="hover:text-blue-500">Contact</Link>
