@@ -119,7 +119,7 @@ const Hero = () => {
               </li>
               <li>
                 <a href="offer" className="link">
-                  Ijskar Reserveren
+                  Offerte ijswagen
                 </a>
               </li>
               <li className="last-link">
