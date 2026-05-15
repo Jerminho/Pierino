@@ -33,13 +33,10 @@ const Hero = () => {
           </svg>
         </button>
         <div className="menu-drawer-navigation">
-          <button
-            data-modal-open-mobile-buy
-            type="button"
-            className="submit-btn"
-          >
+          <a href="\log-in" className="submit-btn link-hero-button hero-btn">
             <span className="submit-btn-content">
-              <a href="\log-in">Manage</a>
+              <span className="btn-about">Manage</span>
+
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="7"
@@ -56,7 +53,7 @@ const Hero = () => {
                 />
               </svg>
             </span>
-          </button>
+          </a>
           <ul className="menu-drawer">
             <li>
               <a href="/" className="link">
