@@ -773,28 +773,38 @@ const sendOfferMail = async (
     .setZone("Europe/Brussels")
     .toFormat("dd/LL/yyyy HH:mm");
   const subject = `Offerte Pierino voor ${name} reservatie-aanvraag`;
+  const icePrice = Number(price || 0) - Number(transportFee || 0);
 
-  const body = `
-    Beste ${name},<br>
-    Allereerst dank om aan Pierino-ijs te denken!<br>
-    Voor uw aanvraag om reservatie op <strong>${formattedDate}</strong> te <strong>${location}</strong>,<br>
-    voorzien wij een <strong>minimumprijs van €${price}</strong>.<br><br>
-    De prijs voor 1 bol bedraagt 3 euro, 2 bollen 5 euro, 3 bollen 6 euro. <br><br>
+const body = `
+  Geachte ${name},<br><br>
 
-    Er wordt een verplaatsingskost aangerekend van <strong>${transportFee} euro</strong>, 
-    deze is reeds verrekend in het minimumbedrag.<br>
-    Wij voorzien een tijdsduur van <strong>${durationText}</strong> 
-    om al uw genodigden op een rustige manier te bedienen.<br><br>
-    De betaling zou <strong>cash/bankcontact</strong> na het bedienen van de genodigden mogen gebeuren indien mogelijk. 
+  Alvast dank om aan Pierino-ijs te denken!<br><br>
 
-    ${message ? `<p>${message}</p><br>` : ""}
+  Dit zou mogelijk zijn voor de minimumprijs van <strong>€${price}</strong>.<br><br>
 
-    Gelieve te reageren op deze mail ter bevestiging van dit voorstel.<br>
-    Dit voorstel is 2 weken geldig, rekening houdend met komende en lopende aanvragen.<br><br>
-    
+  In deze prijs is <strong>€${icePrice}</strong> voorzien aan ijs.<br><br>
+
+  De prijs voor 1 bol bedraagt 3 euro, 2 bollen 5 euro, 3 bollen 6 euro.<br><br>
+
+  Er wordt een verplaatsingskost aangerekend van <strong>€${transportFee}</strong>, deze is reeds verrekend in het minimumbedrag.<br><br>
+
+  Wij voorzien een tijdsduur van <strong>${durationText}</strong> om al uw genodigden op een rustige manier te bedienen.<br><br>
+
+  De betaling zou cash/bankcontact na het bedienen van de genodigden mogen gebeuren indien mogelijk.<br><br>
+
+  Bij bevestiging graag een bereikbaar gsm-nummer voor die dag.<br><br>
+
+  Ik hoop u hiermee voldoende geïnformeerd te hebben, indien u nog vragen heeft zet ze gerust op mail!<br><br>
+
+  Dit voorstel is 2 weken geldig, rekening houdend met komende en lopende aanvragen.<br><br>
+
+  Aanvragen voor feesten of evenementen worden enkel via mail afgewerkt.<br><br>
+
+  ${message ? `<p>${message}</p><br>` : ""}
+
   <p>Met vriendelijke groeten,<br>Team Pierino</p>
   <p style="font-size: 0.9em; color: #666;">Ijskarren · Feesten · Bedrijfsevents · En meer!</p>
-  `;
+`;
 
   await transporter.sendMail({
     from: '"Pierino Team" <pierino.reservaties@gmail.com>',
