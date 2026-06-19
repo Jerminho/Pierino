@@ -123,7 +123,7 @@ app.post("/book", async (req, res) => {
 
   try {
     const result = await pool.query(
-      "INSERT INTO bookings (name, email, phone, location, start_datetime, status, price, attendee_range, commentary, wants_invoice, invoice_vat, invoice_name, invoice_address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *",
+      "INSERT INTO bookings (name, email, phone, location, start_datetime, status, price, attendees, attendee_range, commentary, wants_invoice, invoice_vat, invoice_name, invoice_address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *",
       [
         name,
         email,
@@ -133,6 +133,7 @@ app.post("/book", async (req, res) => {
         // endDateTime,
         "pending",
         price,
+        parseInt(attendees, 10),
         attendeeRange,
         commentary || null,
         wantsInvoice || false,
