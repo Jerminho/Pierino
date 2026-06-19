@@ -386,6 +386,29 @@ app.post("/update-booking", async (req, res) => {
   }
 });
 
+// 👇 HIER toevoegen
+app.get("/test-google-auth", async (req, res) => {
+  try {
+    console.log("Testing Google auth...");
+
+    const authClient = await auth.getClient();
+    const token = await authClient.getAccessToken();
+
+    res.json({
+      success: true,
+      tokenExists: !!token.token,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      code: error.code,
+    });
+  }
+});
+
 // 📌 API: Update Booking Price
 app.put("/bookings/:id/price", async (req, res) => {
   const { id } = req.params;
