@@ -441,12 +441,15 @@ app.put("/bookings/:id/price", async (req, res) => {
 });
 
 // 1. Endpoint voor het aanpassen van de locatie
-app.put('/bookings/:id/location', async (req, res) => {
+app.put("/bookings/:id/location", async (req, res) => {
   const { id } = req.params;
   const { location } = req.body;
   try {
     // Let op: als jouw database-variabele geen 'pool' of 'db' heet, pas dit dan aan
-    await pool.query('UPDATE bookings SET location = $1 WHERE id = $2', [location, id]);
+    await pool.query("UPDATE bookings SET location = $1 WHERE id = $2", [
+      location,
+      id,
+    ]);
     res.json({ success: true, message: "Location updated successfully" });
   } catch (err) {
     console.error(err);
@@ -719,6 +722,7 @@ Adres: ${invoiceAddress || "Niet opgegeven"}`
     console.log("✅ Event added to Google Calendar:", response.data);
   } catch (error) {
     console.error("❌ Google Calendar Error:", error);
+    throw error;
   }
 };
 
@@ -798,7 +802,7 @@ const sendOfferMail = async (
   const subject = `Offerte Pierino voor ${name} reservatie-aanvraag`;
   const icePrice = Number(price || 0) - Number(transportFee || 0);
 
-const body = `
+  const body = `
   Geachte ${name},<br><br>
 
   Alvast dank om aan Pierino-ijs te denken!<br><br>
