@@ -52,19 +52,26 @@ const OfferForm = () => {
     const { name, value } = e.target;
 
     if (name === "attendees") {
-      const selectedOption = pricingOptions.find(
-        (option) => option.max.toString() === value,
-      );
-      const selectedRange = `${selectedOption.min} - ${selectedOption.max}`;
+  const attendees = parseInt(value, 10);
 
-      setFormData({
-        ...formData,
-        attendees: value,
-        attendeeRange: selectedRange, // 👈 New field added
-      });
+  const selectedOption = pricingOptions.find(
+    (option) =>
+      attendees >= option.min &&
+      attendees <= option.max
+  );
 
-      setEstimatedPrice(calculatePrice(parseInt(value, 10)));
-    } else {
+  const selectedRange = selectedOption
+    ? `${selectedOption.min} - ${selectedOption.max}`
+    : "";
+
+  setFormData({
+    ...formData,
+    attendees: value,
+    attendeeRange: selectedRange,
+  });
+
+  setEstimatedPrice(calculatePrice(attendees));
+}else {
       setFormData({ ...formData, [name]: value });
     }
   };
@@ -202,20 +209,16 @@ const OfferForm = () => {
           className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
           required
         /> */}
-        <select
-          name="attendees"
-          value={formData.attendees}
-          onChange={handleChange}
-          className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
-          required
-        >
-          <option value="">Aantal bezoekers</option>
-          {pricingOptions.map((option, index) => (
-            <option key={index} value={option.max}>
-              {option.min} - {option.max} Bezoekers
-            </option>
-          ))}
-        </select>
+        <input
+  type="number"
+  name="attendees"
+  min="1"
+  placeholder="Aantal bezoekers"
+  value={formData.attendees}
+  onChange={handleChange}
+  required
+  className="w-full p-3 border border-pink-300 bg-white rounded-lg outline-none focus:ring-2 focus:ring-pink-400"
+/>
         <textarea
           name="commentary"
           placeholder="Extra opmerkingen (bv. over de locatie, voorkeuren...)"
