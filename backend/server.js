@@ -417,6 +417,20 @@ app.put("/bookings/:id/price", async (req, res) => {
   }
 });
 
+// 1. Endpoint voor het aanpassen van de locatie
+app.put('/bookings/:id/location', async (req, res) => {
+  const { id } = req.params;
+  const { location } = req.body;
+  try {
+    // Let op: als jouw database-variabele geen 'pool' of 'db' heet, pas dit dan aan
+    await pool.query('UPDATE bookings SET location = $1 WHERE id = $2', [location, id]);
+    res.json({ success: true, message: "Location updated successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
 // // 📌 API: Update Booking End Time
 // app.put("/bookings/:id/endtime", async (req, res) => {
 //   const { id } = req.params;
