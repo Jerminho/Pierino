@@ -15,6 +15,7 @@ const ManagementScreen = () => {
   const [messages, setMessages] = useState({}); // State to store messages for each booking
   // State for editable prices
   const [editedPrices, setEditedPrices] = useState({});
+  const [editedLocations, setEditedLocations] = useState({});
   // const [editedEndTimes, setEditedEndTimes] = useState({});
   const [offerInputs, setOfferInputs] = useState({});
 
@@ -115,6 +116,35 @@ const ManagementScreen = () => {
     }
   };
 
+    // Handlers voor wijzigingen in de input
+const handleLocationChange = (bookingId, newLocation) => {
+  setEditedLocations((prev) => ({ ...prev, [bookingId]: newLocation }));
+};
+
+
+// Functie om de nieuwe locatie op te slaan
+const saveLocation = async (bookingId) => {
+  const newLocation = editedLocations[bookingId];
+  if (!newLocation || newLocation.trim() === "") {
+    alert("Voer aanzien een geldige locatie in.");
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://pierino-70f82f18a24c.herokuapp.com/bookings/${bookingId}/location`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ location: newLocation }),
+    });
+
+    if (!res.ok) throw new Error("Fout bij het updaten van de locatie.");
+    alert("Locatie succesvol aangepast!");
+    window.location.reload();
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
+};
   // Handle end time input change
   // const handleEndTimeChange = (bookingId, newEndTime) => {
   //   setEditedEndTimes((prev) => ({ ...prev, [bookingId]: newEndTime }));
@@ -327,7 +357,23 @@ const ManagementScreen = () => {
                   >
                     <h4 className="text-lg font-semibold">{booking.name}</h4>
                     <p className="text-gray-600">{booking.email}</p>
-                    <p className="text-gray-600">{booking.location}</p>
+                    <div className="flex flex-col gap-1 mt-2">
+  <label className="text-xs font-semibold text-gray-500">Locatie evenement:</label>
+  <div className="flex items-center gap-2">
+    <input
+      type="text"
+      className="border p-1 rounded flex-grow text-sm"
+      value={editedLocations[booking.id] ?? booking.location}
+      onChange={(e) => handleLocationChange(booking.id, e.target.value)}
+    />
+    <button
+      onClick={() => saveLocation(booking.id)}
+      className="bg-blue-500 text-white px-2 py-1 rounded text-sm hover:bg-blue-600"
+    >
+      💾
+    </button>
+  </div>
+</div>
                     <div className="flex items-center gap-2 mt-2">
                       <input
                         type="number"
