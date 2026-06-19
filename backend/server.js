@@ -641,6 +641,9 @@ const addToGoogleCalendar = async (
     const start = DateTime.fromJSDate(startDateTime).setZone("Europe/Brussels");
     const end = start.plus({ hours: 1 });
 
+    const totalPrice = Number(price || 0);
+    const transportFee = Number(transport_fee || 0);
+    const icePrice = totalPrice - transportFee;
     // 📌 Compose a rich event description
     const description = `
 📌 *Nieuwe offerteaanvraag*
@@ -653,9 +656,13 @@ const addToGoogleCalendar = async (
 👥 Aantal personen: ${attendeeRange}
 🗒️ Opmerking: ${commentary || "Geen"}
 
-💰 Prijs: €${price || "Niet opgegeven"}
-🚚 Transportkosten: €${transport_fee || "Niet opgegeven"}
+*FINANCIËLE AFREKENING (BELANGRIJK VOOR CHAUFFEUR)* 
+--------------------------------------------------
+💰 Minimum totaalprijs: €${totalPrice || "Niet opgegeven"}
+🍦 Waarvan ijs: €${icePrice || "Niet opgegeven"}
+🚚 Waarvan transport: €${transportFee || "Niet opgegeven"}
 ⏱️ Duur: ${duration || 60} minuten
+--------------------------------------------------
 
 🧾 Facturatie:
 ${
