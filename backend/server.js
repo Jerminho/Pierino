@@ -72,6 +72,7 @@ const pricingRanges = [
   { min: 125, max: 149, pricePerAttendee: 3, baseCalculation: 149 },
   { min: 150, max: 174, pricePerAttendee: 3, baseCalculation: 174 },
   { min: 175, max: 200, pricePerAttendee: 3, baseCalculation: 200 },
+  { min: 201, max: Infinity, pricePerAttendee: 3, baseCalculation: 201 }
 ];
 const TRANSPORT_FEE = 20;
 
