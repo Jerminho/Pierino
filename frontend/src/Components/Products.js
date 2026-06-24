@@ -68,7 +68,7 @@ const Products = () => {
           </div>
 
           <div className="rectangle-2-product">
-            <h3 className="coffee-title-product">Reserveren</h3>
+            <h3 className="coffee-title-product">Offerte aanvragen</h3>
             <svg className="dots-product">
               <use href={`${symbols}#icon-dots-dots`}></use>
             </svg>

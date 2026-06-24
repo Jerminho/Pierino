@@ -204,7 +204,7 @@ const Hero = () => {
                 <span className="btn-products">Bestellen</span>
               </a>
               <a className="link-hero-button hero-btn" href="\offer">
-                <span className="btn-about">Reserveren</span>
+                <span className="btn-about">Offerte aanvragen</span>
               </a>
             </div>
 
