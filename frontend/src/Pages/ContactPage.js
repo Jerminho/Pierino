@@ -63,7 +63,7 @@ function ContactPage() {
             <input
               type="text"
               name="name"
-              placeholder="Uw Name"
+              placeholder="Uw naam"
               className="p-3 bg-white text-pink-700 placeholder-pink-400 rounded outline-none"
               required
             />
