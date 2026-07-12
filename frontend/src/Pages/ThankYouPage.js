@@ -15,7 +15,6 @@ function ThankYouPage() {
         backgroundAttachment: "fixed",
       }}
     >
-      <Header />
 
       {/* Zachte overlay voor betere leesbaarheid */}
       <div
@@ -24,10 +23,7 @@ function ThankYouPage() {
       />
 
       <main className="relative z-10 flex flex-1 items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8">
-        <section
-          className="w-full max-w-lg rounded-3xl border border-pink-200 bg-white/90 px-5 py-8 text-center shadow-2xl backdrop-blur-md sm:px-10 sm:py-12"
-          aria-labelledby="thank-you-title"
-        >
+       
           <div
             className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-3xl text-green-600 shadow-sm sm:h-20 sm:w-20 sm:text-4xl"
             aria-hidden="true"
@@ -71,12 +67,7 @@ function ThankYouPage() {
             Heeft u dringend hulp nodig? Neem dan telefonisch contact met ons op
             tijdens de openingsuren.
           </p>
-        </section>
       </main>
-
-      <div className="relative z-10">
-        <Footer />
-      </div>
     </div>
   );
 }
