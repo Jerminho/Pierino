@@ -34,11 +34,15 @@ const images = [
 
 function Gallery() {
   return (
-    <section className="gallery" id="gallery"  style={{
-            backgroundImage: `url(${backgroundImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}>
+    <section
+      className="gallery"
+      id="gallery"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <h2 hidden>Gallery</h2>
 
       <Swiper
@@ -61,8 +65,8 @@ function Gallery() {
               src={image.src}
               alt={image.alt}
               className="gallery-image"
-            //   width="300"
-            //   height="300"
+              //   width="300"
+              //   height="300"
             />
           </SwiperSlide>
         ))}
