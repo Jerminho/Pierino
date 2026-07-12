@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // Import images
-import pic1 from "./images/gallery/desktop/One.jpg";
+import pic1 from "./images/gallery/desktop/one.jpg";
 import pic2 from "./images/gallery/desktop/Two.jpg";
 import pic3 from "./images/gallery/desktop/Three.jpg";
 import pic4Big from "./images/gallery/desktop/Four.jpg";
