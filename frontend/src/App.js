@@ -13,6 +13,7 @@ import Cookies from "./Components/Cookies.js";
 import PrivacyPage from "./Pages/PrivacyPage.js";
 import Bestellen from "./Pages/Bestellen.js";
 import LoginPage from "./Pages/LoginPage.js";
+import ThankYouPage from "./Pages/ThankYouPage";
 import SmakenAllergenenPage from "./Pages/Smaken_AllergenenPage";
 
 const App = () => {
@@ -74,6 +75,7 @@ const App = () => {
           element={<SmakenAllergenenPage />}
         />
         <Route path="/log-in" element={<LoginPage />} />
+        <Route path="/thank-you" element={<ThankYouPage />} />
       </Routes>
       <Footer />
     </Router>
