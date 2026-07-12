@@ -8,13 +8,13 @@ import "swiper/css/pagination";
 // Import images
 import pic1 from "./images/gallery/desktop/one.jpg";
 import pic2 from "./images/gallery/desktop/Two.jpg";
-import pic3 from "./images/gallery/desktop/Three.jpg";
-import pic4Big from "./images/gallery/desktop/Four.jpg";
+import pic3 from "./images/gallery/desktop/three.jpg";
+import pic4Big from "./images/gallery/desktop/four.jpg";
 import pic5 from "./images/gallery/desktop/Five.jpg";
-import pic6 from "./images/gallery/desktop/Six.jpg";
-import pic7 from "./images/gallery/desktop/Seven.jpg";
-import pic8 from "./images/gallery/desktop/Eight.jpg";
-import pic9 from "./images/gallery/desktop/Nine.jpg";
+import pic6 from "./images/gallery/desktop/six.jpg";
+import pic7 from "./images/gallery/desktop/seven.jpg";
+import pic8 from "./images/gallery/desktop/eight.jpg";
+import pic9 from "./images/gallery/desktop/nine.jpg";
 import arrowRight from "./images/icons/arrow-right.png";
 
 import backgroundImage from "../Components/images/bgIceCream.png"; // Background image
