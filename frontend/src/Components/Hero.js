@@ -1,7 +1,7 @@
 import React from "react";
 import "./Hero.css";
 import logoIceCream from "./images/pierino-logo.webp";
-import iceCreamHeaderD from "./images/ice-cream-header-d.png";
+import iceCreamHeaderD from "./images/Pierino_Productfoto.png";
 import iceCreamHeaderD2x from "./images/ice-cream-header-d@2x.png";
 import iceCreamHeaderT from "./images/ice-cream-header-t.png";
 import iceCreamHeaderT2x from "./images/ice-cream-header-t@2x.png";
@@ -66,6 +66,11 @@ const Hero = () => {
               </a>
             </li>
             <li>
+  <a href="smaken-allergenen" className="link">
+    Smaken & Allergenen
+  </a>
+</li>
+            <li>
               <a href="offer" className="link">
                 Offerte aanvragen
               </a>
@@ -114,6 +119,11 @@ const Hero = () => {
                   Bestellen
                 </a>
               </li>
+              <li>
+  <a href="smaken-allergenen" className="link">
+    Smaken & Allergenen
+  </a>
+</li>
               <li>
                 <a href="offer" className="link">
                   Offerte ijswagen

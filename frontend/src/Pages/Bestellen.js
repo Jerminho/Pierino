@@ -11,6 +11,7 @@ const smakenLijst = [
   "Kersen (beperkte periode)", "Peer (beperkte periode)", "Vijgen (beperkte periode)"
 ];
 
+
 const Bestellen = () => {
   const [bestelling, setBestelling] = useState({});
   const [stap, setStap] = useState(1);
@@ -41,6 +42,7 @@ const Bestellen = () => {
   };
 
   const totaalPrijs = Object.values(bestelling).reduce((acc, cur) => acc + cur * prijsPerLiter, 0);
+  const [showPickupInfo, setShowPickupInfo] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -95,12 +97,96 @@ const Bestellen = () => {
           <h1 className="text-4xl font-bold text-pink-600">IJS BESTELLEN</h1>
         </div>
 
-        <div className="text-center py-6">
-          <h2 className="text-2xl font-semibold text-gray-700">Heel eenvoudig je favoriete Pierino IJs online bestellen</h2>
-          <p className="text-gray-600 mt-2">
-            Koop je ijs online en haal het op in Mariakerke (Gent). Vul het formulier in en ontvang een bevestiging per sms.
-          </p>
+        <div className="mx-auto w-full max-w-3xl px-4 py-6 text-center sm:px-6 sm:py-8">
+  <h2 className="text-2xl font-semibold leading-tight text-gray-700 sm:text-3xl">
+    Heel eenvoudig je favoriete Pierino IJs online bestellen
+  </h2>
+
+  <p className="mt-3 text-sm leading-6 text-gray-600 sm:text-base">
+    Koop je ijs online en haal het op in Mariakerke (Gent). Vul het
+    formulier in en ontvang een bevestiging per sms.
+  </p>
+
+  <p className="mt-4 text-lg font-semibold text-red-600 sm:text-xl">
+    Wij draaien het ijs voor u
+  </p>
+
+  <div className="mx-auto mt-6 max-w-xl text-left">
+    <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm transition hover:border-red-300">
+      <input
+        type="checkbox"
+        checked={showPickupInfo}
+        onChange={(event) => setShowPickupInfo(event.target.checked)}
+        className="h-5 w-5 shrink-0 cursor-pointer rounded border-gray-300 text-red-600 focus:ring-2 focus:ring-red-500"
+      />
+
+      <span className="flex-1 text-sm font-semibold text-gray-700 sm:text-base">
+        Waar afhalen?
+      </span>
+
+      <svg
+        className={`h-5 w-5 text-gray-500 transition-transform duration-300 ${
+          showPickupInfo ? "rotate-180" : ""
+        }`}
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fillRule="evenodd"
+          d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+          clipRule="evenodd"
+        />
+      </svg>
+    </label>
+
+    <div
+      className={`grid transition-all duration-300 ease-in-out ${
+        showPickupInfo
+          ? "grid-rows-[1fr] opacity-100"
+          : "grid-rows-[0fr] opacity-0"
+      }`}
+    >
+      <div className="overflow-hidden">
+        <div className="mt-3 rounded-xl border border-red-100 bg-red-50 p-4 text-sm text-gray-700 shadow-sm sm:p-5 sm:text-base">
+          <ul className="space-y-3">
+            <li className="flex items-start gap-3">
+              <span aria-hidden="true">🕐</span>
+
+              <div>
+                <span className="font-semibold">Het Zuid</span>
+                <p className="text-gray-600">Afhalen van 13u tot 19u</p>
+              </div>
+            </li>
+
+            <li className="flex items-start gap-3">
+              <span aria-hidden="true">📍</span>
+
+              <div>
+                <span className="font-semibold">Mariakerke</span>
+                <p className="text-gray-600">
+                  Wijmenstraat 2, 9030 Mariakerke
+                </p>
+              </div>
+            </li>
+
+            <li className="flex items-start gap-3">
+              <span aria-hidden="true">🚚</span>
+
+              <div>
+                <span className="font-semibold">Gratis levering</span>
+                <p className="text-gray-600">
+                  In Mariakerke en Wondelgem wordt gratis geleverd vanaf
+                  2 potten.
+                </p>
+              </div>
+            </li>
+          </ul>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
         <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
           <div className={`h-2 rounded-full bg-pink-500 transition-all duration-500 ${stap === 2 ? "w-full" : "w-1/2"}`}></div>

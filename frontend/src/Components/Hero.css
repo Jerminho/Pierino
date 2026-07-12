@@ -1352,3 +1352,7 @@
       font-family: var(--general-font);
     }
   }
+
+  .submit-btn.link-hero-button.hero-btn {
+  display: none !important;
+}

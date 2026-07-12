@@ -13,6 +13,7 @@ import Cookies from "./Components/Cookies.js";
 import PrivacyPage from "./Pages/PrivacyPage.js";
 import Bestellen from "./Pages/Bestellen.js";
 import LoginPage from "./Pages/LoginPage.js";
+import SmakenAllergenenPage from "./Pages/Smaken_AllergenenPage";
 
 const App = () => {
   useEffect(() => {
@@ -68,6 +69,10 @@ const App = () => {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="privacy" element={<PrivacyPage />} />
         <Route path="ijs-bestellen" element={<Bestellen />} />
+        <Route
+          path="/smaken-allergenen"
+          element={<SmakenAllergenenPage />}
+        />
         <Route path="/log-in" element={<LoginPage />} />
       </Routes>
       <Footer />

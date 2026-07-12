@@ -11,7 +11,7 @@ function ContactPage() {
     setResult("Sending...");
     const formData = new FormData(event.target);
 
-    formData.append("access_key", "8661fa52-27ac-4ad7-9c82-459d860bdf53");
+    formData.append("access_key", "94a756fa-ab63-4ff8-b4b3-2e6bccdfd0cf");
     formData.append("recipient", "info@pierinoijs.be,");
 
     try {
