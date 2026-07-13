@@ -3,20 +3,46 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const smakenLijst = [
-  "Vanille", "Chocolade", "Stracciatella", "Hazelnoot", "Pistache", "Kokosnoot",
-  "Mokka", "Speculoos", "Yoghurt", "Amaretto", "Banaan", "Munt", "Honing",
-  "Amarettini", "Amandel", "Citroen", "Aardbei", "Meloen", "Braambessen",
-  "Frambozen", "Mango", "Sinaasappel", "Kiwi", "Duvel (op aanvraag)",
-  "Rabarber (beperkte periode)", "Ananas", "Watermeloen (beperkte periode)",
-  "Kersen (beperkte periode)", "Peer (beperkte periode)", "Vijgen (beperkte periode)"
+  "Vanille",
+  "Chocolade",
+  "Stracciatella",
+  "Hazelnoot",
+  "Pistache",
+  "Kokosnoot",
+  "Mokka",
+  "Speculoos",
+  "Yoghurt",
+  "Amaretto",
+  "Banaan",
+  "Munt",
+  "Honing",
+  "Amarettini",
+  "Amandel",
+  "Citroen",
+  "Aardbei",
+  "Meloen",
+  "Braambessen",
+  "Frambozen",
+  "Mango",
+  "Sinaasappel",
+  "Kiwi",
+  "Duvel (op aanvraag)",
+  "Rabarber (beperkte periode)",
+  "Ananas",
+  "Watermeloen (beperkte periode)",
+  "Kersen (beperkte periode)",
+  "Peer (beperkte periode)",
+  "Vijgen (beperkte periode)",
 ];
-
 
 const Bestellen = () => {
   const [bestelling, setBestelling] = useState({});
   const [stap, setStap] = useState(1);
   const [klantGegevens, setKlantGegevens] = useState({
-    naam: "", email: "", telefoon: "", opmerkingen: "",
+    naam: "",
+    email: "",
+    telefoon: "",
+    opmerkingen: "",
   });
   const [, setResultaat] = useState("");
   const navigate = useNavigate();
@@ -41,7 +67,10 @@ const Bestellen = () => {
     });
   };
 
-  const totaalPrijs = Object.values(bestelling).reduce((acc, cur) => acc + cur * prijsPerLiter, 0);
+  const totaalPrijs = Object.values(bestelling).reduce(
+    (acc, cur) => acc + cur * prijsPerLiter,
+    0,
+  );
   const [showPickupInfo, setShowPickupInfo] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -49,14 +78,16 @@ const Bestellen = () => {
     setResultaat("Versturen...");
 
     const formData = new FormData();
-    formData.append("access_key", "8661fa52-27ac-4ad7-9c82-459d860bdf53");
+    formData.append("access_key", "94a756fa-ab63-4ff8-b4b3-2e6bccdfd0cf");
     formData.append("recipient", "info@pierinoijs.be");
 
     const bestellingTekst = Object.entries(bestelling)
       .map(([smaak, aantal]) => `${smaak}: ${aantal}L`)
       .join(", ");
 
-    formData.append("bericht", `
+    formData.append(
+      "bericht",
+      `
       Bestelling details:
       ${bestellingTekst}
       Totaalprijs: €${totaalPrijs}
@@ -66,7 +97,8 @@ const Bestellen = () => {
       Email: ${klantGegevens.email}
       Telefoon: ${klantGegevens.telefoon}
       Opmerkingen: ${klantGegevens.opmerkingen}
-    `);
+    `,
+    );
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -77,11 +109,17 @@ const Bestellen = () => {
       const data = await response.json();
 
       if (data.success) {
-        setResultaat("Bestelling succesvol geplaatst! Je ontvangt een bevestiging per SMS.");
-        setTimeout(() => {
-          setResultaat("");
-          navigate("/");
-        }, 4000);
+        setResultaat("");
+
+        setBestelling({});
+        setKlantGegevens({
+          naam: "",
+          email: "",
+          telefoon: "",
+          opmerkingen: "",
+        });
+
+        navigate("/thank-you");
       } else {
         setResultaat("Er is een fout opgetreden, probeer opnieuw.");
       }
@@ -98,113 +136,129 @@ const Bestellen = () => {
         </div>
 
         <div className="mx-auto w-full max-w-3xl px-4 py-6 text-center sm:px-6 sm:py-8">
-  <h2 className="text-2xl font-semibold leading-tight text-gray-700 sm:text-3xl">
-    Heel eenvoudig je favoriete Pierino IJs online bestellen
-  </h2>
+          <h2 className="text-2xl font-semibold leading-tight text-gray-700 sm:text-3xl">
+            Heel eenvoudig je favoriete Pierino IJs online bestellen
+          </h2>
 
-  <p className="mt-3 text-sm leading-6 text-gray-600 sm:text-base">
-    Koop je ijs online en haal het op in Mariakerke (Gent). Vul het
-    formulier in en ontvang een bevestiging per sms.
-  </p>
+          <p className="mt-3 text-sm leading-6 text-gray-600 sm:text-base">
+            Koop je ijs online en haal het op in Mariakerke (Gent). Vul het
+            formulier in en ontvang een bevestiging per sms.
+          </p>
 
-  <p className="mt-4 text-lg font-semibold text-red-600 sm:text-xl">
-    Wij draaien het ijs voor u
-  </p>
+          <p className="mt-4 text-lg font-semibold text-red-600 sm:text-xl">
+            Wij draaien het ijs voor u
+          </p>
 
-  <div className="mx-auto mt-6 max-w-xl text-left">
-    <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm transition hover:border-red-300">
-      <input
-        type="checkbox"
-        checked={showPickupInfo}
-        onChange={(event) => setShowPickupInfo(event.target.checked)}
-        className="h-5 w-5 shrink-0 cursor-pointer rounded border-gray-300 text-red-600 focus:ring-2 focus:ring-red-500"
-      />
+          <div className="mx-auto mt-6 max-w-xl text-left">
+            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm transition hover:border-red-300">
+              <input
+                type="checkbox"
+                checked={showPickupInfo}
+                onChange={(event) => setShowPickupInfo(event.target.checked)}
+                className="h-5 w-5 shrink-0 cursor-pointer rounded border-gray-300 text-red-600 focus:ring-2 focus:ring-red-500"
+              />
 
-      <span className="flex-1 text-sm font-semibold text-gray-700 sm:text-base">
-        Waar afhalen?
-      </span>
+              <span className="flex-1 text-sm font-semibold text-gray-700 sm:text-base">
+                Waar afhalen?
+              </span>
 
-      <svg
-        className={`h-5 w-5 text-gray-500 transition-transform duration-300 ${
-          showPickupInfo ? "rotate-180" : ""
-        }`}
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          fillRule="evenodd"
-          d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-          clipRule="evenodd"
-        />
-      </svg>
-    </label>
+              <svg
+                className={`h-5 w-5 text-gray-500 transition-transform duration-300 ${
+                  showPickupInfo ? "rotate-180" : ""
+                }`}
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </label>
 
-    <div
-      className={`grid transition-all duration-300 ease-in-out ${
-        showPickupInfo
-          ? "grid-rows-[1fr] opacity-100"
-          : "grid-rows-[0fr] opacity-0"
-      }`}
-    >
-      <div className="overflow-hidden">
-        <div className="mt-3 rounded-xl border border-red-100 bg-red-50 p-4 text-sm text-gray-700 shadow-sm sm:p-5 sm:text-base">
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3">
-              <span aria-hidden="true">🕐</span>
+            <div
+              className={`grid transition-all duration-300 ease-in-out ${
+                showPickupInfo
+                  ? "grid-rows-[1fr] opacity-100"
+                  : "grid-rows-[0fr] opacity-0"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <div className="mt-3 rounded-xl border border-red-100 bg-red-50 p-4 text-sm text-gray-700 shadow-sm sm:p-5 sm:text-base">
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                      <span aria-hidden="true">🕐</span>
 
-              <div>
-                <span className="font-semibold">Het Zuid</span>
-                <p className="text-gray-600">Afhalen van 13u tot 19u</p>
+                      <div>
+                        <span className="font-semibold">Het Zuid</span>
+                        <p className="text-gray-600">Afhalen van 13u tot 19u</p>
+                      </div>
+                    </li>
+
+                    <li className="flex items-start gap-3">
+                      <span aria-hidden="true">📍</span>
+
+                      <div>
+                        <span className="font-semibold">Mariakerke</span>
+                        <p className="text-gray-600">
+                          Wijmenstraat 2, 9030 Mariakerke
+                        </p>
+                      </div>
+                    </li>
+
+                    <li className="flex items-start gap-3">
+                      <span aria-hidden="true">🚚</span>
+
+                      <div>
+                        <span className="font-semibold">Gratis levering</span>
+                        <p className="text-gray-600">
+                          In Mariakerke en Wondelgem wordt gratis geleverd vanaf
+                          2 potten.
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </li>
-
-            <li className="flex items-start gap-3">
-              <span aria-hidden="true">📍</span>
-
-              <div>
-                <span className="font-semibold">Mariakerke</span>
-                <p className="text-gray-600">
-                  Wijmenstraat 2, 9030 Mariakerke
-                </p>
-              </div>
-            </li>
-
-            <li className="flex items-start gap-3">
-              <span aria-hidden="true">🚚</span>
-
-              <div>
-                <span className="font-semibold">Gratis levering</span>
-                <p className="text-gray-600">
-                  In Mariakerke en Wondelgem wordt gratis geleverd vanaf
-                  2 potten.
-                </p>
-              </div>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
 
         <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
-          <div className={`h-2 rounded-full bg-pink-500 transition-all duration-500 ${stap === 2 ? "w-full" : "w-1/2"}`}></div>
+          <div
+            className={`h-2 rounded-full bg-pink-500 transition-all duration-500 ${stap === 2 ? "w-full" : "w-1/2"}`}
+          ></div>
         </div>
 
         {stap === 1 && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">Kies je smaken (1 eenheid = 1 liter)</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              Kies je smaken (1 eenheid = 1 liter)
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {smakenLijst.map((smaak) => (
-                <div key={smaak} className="flex items-center justify-between border p-3 rounded-lg shadow-sm">
+                <div
+                  key={smaak}
+                  className="flex items-center justify-between border p-3 rounded-lg shadow-sm"
+                >
                   <span>{smaak}</span>
                   <div className="flex items-center space-x-2">
-                    <button onClick={() => verwijder(smaak)} className="p-2 bg-red-500 text-white rounded disabled:opacity-50" disabled={!bestelling[smaak]}>
+                    <button
+                      onClick={() => verwijder(smaak)}
+                      className="p-2 bg-red-500 text-white rounded disabled:opacity-50"
+                      disabled={!bestelling[smaak]}
+                    >
                       <FaMinus />
                     </button>
-                    <span className="text-lg font-semibold">{bestelling[smaak] || 0}</span>
-                    <button onClick={() => voegToe(smaak)} className="p-2 bg-green-500 text-white rounded">
+                    <span className="text-lg font-semibold">
+                      {bestelling[smaak] || 0}
+                    </span>
+                    <button
+                      onClick={() => voegToe(smaak)}
+                      className="p-2 bg-green-500 text-white rounded"
+                    >
                       <FaPlus />
                     </button>
                   </div>
@@ -212,18 +266,61 @@ const Bestellen = () => {
               ))}
             </div>
             <p className="text-xl font-bold mt-4">Totaal: €{totaalPrijs}</p>
-            <button onClick={() => setStap(2)} className="w-full bg-pink-500 text-white py-2 mt-4 rounded-lg">Volgende</button>
+            <button
+              onClick={() => setStap(2)}
+              className="w-full bg-pink-500 text-white py-2 mt-4 rounded-lg"
+            >
+              Volgende
+            </button>
           </div>
         )}
 
         {stap === 2 && (
           <form onSubmit={handleSubmit} className="space-y-4">
             <h2 className="text-xl font-semibold">Jouw gegevens</h2>
-            <input type="text" placeholder="Naam" required className="w-full p-2 border rounded" onChange={(e) => setKlantGegevens({ ...klantGegevens, naam: e.target.value })} />
-            <input type="email" placeholder="E-mail" required className="w-full p-2 border rounded" onChange={(e) => setKlantGegevens({ ...klantGegevens, email: e.target.value })} />
-            <input type="tel" placeholder="Telefoonnummer" required className="w-full p-2 border rounded" onChange={(e) => setKlantGegevens({ ...klantGegevens, telefoon: e.target.value })} />
-            <textarea placeholder="Extra opmerkingen" className="w-full p-2 border rounded" onChange={(e) => setKlantGegevens({ ...klantGegevens, opmerkingen: e.target.value })} />
-            <button type="submit" className="w-full bg-green-500 text-white py-2 rounded-lg">Bestelling plaatsen</button>
+            <input
+              type="text"
+              placeholder="Naam"
+              required
+              className="w-full p-2 border rounded"
+              onChange={(e) =>
+                setKlantGegevens({ ...klantGegevens, naam: e.target.value })
+              }
+            />
+            <input
+              type="email"
+              placeholder="E-mail"
+              required
+              className="w-full p-2 border rounded"
+              onChange={(e) =>
+                setKlantGegevens({ ...klantGegevens, email: e.target.value })
+              }
+            />
+            <input
+              type="tel"
+              placeholder="Telefoonnummer"
+              required
+              className="w-full p-2 border rounded"
+              onChange={(e) =>
+                setKlantGegevens({ ...klantGegevens, telefoon: e.target.value })
+              }
+            />
+            <textarea
+              placeholder="Extra opmerkingen"
+              className="w-full p-2 border rounded"
+              onChange={(e) =>
+                setKlantGegevens({
+                  ...klantGegevens,
+                  opmerkingen: e.target.value,
+                })
+              }
+            />
+            <button
+              type="submit"
+              className="w-full bg-green-500 text-white py-2 rounded-lg"
+            >
+              Bestelling plaatsen
+            </button>
           </form>
         )}
       </div>
