@@ -17,8 +17,6 @@ import Blad from "../Components/images/bladicon.png";
 import Aardbeiicon from "../Components/images/aardbeiicon.png";
 import Iceicon from "../Components/images/iceicon.png";
 
-
-
 /**
  * OverOns
  * -------
@@ -103,7 +101,7 @@ export default function OverOns() {
           <h3 className="eyebrow text-sm sm:text-base mb-3 text-center lg:text-left">
             Hoe het begon
           </h3>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-[#e8688f] mb-6 text-center lg:text-left"></h2>
+
           <div className="max-w-3xl mx-auto lg:mx-0 space-y-4 text-[#6e5457] text-base sm:text-lg leading-relaxed text-center lg:text-left">
             <p>
               Wat begon als een klein familieverhaal groeide uit tot een vaste
