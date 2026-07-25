@@ -60,8 +60,8 @@ const Products = () => {
             <div className="product__overlay">
               <a href="ijs-bestellen">
                 <p className="product__text">
-                  Of je nu thuis geniet of een feest plant, wij zorgen voor het
-                  perfecte ijsmoment. ❄️✨
+                  Zin in verfrissend, ambachtelijk ijs? Bestel nu en trakteer
+                jezelf op de lekkerste smaken!
                 </p>
               </a>
             </div>
@@ -88,8 +88,8 @@ const Products = () => {
             <div className="product__overlay">
               <a href="offer">
                 <p className="product__text">
-                  Of het nu gaat om een feest, bruiloft of bedrijfsbijeenkomst –
-                  wij zorgen voor een onvergetelijke ervaring.
+                  Reserveer jouw ijskar vandaag! Maak je evenement extra speciaal
+                met onze ijskar vol heerlijk ambachtelijk ijs!
                 </p>
               </a>
             </div>
@@ -115,8 +115,8 @@ const Products = () => {
             <div className="product__overlay">
               <a href="contact">
                 <p className="product__text">
-                  Wij helpen je met plezier verder. Stuur ons een bericht en we
-                  reageren zo snel mogelijk!
+                  Heb je vragen, wil je een bestelling plaatsen of een ijskar
+                reserveren? Neem gerust contact met ons op!
                 </p>
               </a>
             </div>

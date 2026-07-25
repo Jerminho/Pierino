@@ -1,0 +1,335 @@
+/* ==========================================================================
+   Pierino IJs — Over ons pagina
+   Extern stylesheet: kleuren, typografie en decoratieve elementen
+   die niet (netjes) met Tailwind-utilities alleen te doen zijn.
+   ========================================================================== */
+
+:root {
+  --color-bg: #fdf5f2;
+  --color-red: #e2222e;
+  --color-red-dark: #c81c27;
+  --color-pink: #e8688f;
+  --color-pink-soft: #f7c9d6;
+  --color-pink-pale: #fbeaec;
+  --color-green: #1c9a4b;
+  --color-green-dark: #147a3c;
+  --color-maroon: #7a2130;
+  --color-text: #3a2a2c;
+  --color-text-soft: #6e5457;
+  --color-cream: #fffaf8;
+
+  --font-display: "Baloo 2", "Nunito", sans-serif;
+  --font-script: "Caveat", cursive;
+  --font-body: "Nunito", "Segoe UI", sans-serif;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+/* ---- Typografie helpers -------------------------------------------- */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+.text-brand-red {
+  color: var(--color-red);
+}
+
+.text-brand-pink {
+  color: var(--color-pink);
+}
+
+.text-brand-maroon {
+  color: var(--color-maroon);
+}
+
+.text-brand-green {
+  color: var(--color-green);
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  text-align: left;
+}
+
+.eyebrow-script {
+  font-family: var(--font-script);
+  font-weight: 700;
+  color: var(--color-pink);
+  line-height: 1;
+}
+
+/* ---- Quote sectie ---------------------------------------------------- */
+
+.quote-mark {
+  font-family: var(--font-display);
+  color: var(--color-pink-soft);
+  line-height: 0.6;
+}
+
+.quote-text {
+  font-family: "Georgia", serif;
+  font-style: italic;
+  color: var(--color-maroon);
+}
+
+/* ---- Hero ------------------------------------------------------------- */
+
+.hero-blob {
+  background: radial-gradient(circle at 35% 30%, #f6a9c2 0%, #f195b3 55%, #ea7fa2 100%);
+}
+
+.hero-stat-card {
+  box-shadow: 0 12px 30px -10px rgba(122, 33, 48, 0.35);
+}
+
+/* ---- Knoppen ----------------------------------------------------------- */
+
+.btn-solid {
+  background-color: var(--color-red);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 10px 20px -8px rgba(226, 34, 46, 0.55);
+}
+.btn-solid:hover {
+  background-color: var(--color-red-dark);
+  transform: translateY(-2px);
+}
+.btn-solid:focus-visible {
+  outline: 3px solid var(--color-maroon);
+  outline-offset: 3px;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-red);
+  border: 2px solid var(--color-red);
+  font-family: var(--font-display);
+  font-weight: 600;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+.btn-outline:hover {
+  background-color: var(--color-red);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.btn-outline:focus-visible {
+  outline: 3px solid var(--color-maroon);
+  outline-offset: 3px;
+}
+
+.btn-white {
+  background-color: #fff;
+  color: var(--color-pink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-white:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.35);
+}
+.btn-white:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.btn-green {
+  background-color: var(--color-green);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 600;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 10px 20px -8px rgba(28, 154, 75, 0.5);
+}
+.btn-green:hover {
+  background-color: var(--color-green-dark);
+  transform: translateY(-2px);
+}
+.btn-green:focus-visible {
+  outline: 3px solid var(--color-green-dark);
+  outline-offset: 3px;
+}
+
+.link-dashed {
+  color: var(--color-green);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px dashed var(--color-green);
+  padding-bottom: 2px;
+  transition: opacity 0.15s ease;
+}
+.link-dashed:hover {
+  opacity: 0.7;
+}
+
+/* ---- CTA-box "Wat is goed ijs volgens Pierino?" ------------------------ */
+
+.cta-box {
+  background: linear-gradient(155deg, #ea7ea1 0%, var(--color-pink) 55%, #db5c85 100%);
+}
+
+.cta-cone {
+  filter: drop-shadow(0 18px 20px rgba(122, 33, 48, 0.35));
+}
+
+/* ---- Waardenkaarten ----------------------------------------------------- */
+
+.value-card {
+  background-color: var(--color-pink-pale);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px -14px rgba(122, 33, 48, 0.3);
+}
+
+.value-icon {
+  background-color: #fff;
+  color: var(--color-red);
+  box-shadow: 0 8px 16px -6px rgba(226, 34, 46, 0.35);
+}
+
+/* ---- Kcal badge over aardbeienfoto -------------------------------------- */
+
+.kcal-badge {
+  background-color: var(--color-red);
+  color: #fff;
+  font-family: var(--font-display);
+  box-shadow: 0 10px 22px -8px rgba(226, 34, 46, 0.55);
+}
+
+/* ---- Pierino vandaag: iconen lijst --------------------------------------- */
+
+.today-icon {
+  background-color: var(--color-pink-pale);
+  color: var(--color-red);
+}
+
+/* ---- Groene banner "Zonder Pierino ijs ist nie wijs" --------------------- */
+
+.green-banner {
+  margin-top: -4rem;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Slotbanner ----------------------------------------------------------- */
+
+.final-tag {
+  background-color: var(--color-red);
+  color: #fff;
+  font-family: var(--font-script);
+  font-weight: 700;
+  box-shadow: 0 12px 24px -8px rgba(122, 33, 48, 0.45);
+}
+
+/* ---- Algemene beeldstyling --------------------------------------------- */
+
+.img-frame-four {
+  object-fit: cover;
+}
+
+/* ---- Toegankelijkheid / voorkeuren -------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-maroon);
+  outline-offset: 3px;
+}
+
+.quote-text{
+  font-family:fantasy;
+}
+
+.quote-text_author {
+  font-family: cursive;
+}
+
+.ambacht h2{
+  text-align: center;
+    font-family: Titan One;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 3.48px;
+    text-transform: uppercase;
+    /* padding-top: 16px; */
+    color: #d41443;
+}
+
+.ambacht p{
+  color: #000;
+  font-weight: 600;
+}
+
+.waarden h3{
+ color: #ffa5ba;
+ font-family: Titan One;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 3.48px;
+    text-transform: uppercase;
+}
+
+.bewust h2{
+  font-family: Titan One;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 3.48px;
+    text-transform: uppercase;
+}
+
+.bewust-b p{
+  font-size: 0.9rem;
+}
+
+.vandaag h2{
+  text-align: center;
+    font-family: Titan One;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 3.48px;
+    text-transform: uppercase;
+    /* padding-top: 16px; */
+    color: #d41443;
+}
+
+.vandaag h3{
+  color: #ffa5ba;
+  font-family: Nunito;
+  font-weight: bold;
+}
+
+.vandaag p{
+  font-size: 0.8rem;
+}

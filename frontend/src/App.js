@@ -15,6 +15,7 @@ import Bestellen from "./Pages/Bestellen.js";
 import LoginPage from "./Pages/LoginPage.js";
 import ThankYouPage from "./Pages/ThankYouPage";
 import SmakenAllergenenPage from "./Pages/Smaken_AllergenenPage";
+import OverOns from "./Pages/OverOns.js";
 
 const App = () => {
   useEffect(() => {
@@ -74,6 +75,7 @@ const App = () => {
           path="/smaken-allergenen"
           element={<SmakenAllergenenPage />}
         />
+        <Route path="/over-ons" element={<OverOns />} />
         <Route path="/log-in" element={<LoginPage />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
       </Routes>

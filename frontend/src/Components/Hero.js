@@ -2,11 +2,11 @@ import React from "react";
 import "./Hero.css";
 import logoIceCream from "./images/pierino-logo.webp";
 import iceCreamHeaderD from "./images/Pierino_Productfoto.png";
-import iceCreamHeaderD2x from "./images/ice-cream-header-d@2x.png";
-import iceCreamHeaderT from "./images/ice-cream-header-t.png";
-import iceCreamHeaderT2x from "./images/ice-cream-header-t@2x.png";
-import iceCreamHeaderM from "./images/ice-cream-header-m.png";
-import iceCreamHeaderM2x from "./images/ice-cream-header-m@2x.png";
+import iceCreamHeaderD2x from "./images/Pierino_Productfoto.png";
+import iceCreamHeaderT from "./images/Pierino_Productfoto.png";
+import iceCreamHeaderT2x from "./images/Pierino_Productfoto.png";
+import iceCreamHeaderM from "./images/Pierino_Productfoto.png";
+import iceCreamHeaderM2x from "./images/Pierino_Productfoto.png";
 import milkHeaderD from "./images/milk-header-d.png";
 import milkHeaderD2x from "./images/milk-header-d@2x.png";
 import milkHeaderT from "./images/milk-header-t.png";
@@ -66,13 +66,18 @@ const Hero = () => {
               </a>
             </li>
             <li>
-  <a href="smaken-allergenen" className="link">
-    Smaken & Allergenen
-  </a>
-</li>
+              <a href="smaken-allergenen" className="link">
+                Smaken & Allergenen
+              </a>
+            </li>
             <li>
               <a href="offer" className="link">
-                Offerte aanvragen
+                Offerte
+              </a>
+            </li>
+            <li>
+              <a href="over-ons" className="link">
+                Over Ons
               </a>
             </li>
             <li className="last-link">
@@ -120,15 +125,20 @@ const Hero = () => {
                 </a>
               </li>
               <li>
-  <a href="smaken-allergenen" className="link">
-    Smaken & Allergenen
-  </a>
-</li>
-              <li>
-                <a href="offer" className="link">
-                  Offerte ijswagen
+                <a href="smaken-allergenen" className="link">
+                  Smaken & Allergenen
                 </a>
               </li>
+              <li>
+                <a href="offer" className="link">
+                  Offerte
+                </a>
+              </li>
+              <li>
+              <a href="over-ons" className="link">
+                Over Ons
+              </a>
+            </li>
               <li className="last-link">
                 <a href="contact" className="link">
                   Contact
