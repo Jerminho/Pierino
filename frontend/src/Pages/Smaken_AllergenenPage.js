@@ -367,7 +367,7 @@ function FlavorCard({ flavor }) {
 
           {!flavor.allergens.length && (
             <span className="sa-badge sa-badge--free">
-              vrij van
+              Vegan
             </span>
           )}
         </span>
@@ -405,10 +405,23 @@ function FlavorCard({ flavor }) {
 
 export default function SmakenAllergenenPage() {
   const [activeTab, setActiveTab] = useState("smaken");
-  const [query, setQuery] = useState("");
-  const [typeFilter, setTypeFilter] = useState("alle");
-  const [allergenFilter, setAllergenFilter] =
-    useState("alle");
+const [query, setQuery] = useState("");
+const [typeFilter, setTypeFilter] = useState("alle");
+const [allergenFilter, setAllergenFilter] =
+  useState("alle");
+
+// Houd bij of de volledige lijst per categorie zichtbaar is
+const [expandedTypes, setExpandedTypes] = useState({
+  gelato: false,
+  sorbet: false,
+});
+
+const toggleExpanded = (type) => {
+  setExpandedTypes((current) => ({
+    ...current,
+    [type]: !current[type],
+  }));
+};
 
   const filteredFlavors = useMemo(() => {
     const normalizedQuery = query
@@ -525,10 +538,10 @@ export default function SmakenAllergenenPage() {
                   🍨
                 </span>
 
-                <h2>Roomijs</h2>
+                <h2>Gelato</h2>
 
                 <p>
-                  Romig ijs op basis van verse melk en
+                  Italiaans Romig ijs op basis van verse melk en
                   room, gecombineerd met echte
                   ingrediënten zoals vanille, noten,
                   chocolade of fruit.
@@ -603,7 +616,7 @@ export default function SmakenAllergenenPage() {
 
                 {[
                   ["alle", "Alle"],
-                  ["gelato", "Roomijs"],
+                  ["gelato", "Gelato"],
                   ["sorbet", "Sorbet"],
                 ].map(([value, label]) => (
                   <button
@@ -632,7 +645,7 @@ export default function SmakenAllergenenPage() {
                   ["ei", "Ei"],
                   ["gluten", "Gluten"],
                   ["noten", "Noten"],
-                  ["vrij", "Vrij van"],
+                  ["vrij", "Vegan"],
                 ].map(([value, label]) => (
                   <button
                     key={value}
@@ -654,45 +667,79 @@ export default function SmakenAllergenenPage() {
 
             {filteredFlavors.length ? (
               <div className="sa-flavor-sections">
-                {["gelato", "sorbet"].map((type) => {
-                  const items =
-                    filteredFlavors.filter(
-                      (flavor) =>
-                        flavor.type === type
-                    );
+  {["gelato", "sorbet"].map((type) => {
+    const items = filteredFlavors.filter(
+      (flavor) => flavor.type === type
+    );
 
-                  if (!items.length) {
-                    return null;
-                  }
+    if (!items.length) {
+      return null;
+    }
 
-                  return (
-                    <section
-                      key={type}
-                      className="sa-flavor-section"
-                      aria-labelledby={`${type}-title`}
-                    >
-                      <div className="sa-category-heading">
-                        <h3 id={`${type}-title`}>
-                          {type === "gelato"
-                            ? "Roomijs"
-                            : "Sorbet"}
-                        </h3>
+    const isExpanded = expandedTypes[type];
 
-                        <span>{items.length}</span>
-                      </div>
+    // Toon standaard maximaal 8 smaken
+    const visibleItems = isExpanded
+      ? items
+      : items.slice(0, 8);
 
-                      <div className="sa-list">
-                        {items.map((flavor) => (
-                          <FlavorCard
-                            key={`${type}-${flavor.name}`}
-                            flavor={flavor}
-                          />
-                        ))}
-                      </div>
-                    </section>
-                  );
-                })}
-              </div>
+    const remainingCount =
+      items.length - visibleItems.length;
+
+    return (
+      <section
+        key={type}
+        className="sa-flavor-section"
+        aria-labelledby={`${type}-title`}
+      >
+        <div className="sa-category-heading">
+          <h3 id={`${type}-title`}>
+            {type === "gelato"
+              ? "Gelato"
+              : "Sorbet"}
+          </h3>
+
+          <span>{items.length}</span>
+        </div>
+
+        <div className="sa-list">
+          {visibleItems.map((flavor) => (
+            <FlavorCard
+              key={`${type}-${flavor.name}`}
+              flavor={flavor}
+            />
+          ))}
+        </div>
+
+        {items.length > 8 && (
+          <button
+            type="button"
+            className={`sa-more-button ${
+              isExpanded ? "is-expanded" : ""
+            }`}
+            onClick={() =>
+              toggleExpanded(type)
+            }
+            aria-expanded={isExpanded}
+          >
+            <span>
+              {isExpanded
+                ? "− Minder smaken"
+                : `+ ${items.length - 8} andere smaken`}
+            </span>
+
+            <span
+              className="sa-more-button__arrow"
+              aria-hidden="true"
+            >
+              {isExpanded ? "⌃" : "⌄"}
+            </span>
+          </button>
+        )}
+      </section>
+    );
+  })}
+</div>
             ) : (
               <p className="sa-empty">
                 Geen smaken gevonden. Pas uw

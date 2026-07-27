@@ -66,7 +66,21 @@
 .sa-filter-group button:hover, .sa-filter-group button:focus-visible { border-color: var(--sa-red); color: var(--sa-red); }
 .sa-filter-group button.is-active { border-color: var(--sa-red); background: var(--sa-red); color: var(--sa-white); }
 
-.sa-flavor-sections { display: grid; gap: 2.5rem; }
+.sa-flavor-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem;
+  align-items: start;
+}
+
+.sa-flavor-section {
+  min-width: 0;
+}
+
+.sa-list {
+  display: grid;
+  gap: .55rem;
+}
 .sa-category-heading { display: flex; align-items: center; gap: .7rem; margin-bottom: .8rem; }
 .sa-category-heading h3 { font-family: "Shrikhand", serif; font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 400; }
 .sa-category-heading span { display: inline-grid; min-width: 1.8rem; height: 1.8rem; padding-inline: .45rem; place-items: center; border-radius: 999px; background: var(--sa-pink); color: var(--sa-red-dark); font-size: .75rem; font-weight: 700; }
@@ -136,4 +150,79 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sa-page *, .sa-page *::before, .sa-page *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+@media (max-width: 700px) {
+  .sa-flavor-sections {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.sa-more-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: .75rem;
+  padding: .65rem .5rem;
+  border: 0;
+  background: transparent;
+  color: var(--sa-red);
+  font-size: .8rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: color .2s, transform .2s;
+}
+
+.sa-more-button:hover {
+  color: var(--sa-red-dark);
+}
+
+.sa-more-button:focus-visible {
+  outline: 3px solid rgba(230, 30, 40, .2);
+  outline-offset: 3px;
+  border-radius: .4rem;
+}
+
+.sa-more-button__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform .2s;
+}
+
+.sa-more-button.is-expanded
+  .sa-more-button__arrow {
+  transform: translateY(-1px);
+}
+
+.sa-flavor-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem;
+  align-items: start;
+}
+
+.sa-flavor-section {
+  min-width: 0;
+}
+
+.sa-list {
+  display: grid;
+  gap: .55rem;
+}
+
+@media (max-width: 700px) {
+  .sa-flavor-sections {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 }
