@@ -683,8 +683,8 @@ const toggleExpanded = (type) => {
       ? items
       : items.slice(0, 8);
 
-    const remainingCount =
-      items.length - visibleItems.length;
+    // const remainingCount =
+    //   items.length - visibleItems.length;
 
     return (
       <section
