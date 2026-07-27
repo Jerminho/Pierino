@@ -118,8 +118,7 @@ const SORBET = [
   },
   {
     name: "Meloen",
-    description:
-      "Frisse sorbet die je doet denken aan een warme zomerdag.",
+    description: "Frisse sorbet die je doet denken aan een warme zomerdag.",
     allergens: [],
   },
   {
@@ -130,32 +129,27 @@ const SORBET = [
   },
   {
     name: "Bosbes",
-    description:
-      "Een fruitige sorbet met de volle smaak van bosbessen.",
+    description: "Een fruitige sorbet met de volle smaak van bosbessen.",
     allergens: [],
   },
   {
     name: "Framboos",
-    description:
-      "Een intense frambozensorbet met frisse en lichtzure toetsen.",
+    description: "Een intense frambozensorbet met frisse en lichtzure toetsen.",
     allergens: [],
   },
   {
     name: "Mango",
-    description:
-      "Tropische mangosorbet boordevol fruit en exotische smaak.",
+    description: "Tropische mangosorbet boordevol fruit en exotische smaak.",
     allergens: [],
   },
   {
     name: "Sinaasappel",
-    description:
-      "Frisse sinaasappelsorbet met een natuurlijke citruskick.",
+    description: "Frisse sinaasappelsorbet met een natuurlijke citruskick.",
     allergens: [],
   },
   {
     name: "Kiwi",
-    description:
-      "Verfrissende kiwisorbet met een lichtzure toets.",
+    description: "Verfrissende kiwisorbet met een lichtzure toets.",
     allergens: [],
   },
   {
@@ -178,20 +172,17 @@ const SORBET = [
   },
   {
     name: "Watermeloen",
-    description:
-      "Lichte en verfrissende watermeloensorbet.",
+    description: "Lichte en verfrissende watermeloensorbet.",
     allergens: [],
   },
   {
     name: "Kersen",
-    description:
-      "Fruitige kersensorbet met een licht zoete nasmaak.",
+    description: "Fruitige kersensorbet met een licht zoete nasmaak.",
     allergens: [],
   },
   {
     name: "Peer",
-    description:
-      "Zachte, subtiele sorbet gemaakt met rijpe peren.",
+    description: "Zachte, subtiele sorbet gemaakt met rijpe peren.",
     allergens: [],
   },
   {
@@ -202,8 +193,7 @@ const SORBET = [
   },
   {
     name: "Papaya",
-    description:
-      "Exotische papayasorbet met een milde tropische smaak.",
+    description: "Exotische papayasorbet met een milde tropische smaak.",
     allergens: [],
   },
   {
@@ -297,17 +287,10 @@ const FAQS = [
   },
 ];
 
-function AccordionItem({
-  title,
-  children,
-  meta,
-  initiallyOpen = false,
-}) {
+function AccordionItem({ title, children, meta, initiallyOpen = false }) {
   const [open, setOpen] = useState(initiallyOpen);
 
-  const panelId = `panel-${title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")}`;
+  const panelId = `panel-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 
   return (
     <article className={`sa-accordion ${open ? "is-open" : ""}`}>
@@ -324,19 +307,12 @@ function AccordionItem({
           {meta}
         </span>
 
-        <span
-          className="sa-accordion__chevron"
-          aria-hidden="true"
-        >
+        <span className="sa-accordion__chevron" aria-hidden="true">
           ⌄
         </span>
       </button>
 
-      <div
-        id={panelId}
-        className="sa-accordion__content"
-        hidden={!open}
-      >
+      <div id={panelId} className="sa-accordion__content" hidden={!open}>
         {children}
       </div>
     </article>
@@ -351,24 +327,17 @@ function FlavorCard({ flavor }) {
         <span
           className="sa-badges"
           aria-label={
-            flavor.allergens.length
-              ? "Allergenen"
-              : "Geen vermelde allergenen"
+            flavor.allergens.length ? "Allergenen" : "Geen vermelde allergenen"
           }
         >
           {flavor.allergens.map((allergen) => (
-            <span
-              key={allergen}
-              className={`sa-badge sa-badge--${allergen}`}
-            >
+            <span key={allergen} className={`sa-badge sa-badge--${allergen}`}>
               {allergen}
             </span>
           ))}
 
           {!flavor.allergens.length && (
-            <span className="sa-badge sa-badge--free">
-              Vegan
-            </span>
+            <span className="sa-badge sa-badge--free">Vegan</span>
           )}
         </span>
       }
@@ -376,19 +345,12 @@ function FlavorCard({ flavor }) {
       <p>{flavor.description}</p>
 
       <div className="sa-tags">
-        <span
-          className={`sa-type sa-type--${flavor.type}`}
-        >
-          {flavor.type === "gelato"
-            ? "Roomijs"
-            : "Sorbet"}
+        <span className={`sa-type sa-type--${flavor.type}`}>
+          {flavor.type === "gelato" ? "Roomijs" : "Sorbet"}
         </span>
 
         {flavor.allergens.map((allergen) => (
-          <span
-            key={allergen}
-            className={`sa-tag sa-tag--${allergen}`}
-          >
+          <span key={allergen} className={`sa-tag sa-tag--${allergen}`}>
             {allergen}
           </span>
         ))}
@@ -405,66 +367,49 @@ function FlavorCard({ flavor }) {
 
 export default function SmakenAllergenenPage() {
   const [activeTab, setActiveTab] = useState("smaken");
-const [query, setQuery] = useState("");
-const [typeFilter, setTypeFilter] = useState("alle");
-const [allergenFilter, setAllergenFilter] =
-  useState("alle");
+  const [query, setQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState("alle");
+  const [allergenFilter, setAllergenFilter] = useState("alle");
 
-// Houd bij of de volledige lijst per categorie zichtbaar is
-const [expandedTypes, setExpandedTypes] = useState({
-  gelato: false,
-  sorbet: false,
-});
+  // Houd bij of de volledige lijst per categorie zichtbaar is
+  const [expandedTypes, setExpandedTypes] = useState({
+    gelato: false,
+    sorbet: false,
+  });
 
-const toggleExpanded = (type) => {
-  setExpandedTypes((current) => ({
-    ...current,
-    [type]: !current[type],
-  }));
-};
+  const toggleExpanded = (type) => {
+    setExpandedTypes((current) => ({
+      ...current,
+      [type]: !current[type],
+    }));
+  };
 
   const filteredFlavors = useMemo(() => {
-    const normalizedQuery = query
-      .trim()
-      .toLocaleLowerCase("nl");
+    const normalizedQuery = query.trim().toLocaleLowerCase("nl");
 
     return FLAVORS.filter((flavor) => {
       const searchableText =
-        `${flavor.name} ${flavor.description}`
-          .toLocaleLowerCase("nl");
+        `${flavor.name} ${flavor.description}`.toLocaleLowerCase("nl");
 
       const matchesQuery =
-        !normalizedQuery ||
-        searchableText.includes(normalizedQuery);
+        !normalizedQuery || searchableText.includes(normalizedQuery);
 
-      const matchesType =
-        typeFilter === "alle" ||
-        flavor.type === typeFilter;
+      const matchesType = typeFilter === "alle" || flavor.type === typeFilter;
 
       const matchesAllergen =
         allergenFilter === "alle" ||
-        (allergenFilter === "vrij" &&
-          flavor.allergens.length === 0) ||
+        (allergenFilter === "vrij" && flavor.allergens.length === 0) ||
         flavor.allergens.includes(allergenFilter);
 
-      return (
-        matchesQuery &&
-        matchesType &&
-        matchesAllergen
-      );
+      return matchesQuery && matchesType && matchesAllergen;
     });
   }, [query, typeFilter, allergenFilter]);
 
   return (
     <main className="sa-page">
-      <section
-        className="sa-hero"
-        aria-labelledby="smaken-title"
-      >
+      <section className="sa-hero" aria-labelledby="smaken-title">
         <div className="sa-shell sa-hero__inner">
-          <p className="sa-eyebrow">
-            Pierino IJs — Gent
-          </p>
+          <p className="sa-eyebrow">Pierino IJs — Gent</p>
 
           <h1 id="smaken-title">
             Onze <span>smaken</span>
@@ -475,32 +420,20 @@ const toggleExpanded = (type) => {
           </p>
 
           <p className="sa-hero__body">
-            Bij Pierino maken we ijs zoals het hoort:
-            met verse ingrediënten en zonder onnodige
-            toevoegingen. Hieronder ontdek je al onze
-            smaken en allergenen. Ons aanbod varieert
-            naargelang het seizoen.
+            Bij Pierino maken we ijs zoals het hoort: met verse ingrediënten en
+            zonder onnodige toevoegingen. Hieronder ontdek je al onze smaken en
+            allergenen. Ons aanbod varieert naargelang het seizoen.
           </p>
         </div>
       </section>
 
-      <nav
-        className="sa-tabs"
-        aria-label="Paginaonderdelen"
-      >
-        <div
-          className="sa-shell sa-tabs__inner"
-          role="tablist"
-        >
+      <nav className="sa-tabs" aria-label="Paginaonderdelen">
+        <div className="sa-shell sa-tabs__inner" role="tablist">
           <button
             type="button"
             role="tab"
             aria-selected={activeTab === "smaken"}
-            className={
-              activeTab === "smaken"
-                ? "is-active"
-                : ""
-            }
+            className={activeTab === "smaken" ? "is-active" : ""}
             onClick={() => setActiveTab("smaken")}
           >
             Smaken
@@ -509,17 +442,9 @@ const toggleExpanded = (type) => {
           <button
             type="button"
             role="tab"
-            aria-selected={
-              activeTab === "allergenen"
-            }
-            className={
-              activeTab === "allergenen"
-                ? "is-active"
-                : ""
-            }
-            onClick={() =>
-              setActiveTab("allergenen")
-            }
+            aria-selected={activeTab === "allergenen"}
+            className={activeTab === "allergenen" ? "is-active" : ""}
+            onClick={() => setActiveTab("allergenen")}
           >
             Allergenen & FAQ
           </button>
@@ -531,81 +456,61 @@ const toggleExpanded = (type) => {
           <section aria-labelledby="smaken-overzicht">
             <div className="sa-explanation-grid">
               <article className="sa-info-card">
-                <span
-                  className="sa-info-card__icon"
-                  aria-hidden="true"
-                >
-                  🍨
-                </span>
-
-                <h2>Gelato</h2>
+                <h2>
+                  {" "}
+                  <span className="sa-info-card__icon" aria-hidden="true">
+                    🍨
+                  </span>{" "}
+                  Gelato
+                </h2>
 
                 <p>
-                  Italiaans Romig ijs op basis van verse melk en
-                  room, gecombineerd met echte
-                  ingrediënten zoals vanille, noten,
+                  Italiaans Romig ijs op basis van verse melk en room,
+                  gecombineerd met echte ingrediënten zoals vanille, noten,
                   chocolade of fruit.
                 </p>
               </article>
 
               <article className="sa-info-card">
-                <span
-                  className="sa-info-card__icon"
-                  aria-hidden="true"
-                >
-                  🍋
-                </span>
-
-                <h2>Sorbet</h2>
+                <h2>
+                  {" "}
+                  <span className="sa-info-card__icon" aria-hidden="true">
+                    🍋
+                  </span>{" "}
+                  Sorbet
+                </h2>
 
                 <p>
-                  Een verfrissend ijs op basis van
-                  fruit, zonder melk. Onze sorbets zijn
-                  van nature vegan en bevatten geen
-                  glutenhoudende ingrediënten,
-                  uitgezonderd smaken die expliciet
-                  anders zijn aangeduid.
+                  Een verfrissend ijs op basis van fruit, zonder melk. Onze
+                  sorbets zijn van nature vegan en bevatten geen glutenhoudende
+                  ingrediënten, uitgezonderd smaken die expliciet anders zijn
+                  aangeduid.
                 </p>
               </article>
             </div>
 
             <div className="sa-section-heading">
               <div>
-                <p className="sa-eyebrow">
-                  Ontdek het aanbod
-                </p>
+                <p className="sa-eyebrow">Ontdek het aanbod</p>
 
-                <h2 id="smaken-overzicht">
-                  Alle smaken
-                </h2>
+                <h2 id="smaken-overzicht">Alle smaken</h2>
               </div>
 
               <p>
-                <strong>
-                  {filteredFlavors.length}
-                </strong>{" "}
-                {filteredFlavors.length === 1
-                  ? "smaak"
-                  : "smaken"}{" "}
-                gevonden
+                <strong>{filteredFlavors.length}</strong>{" "}
+                {filteredFlavors.length === 1 ? "smaak" : "smaken"} gevonden
               </p>
             </div>
 
             <div className="sa-controls">
               <label className="sa-search">
-                <span className="sr-only">
-                  Zoek een smaak
-                </span>
+                <span className="sr-only">Zoek een smaak</span>
 
-                <span aria-hidden="true">
-                  ⌕
-                </span>
+                <span aria-hidden="true">⌕</span>
 
                 <input
                   value={query}
-                  onChange={(event) =>
-                    setQuery(event.target.value)
-                  }
+                  onChange={(event) => setQuery(event.target.value)}
                   type="search"
                   placeholder="Zoek een smaak..."
                 />
@@ -622,14 +527,8 @@ const toggleExpanded = (type) => {
                   <button
                     key={value}
                     type="button"
-                    className={
-                      typeFilter === value
-                        ? "is-active"
-                        : ""
-                    }
-                    onClick={() =>
-                      setTypeFilter(value)
-                    }
+                    className={typeFilter === value ? "is-active" : ""}
+                    onClick={() => setTypeFilter(value)}
                   >
                     {label}
                   </button>
@@ -650,14 +549,8 @@ const toggleExpanded = (type) => {
                   <button
                     key={value}
                     type="button"
-                    className={
-                      allergenFilter === value
-                        ? "is-active"
-                        : ""
-                    }
-                    onClick={() =>
-                      setAllergenFilter(value)
-                    }
+                    className={allergenFilter === value ? "is-active" : ""}
+                    onClick={() => setAllergenFilter(value)}
                   >
                     {label}
                   </button>
@@ -667,83 +560,76 @@ const toggleExpanded = (type) => {
 
             {filteredFlavors.length ? (
               <div className="sa-flavor-sections">
-  {["gelato", "sorbet"].map((type) => {
-    const items = filteredFlavors.filter(
-      (flavor) => flavor.type === type
-    );
+                {["gelato", "sorbet"].map((type) => {
+                  const items = filteredFlavors.filter(
+                    (flavor) => flavor.type === type,
+                  );
 
-    if (!items.length) {
-      return null;
-    }
+                  if (!items.length) {
+                    return null;
+                  }
 
-    const isExpanded = expandedTypes[type];
+                  const isExpanded = expandedTypes[type];
 
-    // Toon standaard maximaal 8 smaken
-    const visibleItems = isExpanded
-      ? items
-      : items.slice(0, 8);
+                  // Toon standaard maximaal 8 smaken
+                  const visibleItems = isExpanded ? items : items.slice(0, 8);
 
-    // const remainingCount =
-    //   items.length - visibleItems.length;
+                  // const remainingCount =
+                  //   items.length - visibleItems.length;
 
-    return (
-      <section
-        key={type}
-        className="sa-flavor-section"
-        aria-labelledby={`${type}-title`}
-      >
-        <div className="sa-category-heading">
-          <h3 id={`${type}-title`}>
-            {type === "gelato"
-              ? "Gelato"
-              : "Sorbet"}
-          </h3>
+                  return (
+                    <section
+                      key={type}
+                      className="sa-flavor-section"
+                      aria-labelledby={`${type}-title`}
+                    >
+                      <div className="sa-category-heading">
+                        <h3 id={`${type}-title`}>
+                          {type === "gelato" ? "Gelato" : "Sorbet"}
+                        </h3>
 
-          <span>{items.length}</span>
-        </div>
+                        <span>{items.length}</span>
+                      </div>
 
-        <div className="sa-list">
-          {visibleItems.map((flavor) => (
-            <FlavorCard
-              key={`${type}-${flavor.name}`}
-              flavor={flavor}
-            />
-          ))}
-        </div>
+                      <div className="sa-list">
+                        {visibleItems.map((flavor) => (
+                          <FlavorCard
+                            key={`${type}-${flavor.name}`}
+                            flavor={flavor}
+                          />
+                        ))}
+                      </div>
 
-        {items.length > 8 && (
-          <button
-            type="button"
-            className={`sa-more-button ${
-              isExpanded ? "is-expanded" : ""
-            }`}
-            onClick={() =>
-              toggleExpanded(type)
-            }
-            aria-expanded={isExpanded}
-          >
-            <span>
-              {isExpanded
-                ? "− Minder smaken"
-                : `+ ${items.length - 8} andere smaken`}
-            </span>
+                      {items.length > 8 && (
+                        <button
+                          type="button"
+                          className={`sa-more-button ${
+                            isExpanded ? "is-expanded" : ""
+                          }`}
+                          onClick={() => toggleExpanded(type)}
+                          aria-expanded={isExpanded}
+                        >
+                          <span>
+                            {isExpanded
+                              ? "− Minder smaken"
+                              : `+ ${items.length - 8} andere smaken`}
+                          </span>
 
-            <span
-              className="sa-more-button__arrow"
-              aria-hidden="true"
-            >
-              {isExpanded ? "⌃" : "⌄"}
-            </span>
-          </button>
-        )}
-      </section>
-    );
-  })}
-</div>
+                          <span
+                            className="sa-more-button__arrow"
+                            aria-hidden="true"
+                          >
+                            {isExpanded ? "⌃" : "⌄"}
+                          </span>
+                        </button>
+                      )}
+                    </section>
+                  );
+                })}
+              </div>
             ) : (
               <p className="sa-empty">
-                Geen smaken gevonden. Pas uw
-                zoekopdracht of filters aan.
+                Geen smaken gevonden. Pas uw zoekopdracht of filters aan.
               </p>
             )}
           </section>
@@ -751,29 +637,21 @@ const toggleExpanded = (type) => {
           <section aria-labelledby="allergenen-title">
             <div className="sa-section-heading sa-section-heading--stacked">
               <div>
-                <p className="sa-eyebrow">
-                  Duidelijke informatie
-                </p>
+                <p className="sa-eyebrow">Duidelijke informatie</p>
 
-                <h2 id="allergenen-title">
-                  Allergenen
-                </h2>
+                <h2 id="allergenen-title">Allergenen</h2>
               </div>
 
               <p>
-                Bekijk per allergeen wat het betekent
-                en in welke smaken het volgens deze
-                lijst voorkomt.
+                Bekijk per allergeen wat het betekent en in welke smaken het
+                volgens deze lijst voorkomt.
               </p>
             </div>
 
             <div className="sa-list">
               {ALLERGENS.map((allergen) => {
-                const matching = FLAVORS.filter(
-                  (flavor) =>
-                    flavor.allergens.includes(
-                      allergen.id
-                    )
+                const matching = FLAVORS.filter((flavor) =>
+                  flavor.allergens.includes(allergen.id),
                 );
 
                 return (
@@ -784,16 +662,9 @@ const toggleExpanded = (type) => {
                     <p>{allergen.description}</p>
 
                     <p className="sa-present-in">
-                      <strong>
-                        Aangeduid bij:
-                      </strong>{" "}
+                      <strong>Aangeduid bij:</strong>{" "}
                       {matching.length
-                        ? matching
-                            .map(
-                              (flavor) =>
-                                flavor.name
-                            )
-                            .join(", ")
+                        ? matching.map((flavor) => flavor.name).join(", ")
                         : "geen smaken in deze lijst"}
                       .
                     </p>
@@ -803,43 +674,28 @@ const toggleExpanded = (type) => {
             </div>
 
             <aside className="sa-disclaimer">
-              <strong>
-                Belangrijk bij allergieën
-              </strong>
+              <strong>Belangrijk bij allergieën</strong>
 
               <p>
-                Alle smaken kunnen in dezelfde
-                productieruimte en met gedeeld
-                materiaal worden bereid. Daardoor
-                kunnen sporen van allergenen aanwezig
-                zijn. Meld een ernstige allergie
-                altijd aan ons personeel vóór uw
-                bestelling.
+                Alle smaken kunnen in dezelfde productieruimte en met gedeeld
+                materiaal worden bereid. Daardoor kunnen sporen van allergenen
+                aanwezig zijn. Meld een ernstige allergie altijd aan ons
+                personeel vóór uw bestelling.
               </p>
             </aside>
 
-            <section
-              className="sa-faq"
-              aria-labelledby="faq-title"
-            >
+            <section className="sa-faq" aria-labelledby="faq-title">
               <div className="sa-section-heading">
                 <div>
-                  <p className="sa-eyebrow">
-                    Veelgestelde vragen
-                  </p>
+                  <p className="sa-eyebrow">Veelgestelde vragen</p>
 
-                  <h2 id="faq-title">
-                    Kleine FAQ
-                  </h2>
+                  <h2 id="faq-title">Kleine FAQ</h2>
                 </div>
               </div>
 
               <div className="sa-list">
                 {FAQS.map((item) => (
-                  <AccordionItem
-                    key={item.question}
-                    title={item.question}
-                  >
+                  <AccordionItem key={item.question} title={item.question}>
                     <p>{item.answer}</p>
                   </AccordionItem>
                 ))}
