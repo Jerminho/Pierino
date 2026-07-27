@@ -12,27 +12,30 @@ const smakenLijst = [
   "Mokka",
   "Speculoos",
   "Yoghurt",
+  "Ananas",
   "Amaretto",
   "Banaan",
-  "Munt",
-  "Honing",
   "Amarettini",
-  "Amandel",
   "Citroen",
   "Aardbei",
   "Meloen",
-  "Braambessen",
   "Frambozen",
   "Mango",
   "Sinaasappel",
   "Kiwi",
+  "Munt (op aanvraag)",
+  "Honing (op aanvraag)",
+  "Amandel (op aanvraag)",
+  "Braambes (op aanvraag)",
   "Duvel (op aanvraag)",
-  "Rabarber (beperkte periode)",
-  "Ananas",
-  "Watermeloen (beperkte periode)",
-  "Kersen (beperkte periode)",
-  "Peer (beperkte periode)",
-  "Vijgen (beperkte periode)",
+  "Rabarber (op aanvraag)",
+  "Watermeloen (op aanvraag)",
+  "Kersen (op aanvraag)",
+  "Peer (op aanvraag)",
+  "Vijgen (op aanvraag)",
+  "Guave (op aanvraag)",
+  "Papaye (op aanvraag)",
+  "Guave (op aanvraag)",
 ];
 
 const Bestellen = () => {
@@ -71,7 +74,7 @@ const Bestellen = () => {
     (acc, cur) => acc + cur * prijsPerLiter,
     0,
   );
-  const [showPickupInfo, setShowPickupInfo] = useState(false);
+  const [afhaallocatie, setAfhaallocatie] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -91,6 +94,9 @@ const Bestellen = () => {
       Bestelling details:
       ${bestellingTekst}
       Totaalprijs: €${totaalPrijs}
+
+       Afhaallocatie:
+      ${afhaallocatie}
       
       Klantgegevens:
       Naam: ${klantGegevens.naam}
@@ -142,88 +148,12 @@ const Bestellen = () => {
 
           <p className="mt-3 text-sm leading-6 text-gray-600 sm:text-base">
             Koop je ijs online en haal het op in Mariakerke (Gent). Vul het
-            formulier in en ontvang een bevestiging per sms.
+            formulier in en ontvang een bevestiging per mail.
           </p>
 
           <p className="mt-4 text-lg font-semibold text-red-600 sm:text-xl">
             Wij draaien het ijs voor u
           </p>
-
-          <div className="mx-auto mt-6 max-w-xl text-left">
-            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm transition hover:border-red-300">
-              <input
-                type="checkbox"
-                checked={showPickupInfo}
-                onChange={(event) => setShowPickupInfo(event.target.checked)}
-                className="h-5 w-5 shrink-0 cursor-pointer rounded border-gray-300 text-red-600 focus:ring-2 focus:ring-red-500"
-              />
-
-              <span className="flex-1 text-sm font-semibold text-gray-700 sm:text-base">
-                Waar afhalen?
-              </span>
-
-              <svg
-                className={`h-5 w-5 text-gray-500 transition-transform duration-300 ${
-                  showPickupInfo ? "rotate-180" : ""
-                }`}
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </label>
-
-            <div
-              className={`grid transition-all duration-300 ease-in-out ${
-                showPickupInfo
-                  ? "grid-rows-[1fr] opacity-100"
-                  : "grid-rows-[0fr] opacity-0"
-              }`}
-            >
-              <div className="overflow-hidden">
-                <div className="mt-3 rounded-xl border border-red-100 bg-red-50 p-4 text-sm text-gray-700 shadow-sm sm:p-5 sm:text-base">
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <span aria-hidden="true">🕐</span>
-
-                      <div>
-                        <span className="font-semibold">Het Zuid</span>
-                        <p className="text-gray-600">Afhalen van 13u tot 19u</p>
-                      </div>
-                    </li>
-
-                    <li className="flex items-start gap-3">
-                      <span aria-hidden="true">📍</span>
-
-                      <div>
-                        <span className="font-semibold">Mariakerke</span>
-                        <p className="text-gray-600">
-                          Wijmenstraat 2, 9030 Mariakerke
-                        </p>
-                      </div>
-                    </li>
-
-                    <li className="flex items-start gap-3">
-                      <span aria-hidden="true">🚚</span>
-
-                      <div>
-                        <span className="font-semibold">Gratis levering</span>
-                        <p className="text-gray-600">
-                          In Mariakerke en Wondelgem wordt gratis geleverd vanaf
-                          2 potten.
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
@@ -266,6 +196,80 @@ const Bestellen = () => {
               ))}
             </div>
             <p className="text-xl font-bold mt-4">Totaal: €{totaalPrijs}</p>
+
+            <div className="mx-auto mt-6 max-w-xl text-left">
+              <h3 className="mb-3 text-lg font-semibold text-gray-700">
+                Waar afhalen?
+              </h3>
+
+              <div className="space-y-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                <label className="flex cursor-pointer items-start gap-3">
+                  <input
+                    type="radio"
+                    name="afhaallocatie"
+                    value="Het Zuid"
+                    checked={afhaallocatie === "Het Zuid"}
+                    onChange={(event) => setAfhaallocatie(event.target.value)}
+                    className="mt-1 h-5 w-5 shrink-0 cursor-pointer text-red-600 focus:ring-2 focus:ring-red-500"
+                    required
+                  />
+
+                  <div>
+                    <span className="font-semibold text-gray-700">
+                      Het Zuid
+                    </span>
+
+                    <p className="text-sm text-gray-600">
+                      Afhalen van 13u - 19u bij goed weer.
+                    </p>
+                  </div>
+                </label>
+
+                <label className="flex cursor-pointer items-start gap-3">
+                  <input
+                    type="radio"
+                    name="afhaallocatie"
+                    value="Mariakerke"
+                    checked={afhaallocatie === "Mariakerke"}
+                    onChange={(event) => setAfhaallocatie(event.target.value)}
+                    className="mt-1 h-5 w-5 shrink-0 cursor-pointer text-red-600 focus:ring-2 focus:ring-red-500"
+                  />
+
+                  <div>
+                    <span className="font-semibold text-gray-700">
+                      Mariakerke
+                    </span>
+
+                    <p className="text-sm text-gray-600">
+                      Wijmenstraat 2, 9030 Mariakerke <br/>8u - 12u elke dag, of op afspraak.
+                    </p>
+                  </div>
+                </label>
+
+                <label className="flex cursor-pointer items-start gap-3">
+                  <input
+                    type="radio"
+                    name="afhaallocatie"
+                    value="Gratis levering"
+                    checked={afhaallocatie === "Gratis levering"}
+                    onChange={(event) => setAfhaallocatie(event.target.value)}
+                    className="mt-1 h-5 w-5 shrink-0 cursor-pointer text-red-600 focus:ring-2 focus:ring-red-500"
+                  />
+
+                  <div>
+                    <span className="font-semibold text-gray-700">
+                      Gratis levering
+                    </span>
+
+                    <p className="text-sm text-gray-600">
+                      In Mariakerke, Wondelgem en Lovendegem wordt gratis
+                      geleverd vanaf 2 potten.
+                    </p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
             <button
               onClick={() => setStap(2)}
               className="w-full bg-pink-500 text-white py-2 mt-4 rounded-lg"
