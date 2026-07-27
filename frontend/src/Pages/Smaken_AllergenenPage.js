@@ -640,12 +640,11 @@ export default function SmakenAllergenenPage() {
                 <p className="sa-eyebrow">Duidelijke informatie</p>
 
                 <h2 id="allergenen-title">Allergenen</h2>
-              </div>
-
-              <p>
+                <p>
                 Bekijk per allergeen wat het betekent en in welke smaken het
                 volgens deze lijst voorkomt.
               </p>
+              </div>
             </div>
 
             <div className="sa-list">
