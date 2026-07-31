@@ -9,10 +9,12 @@ const smakenLijst = [
   "Hazelnoot",
   "Pistache",
   "Kokosnoot",
+  "Passievrucht",
   "Mokka",
   "Speculoos",
   "Yoghurt",
   "Ananas",
+  "Guave",
   "Amaretto",
   "Banaan",
   "Amarettini",
@@ -33,9 +35,7 @@ const smakenLijst = [
   "Kersen (op aanvraag)",
   "Peer (op aanvraag)",
   "Vijgen (op aanvraag)",
-  "Guave (op aanvraag)",
   "Papaye (op aanvraag)",
-  "Guave (op aanvraag)",
 ];
 
 const Bestellen = () => {
