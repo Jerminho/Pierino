@@ -59,11 +59,6 @@ function ThankYouPage() {
             Bekijk onze smaken
           </Link>
         </div>
-
-        <p className="mt-7 text-xs leading-5 text-gray-500 sm:text-sm">
-          Heeft u dringend hulp nodig? Neem dan telefonisch contact met ons op
-          tijdens de openingsuren.
-        </p>
       </section>
     </main>
   );

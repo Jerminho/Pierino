@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-const smakenLijst = [
+const vastAssortiment = [
   "Vanille",
   "Chocolade",
   "Stracciatella",
@@ -15,9 +15,8 @@ const smakenLijst = [
   "Yoghurt",
   "Ananas",
   "Guave",
-  "Amaretto",
+  "Amarena",
   "Banaan",
-  "Amarettini",
   "Citroen",
   "Aardbei",
   "Meloen",
@@ -25,28 +24,39 @@ const smakenLijst = [
   "Mango",
   "Sinaasappel",
   "Kiwi",
-  "Munt (op aanvraag)",
-  "Honing (op aanvraag)",
-  "Amandel (op aanvraag)",
-  "Braambes (op aanvraag)",
-  "Duvel (op aanvraag)",
-  "Rabarber (op aanvraag)",
-  "Watermeloen (op aanvraag)",
-  "Kersen (op aanvraag)",
-  "Peer (op aanvraag)",
-  "Vijgen (op aanvraag)",
-  "Papaye (op aanvraag)",
+  "Kiwi-Aardbei",
+];
+
+const opAanvraag = [
+  "Amaretto",
+  "Amarettini",
+  "Munt",
+  "Honing",
+  "Amandel",
+  "Braambes",
+  "Duvel",
+  "Rabarber",
+  "Watermeloen",
+  "Kersen",
+  "Peer",
+  "Vijgen",
+  "Papaye",
 ];
 
 const Bestellen = () => {
   const [bestelling, setBestelling] = useState({});
   const [stap, setStap] = useState(1);
+
+  const [toonMeerVast, setToonMeerVast] = useState(false);
+  const [toonMeerAanvraag, setToonMeerAanvraag] = useState(false);
+
   const [klantGegevens, setKlantGegevens] = useState({
     naam: "",
     email: "",
     telefoon: "",
     opmerkingen: "",
   });
+
   const [, setResultaat] = useState("");
   const navigate = useNavigate();
 
@@ -72,8 +82,9 @@ const Bestellen = () => {
 
   const totaalPrijs = Object.values(bestelling).reduce(
     (acc, cur) => acc + cur * prijsPerLiter,
-    0,
+    0
   );
+
   const [afhaallocatie, setAfhaallocatie] = useState("");
 
   const handleSubmit = async (event) => {
@@ -81,7 +92,12 @@ const Bestellen = () => {
     setResultaat("Versturen...");
 
     const formData = new FormData();
-    formData.append("access_key", "94a756fa-ab63-4ff8-b4b3-2e6bccdfd0cf");
+
+    formData.append(
+      "access_key",
+      "94a756fa-ab63-4ff8-b4b3-2e6bccdfd0cf"
+    );
+
     formData.append("recipient", "info@pierinoijs.be");
 
     const bestellingTekst = Object.entries(bestelling)
@@ -91,19 +107,19 @@ const Bestellen = () => {
     formData.append(
       "bericht",
       `
-      Bestelling details:
-      ${bestellingTekst}
-      Totaalprijs: €${totaalPrijs}
+Bestelling details:
+${bestellingTekst}
+Totaalprijs: €${totaalPrijs}
 
-       Afhaallocatie:
-      ${afhaallocatie}
-      
-      Klantgegevens:
-      Naam: ${klantGegevens.naam}
-      Email: ${klantGegevens.email}
-      Telefoon: ${klantGegevens.telefoon}
-      Opmerkingen: ${klantGegevens.opmerkingen}
-    `,
+Afhaallocatie:
+${afhaallocatie}
+
+Klantgegevens:
+Naam: ${klantGegevens.naam}
+Email: ${klantGegevens.email}
+Telefoon: ${klantGegevens.telefoon}
+Opmerkingen: ${klantGegevens.opmerkingen}
+`
     );
 
     try {
@@ -118,6 +134,7 @@ const Bestellen = () => {
         setResultaat("");
 
         setBestelling({});
+
         setKlantGegevens({
           naam: "",
           email: "",
@@ -134,21 +151,69 @@ const Bestellen = () => {
     }
   };
 
+  // Hoeveel smaken standaard zichtbaar zijn
+  const aantalZichtbareSmaken = 9;
+
+  const zichtbareVasteSmaken = toonMeerVast
+    ? vastAssortiment
+    : vastAssortiment.slice(0, aantalZichtbareSmaken);
+
+  const zichtbareAanvraagSmaken = toonMeerAanvraag
+    ? opAanvraag
+    : opAanvraag.slice(0, aantalZichtbareSmaken);
+
+  // Herbruikbare component voor een smaak
+  const SmaakKaart = ({ smaak }) => (
+    <div className="flex min-w-0 items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white p-3 shadow-sm transition hover:shadow-md sm:p-4">
+      <span className="min-w-0 flex-1 break-words text-sm font-medium text-gray-700 sm:text-base">
+        {smaak}
+      </span>
+
+      <div className="flex shrink-0 items-center gap-2">
+        <button
+          type="button"
+          onClick={() => verwijder(smaak)}
+          className="flex h-9 w-9 items-center justify-center rounded-lg bg-red-500 text-white transition hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
+          disabled={!bestelling[smaak]}
+          aria-label={`${smaak} verminderen`}
+        >
+          <FaMinus className="text-xs sm:text-sm" />
+        </button>
+
+        <span className="w-6 text-center text-base font-semibold text-gray-800 sm:text-lg">
+          {bestelling[smaak] || 0}
+        </span>
+
+        <button
+          type="button"
+          onClick={() => voegToe(smaak)}
+          className="flex h-9 w-9 items-center justify-center rounded-lg bg-green-500 text-white transition hover:bg-green-600 sm:h-10 sm:w-10"
+          aria-label={`${smaak} toevoegen`}
+        >
+          <FaPlus className="text-xs sm:text-sm" />
+        </button>
+      </div>
+    </div>
+  );
+
   return (
-    <div className="min-h-screen bg-pink-100 flex flex-col items-center p-6">
-      <div className="w-full max-w-5xl bg-white shadow-lg rounded-xl p-6">
-        <div className="text-center pb-6 border-b border-gray-300">
-          <h1 className="text-4xl font-bold text-pink-600">IJS BESTELLEN</h1>
+    <div className="min-h-screen bg-pink-100 px-3 py-4 sm:px-6 sm:py-6">
+      <div className="mx-auto w-full max-w-5xl rounded-xl bg-white p-4 shadow-lg sm:p-6">
+        <div className="border-b border-gray-300 pb-5 text-center sm:pb-6">
+          <h1 className="text-3xl font-bold text-pink-600 sm:text-4xl">
+            IJS BESTELLEN
+          </h1>
         </div>
 
-        <div className="mx-auto w-full max-w-3xl px-4 py-6 text-center sm:px-6 sm:py-8">
-          <h2 className="text-2xl font-semibold leading-tight text-gray-700 sm:text-3xl">
+        <div className="mx-auto w-full max-w-3xl px-1 py-5 text-center sm:px-6 sm:py-8">
+          <h2 className="text-xl font-semibold leading-tight text-gray-700 sm:text-3xl">
             Heel eenvoudig je favoriete Pierino IJs online bestellen
           </h2>
 
           <p className="mt-3 text-sm leading-6 text-gray-600 sm:text-base">
-            Koop je ijs online en haal het op in Mariakerke (Gent). Vul het
-            formulier in en ontvang een bevestiging per mail.
+            Koop je ijs online en haal het op in één van onze locaties
+            hieronder. <br className="hidden sm:block" />
+            Vul het formulier in en ontvang een bevestiging per mail.
           </p>
 
           <p className="mt-4 text-lg font-semibold text-red-600 sm:text-xl">
@@ -156,47 +221,127 @@ const Bestellen = () => {
           </p>
         </div>
 
-        <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
+        <div className="mb-6 h-2 w-full rounded-full bg-gray-200">
           <div
-            className={`h-2 rounded-full bg-pink-500 transition-all duration-500 ${stap === 2 ? "w-full" : "w-1/2"}`}
-          ></div>
+            className={`h-2 rounded-full bg-pink-500 transition-all duration-500 ${
+              stap === 2 ? "w-full" : "w-1/2"
+            }`}
+          />
         </div>
 
         {stap === 1 && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">
-              Kies je smaken (1 eenheid = 1 liter)
+            <h2 className="mb-5 text-lg font-semibold text-gray-800 sm:text-xl">
+              Kies je smaken{" "}
+              <span className="font-normal text-gray-500">
+                (1 eenheid = 1 liter)
+              </span>
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {smakenLijst.map((smaak) => (
-                <div
-                  key={smaak}
-                  className="flex items-center justify-between border p-3 rounded-lg shadow-sm"
-                >
-                  <span>{smaak}</span>
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => verwijder(smaak)}
-                      className="p-2 bg-red-500 text-white rounded disabled:opacity-50"
-                      disabled={!bestelling[smaak]}
-                    >
-                      <FaMinus />
-                    </button>
-                    <span className="text-lg font-semibold">
-                      {bestelling[smaak] || 0}
-                    </span>
-                    <button
-                      onClick={() => voegToe(smaak)}
-                      className="p-2 bg-green-500 text-white rounded"
-                    >
-                      <FaPlus />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="text-xl font-bold mt-4">Totaal: €{totaalPrijs}</p>
 
+            {/* =========================
+                VAST ASSORTIMENT
+            ========================== */}
+            <section className="mb-8">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="h-7 w-1 rounded-full bg-pink-500" />
+
+                <div>
+                  <h3 className="text-lg font-bold text-gray-800 sm:text-xl">
+                    Vast assortiment
+                  </h3>
+
+                  <p className="text-xs text-gray-500 sm:text-sm">
+                    Onze vaste smaken
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {zichtbareVasteSmaken.map((smaak) => (
+                  <SmaakKaart key={smaak} smaak={smaak} />
+                ))}
+              </div>
+
+              {vastAssortiment.length > aantalZichtbareSmaken && (
+                <div className="mt-4 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setToonMeerVast(!toonMeerVast)}
+                    className="flex items-center gap-2 rounded-lg border border-pink-300 bg-pink-50 px-5 py-2.5 text-sm font-semibold text-pink-600 transition hover:bg-pink-100 sm:text-base"
+                  >
+                    {toonMeerVast ? (
+                      <>
+                        Toon minder
+                        <FaChevronUp className="text-xs" />
+                      </>
+                    ) : (
+                      <>
+                        Toon meer
+                        <FaChevronDown className="text-xs" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+            </section>
+
+            {/* =========================
+                OP AANVRAAG
+            ========================== */}
+            <section className="mb-6">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="h-7 w-1 rounded-full bg-gray-400" />
+
+                <div>
+                  <h3 className="text-lg font-bold text-gray-800 sm:text-xl">
+                    Op aanvraag
+                  </h3>
+
+                  <p className="text-xs text-gray-500 sm:text-sm">
+                    Deze smaken zijn enkel op aanvraag beschikbaar
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {zichtbareAanvraagSmaken.map((smaak) => (
+                  <SmaakKaart key={smaak} smaak={smaak} />
+                ))}
+              </div>
+
+              {opAanvraag.length > aantalZichtbareSmaken && (
+                <div className="mt-4 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setToonMeerAanvraag(!toonMeerAanvraag)
+                    }
+                    className="flex items-center gap-2 rounded-lg border border-gray-300 bg-gray-50 px-5 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 sm:text-base"
+                  >
+                    {toonMeerAanvraag ? (
+                      <>
+                        Toon minder
+                        <FaChevronUp className="text-xs" />
+                      </>
+                    ) : (
+                      <>
+                        Toon meer
+                        <FaChevronDown className="text-xs" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+            </section>
+
+            {/* TOTAAL */}
+            <div className="mt-6 rounded-lg bg-pink-50 p-4 text-center">
+              <p className="text-lg font-bold text-gray-800 sm:text-xl">
+                Totaal: €{totaalPrijs}
+              </p>
+            </div>
+
+            {/* AFHALEN */}
             <div className="mx-auto mt-6 max-w-xl text-left">
               <h3 className="mb-3 text-lg font-semibold text-gray-700">
                 Waar afhalen?
@@ -209,7 +354,9 @@ const Bestellen = () => {
                     name="afhaallocatie"
                     value="Het Zuid"
                     checked={afhaallocatie === "Het Zuid"}
-                    onChange={(event) => setAfhaallocatie(event.target.value)}
+                    onChange={(event) =>
+                      setAfhaallocatie(event.target.value)
+                    }
                     className="mt-1 h-5 w-5 shrink-0 cursor-pointer text-red-600 focus:ring-2 focus:ring-red-500"
                     required
                   />
@@ -231,7 +378,9 @@ const Bestellen = () => {
                     name="afhaallocatie"
                     value="Mariakerke"
                     checked={afhaallocatie === "Mariakerke"}
-                    onChange={(event) => setAfhaallocatie(event.target.value)}
+                    onChange={(event) =>
+                      setAfhaallocatie(event.target.value)
+                    }
                     className="mt-1 h-5 w-5 shrink-0 cursor-pointer text-red-600 focus:ring-2 focus:ring-red-500"
                   />
 
@@ -241,7 +390,9 @@ const Bestellen = () => {
                     </span>
 
                     <p className="text-sm text-gray-600">
-                      Wijmenstraat 2, 9030 Mariakerke <br/>8u - 12u elke dag, of op afspraak.
+                      Wijmenstraat 2, 9030 Mariakerke
+                      <br />
+                      8u - 12u elke dag, of op afspraak.
                     </p>
                   </div>
                 </label>
@@ -252,7 +403,9 @@ const Bestellen = () => {
                     name="afhaallocatie"
                     value="Gratis levering"
                     checked={afhaallocatie === "Gratis levering"}
-                    onChange={(event) => setAfhaallocatie(event.target.value)}
+                    onChange={(event) =>
+                      setAfhaallocatie(event.target.value)
+                    }
                     className="mt-1 h-5 w-5 shrink-0 cursor-pointer text-red-600 focus:ring-2 focus:ring-red-500"
                   />
 
@@ -271,8 +424,9 @@ const Bestellen = () => {
             </div>
 
             <button
+              type="button"
               onClick={() => setStap(2)}
-              className="w-full bg-pink-500 text-white py-2 mt-4 rounded-lg"
+              className="mt-5 w-full rounded-lg bg-pink-500 py-3 font-semibold text-white transition hover:bg-pink-600"
             >
               Volgende
             </button>
@@ -282,36 +436,50 @@ const Bestellen = () => {
         {stap === 2 && (
           <form onSubmit={handleSubmit} className="space-y-4">
             <h2 className="text-xl font-semibold">Jouw gegevens</h2>
+
             <input
               type="text"
               placeholder="Naam"
               required
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-3"
               onChange={(e) =>
-                setKlantGegevens({ ...klantGegevens, naam: e.target.value })
+                setKlantGegevens({
+                  ...klantGegevens,
+                  naam: e.target.value,
+                })
               }
             />
+
             <input
               type="email"
               placeholder="E-mail"
               required
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-3"
               onChange={(e) =>
-                setKlantGegevens({ ...klantGegevens, email: e.target.value })
+                setKlantGegevens({
+                  ...klantGegevens,
+                  email: e.target.value,
+                })
               }
             />
+
             <input
               type="tel"
               placeholder="Telefoonnummer"
               required
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-3"
               onChange={(e) =>
-                setKlantGegevens({ ...klantGegevens, telefoon: e.target.value })
+                setKlantGegevens({
+                  ...klantGegevens,
+                  telefoon: e.target.value,
+                })
               }
             />
+
             <textarea
               placeholder="Extra opmerkingen"
-              className="w-full p-2 border rounded"
+              className="w-full rounded border p-3"
+              rows="4"
               onChange={(e) =>
                 setKlantGegevens({
                   ...klantGegevens,
@@ -319,9 +487,10 @@ const Bestellen = () => {
                 })
               }
             />
+
             <button
               type="submit"
-              className="w-full bg-green-500 text-white py-2 rounded-lg"
+              className="w-full rounded-lg bg-green-500 py-3 font-semibold text-white transition hover:bg-green-600"
             >
               Bestelling plaatsen
             </button>
