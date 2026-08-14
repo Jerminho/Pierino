@@ -81,11 +81,8 @@ export default function OverOns() {
       ====================================================== */}
       <section className="px-6 sm:px-10 lg:px-20 py-10 lg:py-16">
         <div className="quote max-w-3xl mx-auto text-center">
-          <span className="quote-mark font-display text-6xl sm:text-7xl block mb-2">
-            &ldquo;
-          </span>
           <p className="quote-text text-xl sm:text-2xl lg:text-3xl leading-snug -mt-6">
-            Zolang mijn ijs lekker is, komen de klanten wel bij mij.
+            &ldquo; Zolang mijn ijs lekker is, komen de klanten wel bij mij.&ldquo;
           </p>
           <p className="quote-text_author font-display font-semibold text-[#e2222e] mt-5 text-sm sm:text-base tracking-wide">
             — Pierino Ruffolo
@@ -232,7 +229,7 @@ export default function OverOns() {
               </span>
               <span className="text-[10px] sm:text-xs">per bolletje</span>
             </div>
-          </div>
+          </div> 
 
           <div className="bewust">
             <h2 className=" font-display font-extrabold text-3xl sm:text-4xl text-[#e2222e] leading-tight mb-6">
@@ -246,7 +243,7 @@ export default function OverOns() {
                 mogelijk te houden. We gebruiken geen glucose, inuline of
                 kunstmatige aroma's, maar laten kwaliteitsvolle ingrediënten
                 voor zichzelf spreken.
-              </p>
+              </p> 
               <p>
                 Ons ijs wordt artisanaal gemaakt met de ingrediënten die op dat
                 moment beschikbaar zijn. Een aardbei smaakt nu eenmaal niet elke
@@ -257,7 +254,7 @@ export default function OverOns() {
               <p>
                 Die keuze maken we al jaren, en daar staan we vandaag nog steeds
                 achter. Het resultaat? IJs met een pure smaak dat verrassend
-                licht kan zijn. Een bolletje Pierino-ijs bevat gemiddeld
+                licht kan zijn. Een bolletje Pierino Ijs bevat gemiddeld
                 ongeveer 70 calorieën.*
               </p>
             </div>
@@ -265,7 +262,14 @@ export default function OverOns() {
               *Het exacte aantal calorieën kan variëren naargelang de smaak.
             </p>
           </div>
-        </div>
+        </div><br /><div className="flex justify-center">
+  <a
+    href="/smaken-allergenen"
+    className="before-tag inline-block px-5 py-2 rounded-full text-lg sm:text-xl -rotate-2 transition-transform hover:scale-105"
+  >
+    Ontdek onze smaken
+  </a>
+</div>
       </section>
 
       {/* =====================================================
@@ -290,7 +294,13 @@ export default function OverOns() {
         <div className="vandaag max-w-7xl mx-auto">
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-[#e2222e] mb-10 text-center lg:text-left">
             Pierino vandaag
+            <section className="px-6 sm:px-10 lg:px-20 py-10 lg:py-16">
+          <p className="quote-text text-xl sm:text-2xl lg:text-3xl leading-snug -mt-6">
+            &ldquo; Zonder Pierino Ijs ist nie wijs&ldquo;
+          </p>
+      </section>
           </h2>
+          
 
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,320px)_1fr] gap-10 lg:gap-14 items-start">
             {/* Lijst */}
@@ -324,7 +334,7 @@ export default function OverOns() {
                     Onze vaste locaties
                   </h3>
                   <p className="text-[#6e5457]">
-                    Korenmarkt · Het Zuid · Gent-Sint-Pieters
+                    Korenmarkt · Het Zuid · Sint-Pietersstation
                   </p>
                 </div>
               </li>
@@ -422,12 +432,6 @@ export default function OverOns() {
                 />
               </div>
             </div>
-          </div>
-
-          <div className="text-center lg:text-left mt-10">
-            <a href="\smaken-allergenen" className="link-dashed">
-              Ontdek onze smaken
-            </a>
           </div>
         </div>
       </section>
