@@ -1,50 +1,34 @@
 import React from "react";
 import "./OverOns.css";
-import PR from "../Components/images/PR.jpg";
-import Aardbeien from "../Components/images/Aardbeien.png";
-import GSP from "../Components/images/GSP.jpg";
-import Wooden from "../Components/images/wooden.jpg";
-import Cup from "../Components/images/cup.jpg";
-import Offerice from "../Components/images/offerice.jpg";
-import Scoop from "../Components/images/scoop.jpg";
-import Wijs1 from "../Components/images/Wijs1.jpg";
-import Wijs2 from "../Components/images/Wijs2.jpg";
-import Wijs3 from "../Components/images/Wijs3.jpg";
-import Wijs4 from "../Components/images/Wijs4.jpg";
-import Wijs5 from "../Components/images/Wijs5.jpg";
-import Wijs6 from "../Components/images/Wijs6.jpg";
+import PR from "../Components/images/PR.webp";
+import Aardbeien from "../Components/images/Aardbeien.webp";
+import GSP from "../Components/images/GSP.webp";
+import Wooden from "../Components/images/wooden.webp";
+import Cup from "../Components/images/cup.webp";
+import Offerice from "../Components/images/offerice.webp";
+import Scoop from "../Components/images/scoop.webp";
+import Wijs1 from "../Components/images/Wijs1.webp";
+import Wijs2 from "../Components/images/Wijs2.webp";
+import Wijs3 from "../Components/images/Wijs3.webp";
+import Wijs4 from "../Components/images/Wijs4.webp";
+import Wijs5 from "../Components/images/Wijs5.webp";
+import Wijs6 from "../Components/images/Wijs6.webp";
 import Blad from "../Components/images/bladicon.png";
 import Aardbeiicon from "../Components/images/aardbeiicon.png";
 import Iceicon from "../Components/images/iceicon.png";
 
-/**
- * OverOns
- * -------
- * "Over ons" pagina van Pierino IJs.
- * De header/nav is bewust weggelaten: dat component wordt elders (app.js) ingeladen.
- *
- * Afbeeldingen: vervang de src-waarden (foto1.jpg t/m foto15.jpg, foto7.png)
- * door de effectieve bestandsnamen/paden, bv. via een import of een pad naar /public.
- *
- * Styling: Tailwind-classes inline + aanvullende merk-specifieke stijlen in OverOns.css
- * (kleurverlopen, schaduwen, custom knoppen, etc.). De kleuren zijn als Tailwind
- * arbitrary values (bv. text-[#e2222e]) toegepast, zodat er geen aanpassing aan
- * tailwind.config nodig is.
- */
 export default function OverOns() {
   return (
     <>
-      {/* =====================================================
-           INTRO — Meer dan 30 jaar ambachtelijk ijs in Gent
-      ====================================================== */}
+      {/* INTRO — Foto boven de vouw (Hero) KRIJGT GEEN lazy loading */}
       <section className="px-6 sm:px-10 lg:px-20 py-14 lg:py-20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className=" ambacht order-2 lg:order-1">
-            <h2 className=" font-display font-extrabold text-3xl sm:text-4xl text-[#e2222e] leading-tight mb-6">
+          <div className="ambacht order-2 lg:order-1">
+            <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-[#e2222e] leading-tight mb-6">
               Meer dan 30 jaar
               <br className="hidden sm:block" /> ambachtelijk ijs in Gent.
             </h2>
-            <div className="space-y-4  text-base sm:text-lg leading-relaxed">
+            <div className="space-y-4 text-base sm:text-lg leading-relaxed">
               <p>
                 Het verhaal van Pierino begon met een passie voor écht Italiaans
                 ijs. Een passie die Pierino Ruffolo later doorgaf aan zijn zoon
@@ -70,15 +54,15 @@ export default function OverOns() {
             <img
               src={PR}
               alt="Pierino Ruffolo naast zijn ijskar, vintage foto"
-              className="img-frame w-full h-64 sm:h-80 lg:h-96 rounded-3xl shadow-xl"
+              decoding="async"
+              fetchPriority="high"
+              className="img-frame w-full h-64 sm:h-80 lg:h-96 rounded-3xl shadow-xl object-cover"
             />
           </div>
         </div>
       </section>
 
-      {/* =====================================================
-           QUOTE
-      ====================================================== */}
+      {/* QUOTE */}
       <section className="px-6 sm:px-10 lg:px-20 py-10 lg:py-16">
         <div className="quote max-w-3xl mx-auto text-center">
           <p className="quote-text text-xl sm:text-2xl lg:text-3xl leading-snug -mt-6">
@@ -90,11 +74,9 @@ export default function OverOns() {
         </div>
       </section>
 
-      {/* =====================================================
-           HOE HET BEGON + fotostrip
-      ====================================================== */}
+      {/* HOE HET BEGON + fotostrip */}
       <section className="px-6 sm:px-10 lg:px-20 py-14 lg:py-20">
-        <div className=" ambacht max-w-7xl mx-auto">
+        <div className="ambacht max-w-7xl mx-auto">
           <h3 className="eyebrow text-sm sm:text-base mb-3 text-center lg:text-left">
             Hoe het begon
           </h3>
@@ -119,37 +101,43 @@ export default function OverOns() {
             </p>
           </div>
 
-          {/* Fotostrip */}
+          {/* Fotostrip met lazy loading */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5 mt-10">
             <img
               src={Offerice}
               alt="Pierino's ijskar door de jaren heen"
-              className="img-frame-four w-full h-40 sm:h-52 rounded-2xl shadow-md"
+              loading="lazy"
+              decoding="async"
+              className="img-frame-four w-full h-40 sm:h-52 rounded-2xl shadow-md object-cover"
             />
             <img
               src={Wooden}
               alt="Historische foto van de ijskar"
-              className="img-frame-four w-full h-40 sm:h-52 rounded-2xl shadow-md"
+              loading="lazy"
+              decoding="async"
+              className="img-frame-four w-full h-40 sm:h-52 rounded-2xl shadow-md object-cover"
             />
             <img
               src={Cup}
               alt="Pierino's ijskar op de markt in Gent"
-              className="img-frame-four w-full h-40 sm:h-52 rounded-2xl shadow-md"
+              loading="lazy"
+              decoding="async"
+              className="img-frame-four w-full h-40 sm:h-52 rounded-2xl shadow-md object-cover"
             />
             <img
               src={Scoop}
               alt="Portret met een Pierino-ijsje"
-              className="img-frame-four w-full h-40 sm:h-52 rounded-2xl shadow-md"
+              loading="lazy"
+              decoding="async"
+              className="img-frame-four w-full h-40 sm:h-52 rounded-2xl shadow-md object-cover"
             />
           </div>
         </div>
       </section>
 
-      {/* =====================================================
-           ONZE WAARDEN
-      ====================================================== */}
+      {/* ONZE WAARDEN */}
       <section id="waarden" className="px-6 sm:px-10 lg:px-20 py-16 lg:py-24">
-        <div className=" waarden max-w-7xl mx-auto">
+        <div className="waarden max-w-7xl mx-auto">
           <h3 className="eyebrow-script text-3xl sm:text-4xl mb-8 text-center lg:text-left">
             Onze waarden
           </h3>
@@ -160,6 +148,8 @@ export default function OverOns() {
                 <img
                   src={Iceicon}
                   alt="Waarde icoon"
+                  loading="lazy"
+                  decoding="async"
                   className="w-7 h-7 object-contain"
                 />
               </div>
@@ -178,6 +168,8 @@ export default function OverOns() {
                 <img
                   src={Aardbeiicon}
                   alt="Waarde icoon"
+                  loading="lazy"
+                  decoding="async"
                   className="w-7 h-7 object-contain"
                 />
               </div>
@@ -196,6 +188,8 @@ export default function OverOns() {
                 <img
                   src={Blad}
                   alt="Waarde icoon"
+                  loading="lazy"
+                  decoding="async"
                   className="w-7 h-7 object-contain"
                 />
               </div>
@@ -212,16 +206,16 @@ export default function OverOns() {
         </div>
       </section>
 
-      {/* =====================================================
-           BEWUST KIEZEN VOOR PURE SMAKEN
-      ====================================================== */}
+      {/* BEWUST KIEZEN VOOR PURE SMAKEN */}
       <section className="px-6 sm:px-10 lg:px-20 py-14 lg:py-20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="relative">
             <img
               src={Aardbeien}
               alt="Verse aardbeien in houten kratjes"
-              className="img-frame-four w-full h-64 sm:h-80 lg:h-[26rem] rounded-3xl shadow-xl"
+              loading="lazy"
+              decoding="async"
+              className="img-frame-four w-full h-64 sm:h-80 lg:h-[26rem] rounded-3xl shadow-xl object-cover"
             />
             <div className="kcal-badge absolute -top-6 -right-4 sm:right-6 w-24 h-24 sm:w-28 sm:h-28 rounded-full flex flex-col items-center justify-center text-center leading-tight">
               <span className="text-lg sm:text-xl font-extrabold">
@@ -229,10 +223,10 @@ export default function OverOns() {
               </span>
               <span className="text-[10px] sm:text-xs">per bolletje</span>
             </div>
-          </div> 
+          </div>
 
           <div className="bewust">
-            <h2 className=" font-display font-extrabold text-3xl sm:text-4xl text-[#e2222e] leading-tight mb-6">
+            <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-[#e2222e] leading-tight mb-6">
               Bewust kiezen voor
               <br className="hidden sm:block" /> pure smaken
             </h2>
@@ -243,7 +237,7 @@ export default function OverOns() {
                 mogelijk te houden. We gebruiken geen glucose, inuline of
                 kunstmatige aroma's, maar laten kwaliteitsvolle ingrediënten
                 voor zichzelf spreken.
-              </p> 
+              </p>
               <p>
                 Ons ijs wordt artisanaal gemaakt met de ingrediënten die op dat
                 moment beschikbaar zijn. Een aardbei smaakt nu eenmaal niet elke
@@ -262,19 +256,19 @@ export default function OverOns() {
               *Het exacte aantal calorieën kan variëren naargelang de smaak.
             </p>
           </div>
-        </div><br /><div className="flex justify-center">
-  <a
-    href="/smaken-allergenen"
-    className="before-tag inline-block px-5 py-2 rounded-full text-lg sm:text-xl -rotate-2 transition-transform hover:scale-105"
-  >
-    Ontdek onze smaken
-  </a>
-</div>
+        </div>
+        <br />
+        <div className="flex justify-center">
+          <a
+            href="/smaken-allergenen"
+            className="before-tag inline-block px-5 py-2 rounded-full text-lg sm:text-xl -rotate-2 transition-transform hover:scale-105"
+          >
+            Ontdek onze smaken
+          </a>
+        </div>
       </section>
 
-      {/* =====================================================
-           "Voor ons proef je goed ijs..." tussenblok
-      ====================================================== */}
+      {/* tussenblok */}
       <section className="bewust-b px-6 sm:px-10 lg:px-20 pb-14 lg:pb-20">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[#6e5457] text-base sm:text-lg leading-relaxed">
@@ -287,20 +281,17 @@ export default function OverOns() {
         </div>
       </section>
 
-      {/* =====================================================
-           PIERINO VANDAAG
-      ====================================================== */}
+      {/* PIERINO VANDAAG */}
       <section className="px-6 sm:px-10 lg:px-20 py-14 lg:py-20">
         <div className="vandaag max-w-7xl mx-auto">
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-[#e2222e] mb-10 text-center lg:text-left">
-            Pierino vandaag
-            <section className="px-6 sm:px-10 lg:px-20 py-10 lg:py-16">
-          <p className="quote-text text-xl sm:text-2xl lg:text-3xl leading-snug -mt-6">
-            &ldquo; Zonder Pierino Ijs ist nie wijs&ldquo;
-          </p>
-      </section>
-          </h2>
-          
+          <div className="mb-10 text-center lg:text-left">
+            <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-[#e2222e]">
+              Pierino vandaag
+            </h2>
+            <p className="quote-text text-xl sm:text-2xl lg:text-3xl leading-snug mt-2">
+              &ldquo; Zonder Pierino Ijs ist nie wijs&ldquo;
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,320px)_1fr] gap-10 lg:gap-14 items-start">
             {/* Lijst */}
@@ -396,39 +387,50 @@ export default function OverOns() {
               </li>
             </ul>
 
-            {/* Groene banner + fotogrid */}
+            {/* Fotogrid met lazy loading */}
             <div className="green-banner rounded-[2rem] p-6 sm:p-8">
-              <p className="font-display font-extrabold text-white text-xl sm:text-2xl text-center mb-6"></p>
               <div className="photo-grid grid grid-cols-3 gap-3 sm:gap-3">
                 <img
                   src={Wijs1}
                   alt="Klanten genieten van Pierino-ijs"
-                  className="w-full rounded-xl"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-xl object-cover"
                 />
                 <img
                   src={Wijs2}
                   alt="Pierino op een zomerevent"
-                  className="w-full rounded-xl"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-xl object-cover"
                 />
                 <img
                   src={Wijs3}
                   alt="IJsje van Pierino close-up"
-                  className="w-full rounded-xl"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-xl object-cover"
                 />
                 <img
                   src={Wijs4}
                   alt="Pierino-ijskar bij een feest"
-                  className="w-full rounded-xl"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-xl object-cover"
                 />
                 <img
                   src={Wijs5}
                   alt="Bezoekers aan de ijskar"
-                  className="w-full rounded-xl"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-xl object-cover"
                 />
                 <img
                   src={Wijs6}
                   alt="Team Pierino aan het werk"
-                  className="w-full rounded-xl"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full rounded-xl object-cover"
                 />
               </div>
             </div>
@@ -436,15 +438,15 @@ export default function OverOns() {
         </div>
       </section>
 
-      {/* =====================================================
-           SLOTBANNER
-      ====================================================== */}
+      {/* SLOTBANNER */}
       <section id="contact" className="px-6 sm:px-10 lg:px-20 pb-16 lg:pb-24">
         <div className="relative max-w-7xl mx-auto rounded-[2.5rem] overflow-hidden shadow-2xl">
           <img
             src={GSP}
             alt="Pierino's ijskar geparkeerd in een groene buurt"
-            className="img-frame-four w-full h-64 sm:h-80 lg:h-[28rem]"
+            loading="lazy"
+            decoding="async"
+            className="img-frame-four w-full h-64 sm:h-80 lg:h-[28rem] object-cover"
           />
           <div className="absolute top-6 left-6 sm:top-8 sm:left-8">
             <span className="final-tag inline-block px-5 py-2 rounded-full text-lg sm:text-xl -rotate-2">
