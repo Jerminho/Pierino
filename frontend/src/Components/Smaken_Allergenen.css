@@ -34,7 +34,7 @@
 .sa-hero__subtitle { margin-top: 1.25rem !important; font-family: "Shrikhand", serif; font-size: clamp(1.1rem, 2vw, 1.45rem); }
 .sa-hero__body { max-width: 650px; margin-top: .65rem !important; color: var(--sa-muted); }
 
-.sa-tabs { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.95); border-bottom: 1px solid var(--sa-pink-border); backdrop-filter: blur(12px); }
+.sa-tabs { position: sticky; top: 0; background: rgba(255,255,255,.95); border-bottom: 1px solid var(--sa-pink-border); backdrop-filter: blur(12px); }
 .sa-tabs__inner { display: flex; overflow-x: auto; scrollbar-width: none; }
 .sa-tabs__inner::-webkit-scrollbar { display: none; }
 .sa-tabs button { flex: 0 0 auto; padding: 1rem 1.25rem; border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--sa-muted); font-weight: 600; cursor: pointer; }
