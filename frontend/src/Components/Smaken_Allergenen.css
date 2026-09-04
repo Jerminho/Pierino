@@ -231,13 +231,13 @@ section.sa-hero {
     display: none;
 }
 
-.sa-list {
+.sa-faq-list {
   display: grid;
   gap: 1rem;
 }
 
 @media (min-width: 700px) {
-  .sa-list {
+  .sa-faq-list {
     grid-template-columns: 1fr 1fr;
     gap: 1.25rem;
   }

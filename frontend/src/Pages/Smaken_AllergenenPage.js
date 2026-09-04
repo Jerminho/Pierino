@@ -851,7 +851,7 @@ export default function SmakenAllergenenPage() {
       <h2 id="faq-title">{t.faqTitle}</h2>
     </div>
   </div>
-  <div className="sa-list">
+  <div className="sa-faq-list">
     {FAQS.map((item, index) => (
       <article key={index} className="sa-faq-card">
         <h3 className="sa-faq-card__title">{item.question[lang]}</h3>
