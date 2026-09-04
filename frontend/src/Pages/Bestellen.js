@@ -14,25 +14,28 @@ const vastAssortiment = [
   "Speculoos",
   "Yoghurt",
   "Ananas",
-  "Guave",
-  "Amarena",
   "Banaan",
+  "Cuberdon",
+  "Rum Rozijn",
   "Citroen",
   "Aardbei",
   "Meloen",
-  "Frambozen",
   "Mango",
   "Sinaasappel",
   "Kiwi",
   "Kiwi-Aardbei",
+  "Yoghurt-Aardbei",
+  "Bosbes",
 ];
 
 const opAanvraag = [
   "Amaretto",
+  "Amarena",
   "Amarettini",
   "Munt",
   "Honing",
   "Amandel",
+  "Framboos",
   "Braambes",
   "Duvel",
   "Rabarber",
@@ -40,7 +43,8 @@ const opAanvraag = [
   "Kersen",
   "Peer",
   "Vijgen",
-  "Papaye",
+  "Guave",
+  "Papaya",
 ];
 
 const Bestellen = () => {

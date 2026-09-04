@@ -246,9 +246,9 @@ const SORBET = [
     allergens: [],
   },
   {
-    name: "Papaye",
-    description: "Exotische papayesorbet met een milde tropische smaak.",
-    descriptionEn: "Exotic papaye sorbet with a mild tropical flavor.",
+    name: "Papaya",
+    description: "Exotische papayasorbet met een milde tropische smaak.",
+    descriptionEn: "Exotic papaya sorbet with a mild tropical flavor.",
     allergens: [],
   },
   {
