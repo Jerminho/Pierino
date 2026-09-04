@@ -75,7 +75,7 @@ const GELATO = [
     allergens: ["melk"],
   },
   {
-    name: "Yoghurt Aardbei",
+    name: "Yoghurt-Aardbei",
     description:
       "De frisse smaak van yoghurt gecombineerd met de natuurlijke zoetheid van aardbeien.",
     descriptionEn:
@@ -246,9 +246,9 @@ const SORBET = [
     allergens: [],
   },
   {
-    name: "Papaya",
-    description: "Exotische papayasorbet met een milde tropische smaak.",
-    descriptionEn: "Exotic papaya sorbet with a mild tropical flavor.",
+    name: "Papaye",
+    description: "Exotische papayesorbet met een milde tropische smaak.",
+    descriptionEn: "Exotic papaye sorbet with a mild tropical flavor.",
     allergens: [],
   },
   {
@@ -417,7 +417,7 @@ const UI_TEXT = {
     disclaimerTitle: "Belangrijk bij allergieën",
     disclaimerText: "Alle smaken kunnen in dezelfde productieruimte en met gedeeld materiaal worden bereid. Daardoor kunnen sporen van allergenen aanwezig zijn. Meld een ernstige allergie altijd aan ons personeel vóór uw bestelling.",
     faqEyebrow: "Veelgestelde vragen",
-    faqTitle: "Kleine FAQ",
+    faqTitle: "FAQ",
     lessFlavors: "− Minder smaken",
     moreFlavors: "andere smaken",
   },
@@ -845,20 +845,21 @@ export default function SmakenAllergenenPage() {
             </aside>
 
             <section className="sa-faq" aria-labelledby="faq-title">
-              <div className="sa-section-heading">
-                <div>
-                  <p className="sa-eyebrow">{t.faqEyebrow}</p>
-                  <h2 id="faq-title">{t.faqTitle}</h2>
-                </div>
-              </div>
-              <div className="sa-list">
-                {FAQS.map((item, index) => (
-                  <AccordionItem key={index} title={item.question[lang]}>
-                    <p>{item.answer[lang]}</p>
-                  </AccordionItem>
-                ))}
-              </div>
-            </section>
+  <div className="sa-section-heading">
+    <div>
+      <p className="sa-eyebrow">{t.faqEyebrow}</p>
+      <h2 id="faq-title">{t.faqTitle}</h2>
+    </div>
+  </div>
+  <div className="sa-list">
+    {FAQS.map((item, index) => (
+      <article key={index} className="sa-faq-card">
+        <h3 className="sa-faq-card__title">{item.question[lang]}</h3>
+        <p className="sa-faq-card__answer">{item.answer[lang]}</p>
+      </article>
+    ))}
+  </div>
+</section>
           </section>
         )}
       </div>
