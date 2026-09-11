@@ -246,6 +246,14 @@ body {
   box-shadow: 0 12px 24px -8px rgba(122, 33, 48, 0.45);
 }
 
+.before-tag {
+  background-color: var(--color-green);
+  color: #fff;
+  font-family: var(--font-script);
+  font-weight: 700;
+  box-shadow: 0 12px 24px -8px rgba(122, 33, 48, 0.45);
+}
+
 /* ---- Algemene beeldstyling --------------------------------------------- */
 
 .img-frame-four {
@@ -332,4 +340,10 @@ button:focus-visible {
 
 .vandaag p{
   font-size: 0.8rem;
+}
+
+@media (min-width: 640px) {
+    .sm\:h-52 {
+        height: 16rem;
+    }
 }
