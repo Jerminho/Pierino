@@ -204,9 +204,9 @@ Opmerkingen: ${klantGegevens.opmerkingen}
     <div className="min-h-screen bg-pink-100 px-3 py-4 sm:px-6 sm:py-6">
       <div className="mx-auto w-full max-w-5xl rounded-xl bg-white p-4 shadow-lg sm:p-6">
         <div className="border-b border-gray-300 pb-5 text-center sm:pb-6">
-          <h1 className="text-3xl font-bold text-pink-600 sm:text-4xl">
-            IJS BESTELLEN
-          </h1>
+          <h1 className="text-3xl font-bold text-pink-600 sm:text-4xl mt-2 mb-2">
+  IJS BESTELLEN
+</h1>
         </div>
 
         <div className="mx-auto w-full max-w-3xl px-1 py-5 text-center sm:px-6 sm:py-8">
@@ -216,7 +216,7 @@ Opmerkingen: ${klantGegevens.opmerkingen}
 
           <p className="mt-3 text-sm leading-6 text-gray-600 sm:text-base">
             Koop je ijs online en haal het op in één van onze locaties
-            hieronder. <br className="hidden sm:block" />
+            hieronder. <br className="hidden sm:block" /> <br></br>
             Vul het formulier in en ontvang een bevestiging per mail.
           </p>
 
