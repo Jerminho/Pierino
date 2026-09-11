@@ -8,7 +8,7 @@ const GELATO = [
       "Een tijdloze klassieker, bereid met echte vanillestokken uit Madagaskar. Deze zorgen voor een zachte en verfijnde smaak.",
     descriptionEn:
       "A timeless classic, prepared with real vanilla pods from Madagascar, providing a smooth and refined taste.",
-    allergens: ["melk","ei"],
+    allergens: ["melk", "ei"],
   },
   {
     name: "Chocolade",
@@ -30,8 +30,7 @@ const GELATO = [
     name: "Hazelnoot",
     description:
       "Geroosterde hazelnoten zorgen voor een volle, nootachtige smaak.",
-    descriptionEn:
-      "Roasted hazelnuts provide a full, nutty flavor.",
+    descriptionEn: "Roasted hazelnuts provide a full, nutty flavor.",
     allergens: ["melk", "noten"],
   },
   {
@@ -174,7 +173,8 @@ const SORBET = [
   {
     name: "Framboos",
     description: "Een intense frambozensorbet met frisse en lichtzure toetsen.",
-    descriptionEn: "An intense raspberry sorbet with fresh and slightly tart notes.",
+    descriptionEn:
+      "An intense raspberry sorbet with fresh and slightly tart notes.",
     allergens: [],
   },
   {
@@ -241,8 +241,7 @@ const SORBET = [
     name: "Vijgen",
     description:
       "Een zachte, honingachtige smaak met een verfijnd fruitig karakter.",
-    descriptionEn:
-      "A soft, honey-like taste with a refined fruity character.",
+    descriptionEn: "A soft, honey-like taste with a refined fruity character.",
     allergens: [],
   },
   {
@@ -279,8 +278,7 @@ const SORBET = [
     name: "Rum Rozijn",
     description:
       "Rozijnen en rum zorgen samen voor een warme, karaktervolle klassieker.",
-    descriptionEn:
-      "Raisins and rum combine for a warm, characterful classic.",
+    descriptionEn: "Raisins and rum combine for a warm, characterful classic.",
     allergens: ["melk"],
   },
 ];
@@ -389,9 +387,11 @@ const UI_TEXT = {
     tabSmaken: "Smaken",
     tabAllergenen: "Allergenen & FAQ",
     gelatoCardTitle: "Gelato",
-    gelatoCardText: "Italiaans Romig ijs op basis van verse melk en room, gecombineerd met echte ingrediënten zoals vanille, noten, chocolade of fruit.",
+    gelatoCardText:
+      "Italiaans Romig ijs op basis van verse melk en room, gecombineerd met echte ingrediënten zoals vanille, noten, chocolade of fruit.",
     sorbetCardTitle: "Sorbet",
-    sorbetCardText: "Een verfrissend ijs op basis van fruit, zonder melk. Onze sorbets zijn van nature vegan en bevatten geen glutenhoudende ingrediënten, uitgezonderd smaken die expliciet anders zijn aangeduid.",
+    sorbetCardText:
+      "Een verfrissend ijs op basis van fruit, zonder melk. Onze sorbets zijn van nature vegan en bevatten geen glutenhoudende ingrediënten, uitgezonderd smaken die expliciet anders zijn aangeduid.",
     offerEyebrow: "Ontdek het aanbod",
     offerTitle: "Alle smaken",
     foundSuffix: "gevonden",
@@ -411,11 +411,13 @@ const UI_TEXT = {
     noFlavors: "Geen smaken gevonden. Pas uw zoekopdracht of filters aan.",
     allergenSectionEyebrow: "Duidelijke informatie",
     allergenSectionTitle: "Allergenen",
-    allergenSectionText: "Bekijk per allergeen wat het betekent en in welke smaken het volgens deze lijst voorkomt.",
+    allergenSectionText:
+      "Bekijk per allergeen wat het betekent en in welke smaken het volgens deze lijst voorkomt.",
     presentIn: "Aangeduid bij:",
     noMatchingFlavors: "geen smaken in deze lijst",
-    disclaimerTitle: "Belangrijk bij allergieën",
-    disclaimerText: "Alle smaken kunnen in dezelfde productieruimte en met gedeeld materiaal worden bereid. Daardoor kunnen sporen van allergenen aanwezig zijn. Meld een ernstige allergie altijd aan ons personeel vóór uw bestelling.",
+    disclaimerTitle: "Belangrijk bij allergenen",
+    disclaimerText:
+      "Alle smaken kunnen in dezelfde productieruimte en met gedeeld materiaal worden bereid. Daardoor kunnen sporen van allergenen aanwezig zijn. Meld een ernstige allergie altijd aan ons personeel vóór uw bestelling.",
     faqEyebrow: "Veelgestelde vragen",
     faqTitle: "FAQ",
     lessFlavors: "− Minder smaken",
@@ -430,9 +432,11 @@ const UI_TEXT = {
     tabSmaken: "Flavors",
     tabAllergenen: "Allergens & FAQ",
     gelatoCardTitle: "Gelato",
-    gelatoCardText: "Italian creamy ice cream based on fresh milk and cream, combined with real ingredients such as vanilla, nuts, chocolate, or fruit.",
+    gelatoCardText:
+      "Italian creamy ice cream based on fresh milk and cream, combined with real ingredients such as vanilla, nuts, chocolate, or fruit.",
     sorbetCardTitle: "Sorbet",
-    sorbetCardText: "A refreshing fruit-based ice cream without milk. Our sorbets are naturally vegan and contain no gluten-containing ingredients, except for flavors explicitly indicated otherwise.",
+    sorbetCardText:
+      "A refreshing fruit-based ice cream without milk. Our sorbets are naturally vegan and contain no gluten-containing ingredients, except for flavors explicitly indicated otherwise.",
     offerEyebrow: "Explore the selection",
     offerTitle: "All flavors",
     foundSuffix: "found",
@@ -452,16 +456,18 @@ const UI_TEXT = {
     noFlavors: "No flavors found. Please adjust your search or filters.",
     allergenSectionEyebrow: "Clear information",
     allergenSectionTitle: "Allergens",
-    allergenSectionText: "Check what each allergen means and in which flavors it appears according to this list.",
+    allergenSectionText:
+      "Check what each allergen means and in which flavors it appears according to this list.",
     presentIn: "Indicated in:",
     noMatchingFlavors: "no flavors in this list",
     disclaimerTitle: "Important regarding allergies",
-    disclaimerText: "All flavors may be prepared in the same production area and with shared equipment. Therefore, traces of allergens may be present. Always notify our staff of a severe allergy prior to ordering.",
+    disclaimerText:
+      "All flavors may be prepared in the same production area and with shared equipment. Therefore, traces of allergens may be present. Always notify our staff of a severe allergy prior to ordering.",
     faqEyebrow: "Frequently asked questions",
     faqTitle: "Small FAQ",
     lessFlavors: "− Fewer flavors",
     moreFlavors: "other flavors",
-  }
+  },
 };
 
 function AccordionItem({ title, children, meta, initiallyOpen = false }) {
@@ -494,7 +500,7 @@ function AccordionItem({ title, children, meta, initiallyOpen = false }) {
 
 function FlavorCard({ flavor, lang }) {
   const description = lang === "en" ? flavor.descriptionEn : flavor.description;
-  
+
   return (
     <AccordionItem
       title={flavor.name}
@@ -502,7 +508,11 @@ function FlavorCard({ flavor, lang }) {
         <span
           className="sa-badges"
           aria-label={
-            flavor.allergens.length ? (lang === "en" ? "Allergens" : "Allergenen") : "Vegan"
+            flavor.allergens.length
+              ? lang === "en"
+                ? "Allergens"
+                : "Allergenen"
+              : "Vegan"
           }
         >
           {flavor.allergens.map((allergen) => (
@@ -519,8 +529,8 @@ function FlavorCard({ flavor, lang }) {
       <p>{description}</p>
       <div className="sa-tags">
         <span className={`sa-type sa-type--${flavor.type}`}>
-          {flavor.type === "gelato" 
-            ? UI_TEXT[lang].roomijsLabel 
+          {flavor.type === "gelato"
+            ? UI_TEXT[lang].roomijsLabel
             : UI_TEXT[lang].sorbetLabel}
         </span>
         {flavor.allergens.map((allergen) => (
@@ -583,8 +593,24 @@ export default function SmakenAllergenenPage() {
   return (
     <main className="sa-page">
       {/* Vertaal Toggle Bar - Responsive */}
-      <div className="sa-shell" style={{ display: "flex", justifyContent: "flex-end", paddingTop: "1rem" }}>
-        <div className="sa-lang-toggle" style={{ display: "inline-flex", background: "#f1f1f1", padding: "4px", borderRadius: "8px", gap: "4px" }}>
+      <div
+        className="sa-shell"
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          paddingTop: "1rem",
+        }}
+      >
+        <div
+          className="sa-lang-toggle"
+          style={{
+            display: "inline-flex",
+            background: "#f1f1f1",
+            padding: "4px",
+            borderRadius: "8px",
+            gap: "4px",
+          }}
+        >
           <button
             type="button"
             onClick={() => setLang("nl")}
@@ -595,7 +621,7 @@ export default function SmakenAllergenenPage() {
               background: lang === "nl" ? "#fff" : "transparent",
               fontWeight: lang === "nl" ? "bold" : "normal",
               cursor: "pointer",
-              boxShadow: lang === "nl" ? "0 2px 4px rgba(0,0,0,0.1)" : "none"
+              boxShadow: lang === "nl" ? "0 2px 4px rgba(0,0,0,0.1)" : "none",
             }}
           >
             🇳🇱 NL
@@ -610,7 +636,7 @@ export default function SmakenAllergenenPage() {
               background: lang === "en" ? "#fff" : "transparent",
               fontWeight: lang === "en" ? "bold" : "normal",
               cursor: "pointer",
-              boxShadow: lang === "en" ? "0 2px 4px rgba(0,0,0,0.1)" : "none"
+              boxShadow: lang === "en" ? "0 2px 4px rgba(0,0,0,0.1)" : "none",
             }}
           >
             🇬🇧 EN
@@ -622,7 +648,8 @@ export default function SmakenAllergenenPage() {
         <div className="sa-shell sa-hero__inner">
           <p className="sa-eyebrow">{t.eyebrow}</p>
           <h1 id="smaken-title">
-            {t.title1}<span>{t.titleHighlight}</span>
+            {t.title1}
+            <span>{t.titleHighlight}</span>
           </h1>
           <p className="sa-hero__subtitle">{t.subtitle}</p>
           <p className="sa-hero__body">{t.body}</p>
@@ -811,33 +838,35 @@ export default function SmakenAllergenenPage() {
               <div>
                 <p className="sa-eyebrow">{t.allergenSectionEyebrow}</p>
                 <h2 id="allergenen-title">{t.allergenSectionTitle}</h2>
-                <p>{t.allergenSectionText}</p>
+                <p style={{ marginTop: "1rem" }}>{t.allergenSectionText}</p>
               </div>
             </div>
 
             <div className="sa-list">
-              {ALLERGENS.map((allergen) => {
-                const matching = FLAVORS.filter((flavor) =>
-                  flavor.allergens.includes(allergen.id),
-                );
+  {ALLERGENS.map((allergen) => {
+    const matching = FLAVORS.filter((flavor) =>
+      flavor.allergens.includes(allergen.id),
+    );
 
-                return (
-                  <AccordionItem
-                    key={allergen.id}
-                    title={`${allergen.icon} ${allergen.name[lang]}`}
-                  >
-                    <p>{allergen.description[lang]}</p>
-                    <p className="sa-present-in">
-                      <strong>{t.presentIn}</strong>{" "}
-                      {matching.length
-                        ? matching.map((flavor) => flavor.name).join(", ")
-                        : t.noMatchingFlavors}
-                      .
-                    </p>
-                  </AccordionItem>
-                );
-              })}
-            </div>
+    return (
+      <article key={allergen.id} className="sa-faq-card">
+        <h3 className="sa-faq-card__title">
+          {allergen.icon} {allergen.name[lang]}
+        </h3>
+        <p className="sa-faq-card__answer">
+          {allergen.description[lang]}
+        </p>
+        <p className="sa-present-in">
+          <strong>{t.presentIn}</strong>{" "}
+          {matching.length
+            ? matching.map((flavor) => flavor.name).join(", ")
+            : t.noMatchingFlavors}
+          .
+        </p>
+      </article>
+    );
+  })}
+</div>
 
             <aside className="sa-disclaimer">
               <strong>{t.disclaimerTitle}</strong>
@@ -845,21 +874,23 @@ export default function SmakenAllergenenPage() {
             </aside>
 
             <section className="sa-faq" aria-labelledby="faq-title">
-  <div className="sa-section-heading">
-    <div>
-      <p className="sa-eyebrow">{t.faqEyebrow}</p>
-      <h2 id="faq-title">{t.faqTitle}</h2>
-    </div>
-  </div>
-  <div className="sa-faq-list">
-    {FAQS.map((item, index) => (
-      <article key={index} className="sa-faq-card">
-        <h3 className="sa-faq-card__title">{item.question[lang]}</h3>
-        <p className="sa-faq-card__answer">{item.answer[lang]}</p>
-      </article>
-    ))}
-  </div>
-</section>
+              <div className="sa-section-heading">
+                <div>
+                  <p className="sa-eyebrow">{t.faqEyebrow}</p>
+                  <h2 id="faq-title">{t.faqTitle}</h2>
+                </div>
+              </div>
+              <div className="sa-faq-list">
+                {FAQS.map((item, index) => (
+                  <article key={index} className="sa-faq-card">
+                    <h3 className="sa-faq-card__title">
+                      {item.question[lang]}
+                    </h3>
+                    <p className="sa-faq-card__answer">{item.answer[lang]}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
           </section>
         )}
       </div>
