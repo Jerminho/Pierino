@@ -360,7 +360,6 @@
   z-index: 1;
   width: 280px;
   height: 280px;
-  background-image: url(../Components/images/products-photo/strawberry-m.png);
   background-size: 280px 280px;
   bottom: 350px;
 }
@@ -797,7 +796,6 @@
     z-index: 1;
     width: 224px;
     height: 224px;
-    background-image: url(../Components/images/products-photo/strawberry-t.png);
     background-size: 224px 224px;
   }
 
@@ -1059,7 +1057,6 @@
     z-index: 1;
     width: 368px;
     height: 394px;
-    background-image: url(../Components/images/products-photo/strawberry-m.png);
     background-size: 368px 394px;
   }
 
@@ -1068,9 +1065,6 @@
   (-o-min-device-pixel-ratio: 2/1),
   (min-resolution: 192dpi),
   (min-resolution: 2dppx) {
-    .box {
-      background-image: url(../Components/images/products-photo/strawberry-m.png);
-    }
   }
 
   .rectangle-3-product:nth-child(3):before {
