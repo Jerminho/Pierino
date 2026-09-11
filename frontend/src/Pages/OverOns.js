@@ -2,7 +2,7 @@ import React from "react";
 import "./OverOns.css";
 import PR from "../Components/images/PR.webp";
 import Aardbeien from "../Components/images/Aardbeien.webp";
-import GSP from "../Components/images/GSP.webp";
+import GSP from "../Components/images/GSPP.jpg";
 import Wooden from "../Components/images/wooden.webp";
 import Cup from "../Components/images/cup.webp";
 import Offerice from "../Components/images/offerice.webp";
@@ -261,7 +261,7 @@ export default function OverOns() {
         <div className="flex justify-center">
           <a
             href="/smaken-allergenen"
-            className="before-tag inline-block px-5 py-2 rounded-full text-lg sm:text-xl -rotate-2 transition-transform hover:scale-105"
+  className="before-tag inline-block px-5 py-2 rounded-full text-lg sm:text-xl transition-transform hover:scale-105"
           >
             Ontdek onze smaken
           </a>
@@ -449,8 +449,7 @@ export default function OverOns() {
             className="img-frame-four w-full h-64 sm:h-80 lg:h-[28rem] object-cover"
           />
           <div className="absolute top-6 left-6 sm:top-8 sm:left-8">
-            <span className="final-tag inline-block px-5 py-2 rounded-full text-lg sm:text-xl -rotate-2">
-              Tot binnenkort?
+<span className="final-tag inline-block px-5 py-2 rounded-full text-lg sm:text-xl">              Tot binnenkort?
             </span>
           </div>
         </div>
