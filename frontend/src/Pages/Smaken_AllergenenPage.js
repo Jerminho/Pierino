@@ -7,38 +7,37 @@ const GELATO = [
     description:
       "Een tijdloze klassieker, bereid met echte vanillestokken uit Madagaskar. Deze zorgen voor een zachte en verfijnde smaak.",
     descriptionEn:
-      "A timeless classic, prepared with real vanilla pods from Madagascar, providing a smooth and refined taste.",
-    allergens: ["melk", "ei"],
+      "Our classic vanilla ice cream, made with real vanilla for a smooth and creamy flavour.",
+    allergens: ["ei", "melk"],
   },
   {
     name: "Chocolade",
     description:
       "Voor chocoladeliefhebbers: een intense cacaosmaak die lang blijft nazinderen.",
     descriptionEn:
-      "For chocolate lovers: an intense cocoa flavor that lingers long after.",
+      "Rich and creamy chocolate ice cream with an intense cocoa flavour.",
     allergens: ["melk"],
   },
   {
     name: "Stracciatella",
     description:
-      "Zacht vanille-ijs met fijne stukjes Belgische pure chocolade die zorgen voor een heerlijke crunch.",
+      "Melk-ijs met fijne stukjes Belgische pure chocolade die zorgen voor een heerlijke crunch.",
     descriptionEn:
-      "Soft vanilla ice cream with fine pieces of Belgian dark chocolate that provide a delicious crunch.",
+      "Smooth milk ice cream with delicate flakes of Belgian dark chocolate for a satisfying crunch.",
     allergens: ["melk"],
   },
   {
     name: "Hazelnoot",
     description:
-      "Geroosterde hazelnoten zorgen voor een volle, nootachtige smaak.",
-    descriptionEn: "Roasted hazelnuts provide a full, nutty flavor.",
+      "Geroosterde Siciliaanse hazelnoten zorgen voor een volle, nootachtige smaak.",
+    descriptionEn: "Roasted sicilian hazelnuts create a rich, nutty flavour",
     allergens: ["melk", "noten"],
   },
   {
     name: "Pistache",
     description:
-      "Gemaakt met echte pistachenoten uit Italië, waardoor de subtiele nootachtige smaak volledig tot zijn recht komt.",
-    descriptionEn:
-      "Made with real pistachios from Italy, bringing out their subtle nutty flavor completely.",
+      "Gemaakt met Siciliaanse bronte pistachenoten uit Italië, rechtstreeks van de teler. waardoor de subtiele nootachtige smaak volledig tot zijn recht komt.",
+    descriptionEn: "Creamy pistachio ice cream made with real pistachios.",
     allergens: ["melk", "noten"],
   },
   {
@@ -46,39 +45,38 @@ const GELATO = [
     description:
       "De zachte en exotische smaak van kokos brengt je even naar tropische oorden.",
     descriptionEn:
-      "The soft and exotic taste of coconut briefly transports you to tropical realms.",
-    allergens: ["melk"],
+      "The delicate, tropical flavour of coconut brings a taste of paradise.",
+    allergens: ["melk", "noten"],
   },
   {
     name: "Mokka",
     description:
-      "Voor de echte koffieliefhebbers geven we de volle smaak van koffie, perfect in balans met de zachtheid van room.",
+      "Voor de echte koffieliefhebbers geven we de volle smaak van koffie, perfect in balans",
     descriptionEn:
-      "For true coffee lovers, we deliver the full flavor of coffee, perfectly balanced with the softness of cream.",
+      "For our coffee lovers we give the rich flavour of coffee, perfectly balanced",
     allergens: ["melk"],
   },
   {
     name: "Speculoos",
     description:
-      "Belgische speculoos zorgt voor een warme, kruidige smaak die meteen vertrouwd aanvoelt.",
+      "Belgische speculoos met extra crunch zorgt voor een warme, kruidige smaak die meteen vertrouwd aanvoelt.",
     descriptionEn:
-      "Belgian speculoos provides a warm, spicy flavor that instantly feels familiar.",
-    allergens: ["melk", "gluten"],
+      "Belgian speculoos biscuits with extra crunch give this ice cream their warm, spiced flavour.",
+    allergens: ["gluten", "melk"],
   },
   {
     name: "Yoghurt",
     description:
       "Een frisse smaak met het lichtzurige karakter van echte yoghurt.",
-    descriptionEn:
-      "A fresh flavor with the slightly sour character of real yogurt.",
+    descriptionEn: "Fresh and smooth, with the delicate tang of real yoghurt.",
     allergens: ["melk"],
   },
   {
-    name: "Yoghurt-Aardbei",
+    name: "Yoghurt Aardbei",
     description:
-      "De frisse smaak van yoghurt gecombineerd met de natuurlijke zoetheid van aardbeien.",
+      "De frisse smaak van yoghurt gecombineerd met de natuurlijke zoetheid van grond aardbeien.",
     descriptionEn:
-      "The fresh taste of yogurt combined with the natural sweetness of strawberries.",
+      "Refreshing yoghurt paired with the natural sweetness from ground strawberries.",
     allergens: ["melk"],
   },
   {
@@ -86,29 +84,29 @@ const GELATO = [
     description:
       "Een zachte amandelsmaak met de verfijnde toetsen van Italiaanse amaretto.",
     descriptionEn:
-      "A soft almond flavor with the refined notes of Italian amaretto.",
-    allergens: ["noten"],
+      "A smooth almond flavour with the refined notes of Italian amaretto.",
+    allergens: ["noten", "melk"],
   },
   {
     name: "Amarettini",
     description:
       "Krokante amarettikoekjes geven dit gelato een subtiele amandelsmaak.",
     descriptionEn:
-      "Crunchy amaretti cookies give this gelato a subtle almond flavor.",
-    allergens: ["melk", "ei", "gluten", "noten"],
+      "Crunchy amaretti biscuits add a delicate almond flavour and a pleasant bite.",
+    allergens: ["gluten", "noten", "melk", "ei"],
   },
   {
     name: "Amarena",
     description:
       "Zoete amarena kersen geven deze smaak een fruitige zoete toets en een heerlijk contrast met het gelato.",
     descriptionEn:
-      "Sweet amarena cherries give this flavor a fruity, sweet touch and a wonderful contrast with the gelato.",
+      "Sweet Amarena cherries add a fruity touch and a delicious contrast to the creamy ice cream.",
     allergens: ["melk"],
   },
   {
     name: "Banaan",
     description: "De volle smaak van rijpe bananen, eenvoudig en puur.",
-    descriptionEn: "The full flavor of ripe bananas, simple and pure.",
+    descriptionEn: "The rich taste of ripe bananas, simple and pure.",
     allergens: ["melk"],
   },
   {
@@ -116,7 +114,7 @@ const GELATO = [
     description:
       "Verfrissend muntijs met een zachte kruidige toets. Perfect voor de zomer.",
     descriptionEn:
-      "Refreshing mint ice cream with a soft herbal touch. Perfect for summer.",
+      "Refreshing mint ice cream with a cool herbal flavour. Perfect choice during the summer",
     allergens: ["melk"],
   },
   {
@@ -124,14 +122,14 @@ const GELATO = [
     description:
       "De zachte, bloemige smaak van honing zorgt voor een subtiel zoete toets.",
     descriptionEn:
-      "The soft, floral taste of honey provides a subtly sweet touch.",
+      "The delicate floral notes of honey create a naturally sweet flavour.",
     allergens: ["melk"],
   },
   {
     name: "Amandel",
     description: "Romig ijs met geroosterde amandelen.",
-    descriptionEn: "Creamy ice cream with roasted almonds.",
-    allergens: ["melk", "noten"],
+    descriptionEn: "Creamy roasted almond ice cream.",
+    allergens: ["noten", "melk"],
   },
 ];
 
@@ -139,21 +137,25 @@ const SORBET = [
   {
     name: "Citroen",
     description:
-      "Levendig, fris en boordevol citrustoetsen, of met andere woorden: de perfecte verfrissende sorbet.",
+      "Levendig, fris en boordevol citrustoetsen, of met andere woorden: de perfecte verfrissende sorbet op basis van vers geperst citroensap.",
     descriptionEn:
-      "Vibrant, fresh, and full of citrus notes—in other words: the perfect refreshing sorbet.",
+      "Lively, fresh and bursting with citrus notes – in other words, the perfect refreshing sorbet made from freshly squeezed lemon juice.",
     allergens: [],
   },
   {
     name: "Aardbei",
-    description: "Sorbet gemaakt met heerlijke zomerse aardbeien.",
-    descriptionEn: "Sorbet made with delicious summer strawberries.",
+    description:
+      "Sorbet gemaakt met heerlijke zomerse grond aardbeien uit de streek.",
+    descriptionEn:
+      "Strawberry Sorbet made with delicious, locally grown summer strawberries.",
     allergens: [],
   },
   {
     name: "Meloen",
-    description: "Frisse sorbet die je doet denken aan een warme zomerdag.",
-    descriptionEn: "Fresh sorbet that reminds you of a warm summer day.",
+    description:
+      "Frisse sorbet die je doet denken aan een warme zomerdag.",
+    descriptionEn:
+      "A juicy French melon flavour that captures the taste of summer.",
     allergens: [],
   },
   {
@@ -161,7 +163,7 @@ const SORBET = [
     description:
       "Een mooie balans tussen zoet en licht zuur, typisch voor braambessen.",
     descriptionEn:
-      "A nice balance between sweet and slightly tart, typical of blackberries.",
+      "A perfect balance of sweetness and gentle tartness, just like fresh blackberries.",
     allergens: [],
   },
   {
@@ -172,27 +174,34 @@ const SORBET = [
   },
   {
     name: "Framboos",
-    description: "Een intense frambozensorbet met frisse en lichtzure toetsen.",
+    description:
+      "Een intense frambozensorbet met frisse en lichtzure toetsen.",
     descriptionEn:
-      "An intense raspberry sorbet with fresh and slightly tart notes.",
+      "An intense raspberry flavour with a lively, tangy finish.",
     allergens: [],
   },
   {
     name: "Mango",
-    description: "Tropische mangosorbet boordevol fruit en exotische smaak.",
-    descriptionEn: "Tropical mango sorbet packed with fruit and exotic flavor.",
+    description:
+      "Tropische colombiaanse mangosorbet boordevol fruit en exotische smaak.",
+    descriptionEn:
+      "The rich, tropical flavour of perfectly ripe mangoes.",
     allergens: [],
   },
   {
     name: "Sinaasappel",
-    description: "Frisse sinaasappelsorbet met een natuurlijke citruskick.",
-    descriptionEn: "Fresh orange sorbet with a natural citrus kick.",
+    description:
+      "Frisse sinaasappelsorbet met een natuurlijke citruskick. Vers geperst.",
+    descriptionEn:
+      "Orange sorbet with a refreshing citrus taste. Freshly squeezed.",
     allergens: [],
   },
   {
     name: "Kiwi",
-    description: "Verfrissende kiwisorbet met een lichtzure toets.",
-    descriptionEn: "Refreshing kiwi sorbet with a slightly tart touch.",
+    description:
+      "Verfrissende nieuw zeelandse kiwisorbet met een lichtzure toets.",
+    descriptionEn:
+      "Refreshing New Zealand kiwi sorbet with a slightly tart flavour.",
     allergens: [],
   },
   {
@@ -200,7 +209,7 @@ const SORBET = [
     description:
       "Een verrassende sorbet waarin de kenmerkende smaak van Duvel mooi tot zijn recht komt.",
     descriptionEn:
-      "A surprising sorbet in which the signature taste of Duvel comes into its own.",
+      "A surprising sorbet that beautifully showcases the distinctive flavour of Duvel.",
     allergens: ["gluten"],
   },
   {
@@ -216,7 +225,7 @@ const SORBET = [
     description:
       "Tropische sorbet gemaakt met sappige ananas. Smaakt meteen naar de zon.",
     descriptionEn:
-      "Tropical sorbet made with juicy pineapple. Tastes like sunshine instantly.",
+      "Pineapple sorbet made with juicy pineapple. Tastes like summer!",
     allergens: [],
   },
   {
@@ -228,26 +237,30 @@ const SORBET = [
   {
     name: "Kersen",
     description: "Fruitige kersensorbet met een licht zoete nasmaak.",
-    descriptionEn: "Fruity cherry sorbet with a slightly sweet aftertaste.",
+    descriptionEn:
+      "A fruity sorbet with the rich flavour of ripe cherries with a subtly sweet finish.",
     allergens: [],
   },
   {
     name: "Peer",
     description: "Zachte, subtiele sorbet gemaakt met rijpe peren.",
-    descriptionEn: "Soft, subtle sorbet made with ripe pears.",
+    descriptionEn: "A delicate pear flavour with natural sweetness.",
     allergens: [],
   },
   {
     name: "Vijgen",
     description:
       "Een zachte, honingachtige smaak met een verfijnd fruitig karakter.",
-    descriptionEn: "A soft, honey-like taste with a refined fruity character.",
+    descriptionEn:
+      "A delicate fruit flavour with subtle honey-like notes.",
     allergens: [],
   },
   {
     name: "Papaya",
-    description: "Exotische papayasorbet met een milde tropische smaak.",
-    descriptionEn: "Exotic papaya sorbet with a mild tropical flavor.",
+    description:
+      "Exotische papayasorbet met een milde tropische smaak.",
+    descriptionEn:
+      "A mild tropical flavour with a smooth, rounded character.",
     allergens: [],
   },
   {
@@ -263,7 +276,7 @@ const SORBET = [
     description:
       "De frisse toets van kiwi en de zoetheid van aardbei vullen elkaar perfect aan.",
     descriptionEn:
-      "The fresh touch of kiwi and the sweetness of strawberry complement each other perfectly.",
+      "The freshness of kiwi and the sweetness of strawberry make a perfect match.",
     allergens: [],
   },
   {
@@ -271,15 +284,24 @@ const SORBET = [
     description:
       "Een knipoog naar onze thuisstad Gent, met de herkenbare smaak van de iconische cuberdon.",
     descriptionEn:
-      "A nod to our hometown Ghent, featuring the recognizable taste of the iconic cuberdon.",
+      "A tribute to our hometown Ghent, inspired by the unmistakable flavour of the iconic cuberdon.",
     allergens: ["melk"],
   },
   {
     name: "Rum Rozijn",
     description:
       "Rozijnen en rum zorgen samen voor een warme, karaktervolle klassieker.",
-    descriptionEn: "Raisins and rum combine for a warm, characterful classic.",
-    allergens: ["melk"],
+    descriptionEn:
+      "Rum and raisins come together in a timeless classic with plenty of character.",
+    allergens: ["melk", "noten"],
+  },
+  {
+    name: "Passievrucht",
+    description:
+      "Een exotische sorbet met een frisse, intens tropische smaak en een heerlijk verkwikkend zuurtje.",
+    descriptionEn:
+      "An exotic sorbet with a vibrant, intensely tropical flavour and a deliciously refreshing tang.",
+    allergens: [],
   },
 ];
 
@@ -388,10 +410,10 @@ const UI_TEXT = {
     tabAllergenen: "Allergenen & FAQ",
     gelatoCardTitle: "Gelato",
     gelatoCardText:
-      "Italiaans Romig ijs op basis van verse melk en room, gecombineerd met echte ingrediënten zoals vanille, noten, chocolade of fruit.",
+      "Authentiek Italiaans gelato,  romig van verse melk, licht van karakter, en boordevol smaak dankzij echte ingrediënten zoals vanille, noten, chocolade of fruit.",
     sorbetCardTitle: "Sorbet",
     sorbetCardText:
-      "Een verfrissend ijs op basis van fruit, zonder melk. Onze sorbets zijn van nature vegan en bevatten geen glutenhoudende ingrediënten, uitgezonderd smaken die expliciet anders zijn aangeduid.",
+      "Fris, fruitig en verrassend puur. Onze sorbets zitten boordevol fruit en bevatten geen melk. Van nature vegan en glutenvrij.",
     offerEyebrow: "Ontdek het aanbod",
     offerTitle: "Alle smaken",
     foundSuffix: "gevonden",
